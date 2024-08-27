@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import Header from "@/components/layout/Header";
 import Button from "@/components/ui/Button";
 import { fetchCards } from "@/contentful/cards";
 
@@ -7,6 +8,7 @@ const Home: React.FC = async () => {
 
   return (
     <>
+      <Header />
       <div>
         <Button label="Join us" />
       </div>
