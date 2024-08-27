@@ -6,6 +6,9 @@ const nextConfig = {
     CONTENTFUL_PREVIEW_ACCESS_TOKEN:
       process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
   },
+  images: {
+    domains: ['images.ctfassets.net'],
+  },
 };
 
 module.exports = nextConfig;
