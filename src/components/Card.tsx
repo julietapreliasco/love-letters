@@ -8,8 +8,6 @@ interface CardComponentProps {
 const CardComponent: React.FC<CardComponentProps> = ({ card }) => {
   const { title, description, image } = card;
 
-  console.log(card)
-
   return (
     <div
       className="relative rounded-lg w-72 h-96 p-5 flex flex-col justify-center items-center text-white text-center"
