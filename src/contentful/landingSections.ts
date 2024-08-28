@@ -7,8 +7,8 @@ import {
 } from "./parseContentfulImage";
 
 export interface LandingSectionType {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   backgroundImage?: ContentImage | null;
   section: string;
 }
@@ -60,14 +60,16 @@ export async function fetchLandingSections({
 }: FetchOptions): Promise<LandingSectionType[]> {
   const contentful = contentfulClient({ preview });
 
-  const sectionsResult = await contentful.getEntries<TypeLandingSectionSkeleton>({
-    content_type: "landingSection",
-    include: 2,
-    order: ["fields.title"],
-  });
+  const sectionsResult =
+    await contentful.getEntries<TypeLandingSectionSkeleton>({
+      content_type: "landingSection",
+      include: 2,
+      order: ["fields.title"],
+    });
 
   return sectionsResult.items.map(
-    (sectionEntry) => parseContentfulLandingSection(sectionEntry) as LandingSectionType
+    (sectionEntry) =>
+      parseContentfulLandingSection(sectionEntry) as LandingSectionType
   );
 }
 
@@ -77,11 +79,12 @@ export async function fetchLandingSection({
 }: FetchOptions): Promise<LandingSectionType | null> {
   const contentful = contentfulClient({ preview });
 
-  const sectionsResult = await contentful.getEntries<TypeLandingSectionSkeleton>({
-    content_type: "landingSection",
-    "sys.id": id,
-    include: 2,
-  });
+  const sectionsResult =
+    await contentful.getEntries<TypeLandingSectionSkeleton>({
+      content_type: "landingSection",
+      "sys.id": id,
+      include: 2,
+    });
 
   return parseContentfulLandingSection(sectionsResult.items[0]);
 }

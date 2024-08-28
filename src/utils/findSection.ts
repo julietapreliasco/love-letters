@@ -1,9 +1,10 @@
+import { CardType } from "@/contentful/cards";
 import { LandingSectionType } from "@/contentful/landingSections";
 
-const findSection = (section: string, sectionsArray: LandingSectionType[]) => {
-  return sectionsArray.find(
-    (item: LandingSectionType) => item.section === section
-  );
+type ItemType = LandingSectionType | CardType;
+
+const findSection = (section: string, array: ItemType[]) => {
+  return array.find((item: ItemType) => item.section === section);
 };
 
 export default findSection;
