@@ -8,7 +8,7 @@ interface InitialBannerProps {
 
 const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
   return (
-    <div className="relative w-full h-screen">
+    <section id="initial-banner" className="relative w-full h-screen">
       {bannerData?.backgroundImage?.src && (
         <Image
           src={bannerData.backgroundImage.src}
@@ -29,7 +29,7 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
           <Button label="Join us" />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

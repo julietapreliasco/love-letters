@@ -1,4 +1,5 @@
 import InitialBanner from "@/components/landing/InitialBanner";
+import Header from "@/components/layout/Header";
 import { fetchLandingSections } from "@/contentful/landingSections";
 import findSection from "@/utils/findSection";
 
@@ -9,6 +10,7 @@ const Home: React.FC = async () => {
 
   return (
     <div>
+      <Header />
       <InitialBanner bannerData={initialBanner!} />
     </div>
   );
