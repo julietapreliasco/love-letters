@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         lato: ["Lato", "sans-serif"],
+        "playfair-display": ["Playfair Display", "serif"]
       },
       colors: {
         "custom-yellow": "#F3C937",

@@ -18,7 +18,8 @@ function getAssetUrl(
   if ("sys" in field && "fields" in field) {
     const asset = field as Asset<undefined, string>;
     const file = asset.fields.file;
-    return file && typeof file.url === "string" ? file.url : "";
+    const url = file && typeof file.url === "string" ? file.url : "";
+    return url.startsWith("//") ? `https:${url}` : url;
   } else if ("sys" in field && "linkType" in field) {
     return "";
   } else if (typeof field === "object") {
@@ -52,8 +53,10 @@ export function parseContentfulContentImage(
     const description = asset.fields.description;
     const alt = typeof description === "string" ? description : "";
 
+    const src = getAssetUrl(asset);
+
     return {
-      src: getAssetUrl(asset),
+      src,
       alt,
       width: file?.details?.image?.width ?? 0,
       height: file?.details?.image?.height ?? 0,

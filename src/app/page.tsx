@@ -1,21 +1,16 @@
-import Card from "@/components/Card";
-import Button from "@/components/ui/Button";
-import { fetchCards } from "@/contentful/cards";
+import InitialBanner from "@/components/landing/InitialBanner";
+import { fetchLandingSections } from "@/contentful/landingSections";
+import findSection from "@/utils/findSection";
 
 const Home: React.FC = async () => {
-  const cards = await fetchCards({ preview: false });
+  const landingSections = await fetchLandingSections({ preview: false });
+
+  const initialBanner = findSection("initialBanner", landingSections);
 
   return (
-    <>
-      <div>
-        <Button label="Join us" />
-      </div>
-      <div className="flex flex-wrap gap-5 justify-center">
-        {cards.map((card, index) => (
-          <Card key={index} card={card} />
-        ))}
-      </div>
-    </>
+    <div>
+      <InitialBanner bannerData={initialBanner!} />
+    </div>
   );
 };
 
