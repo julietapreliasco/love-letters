@@ -10,13 +10,16 @@ const config: Config = {
     extend: {
       fontFamily: {
         lato: ["Lato", "sans-serif"],
-        "playfair-display": ["Playfair Display", "serif"]
+        "playfair-display": ["Playfair Display", "serif"],
       },
       colors: {
         "custom-yellow": "#F3C937",
         "custom-gray": "#C1B7A3",
         "custom-lighter-gray": "#EEE9DF",
         "custom-black": "#29241F",
+      },
+      screens: {
+        xs: "347px",
       },
     },
   },
