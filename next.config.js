@@ -7,7 +7,7 @@ const nextConfig = {
       process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
   },
   images: {
-    domains: ['images.ctfassets.net'],
+    domains: ["images.ctfassets.net"],
   },
 };
 

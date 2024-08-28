@@ -1,21 +1,17 @@
-import { LandingSectionType } from '@/contentful/landingSections'
-import Image from 'next/image';
-import Button from '../ui/Button';
+import { LandingSectionType } from "@/contentful/landingSections";
+import Image from "next/image";
+import Button from "../ui/Button";
 
 interface InitialBannerProps {
   bannerData: LandingSectionType;
 }
 
 const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
-  const imageUrl = bannerData.backgroundImage?.src?.startsWith('//')
-    ? `https:${bannerData.backgroundImage.src}`
-    : bannerData.backgroundImage?.src;
-
   return (
     <div className="relative w-full h-screen">
-      {imageUrl && (
+      {bannerData?.backgroundImage?.src && (
         <Image
-          src={imageUrl}
+          src={bannerData.backgroundImage.src}
           alt="Love Letters Home Banner"
           layout="fill"
           objectFit="cover"
@@ -24,7 +20,7 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
         />
       )}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 text-white z-10 w-2/3 p-[20px] lg:p-[60px]">
-        <div className='w-[260px] md:w-[460px] lg:w-[610px]'>
+        <div className="w-[260px] md:w-[460px] lg:w-[610px]">
           <h1 className="font-playfair-display text-[32px] md:text-[48px] leading[43px] md:leading[64px] font-bold text-left">
             {bannerData.title}
           </h1>
@@ -35,6 +31,6 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
       </div>
     </div>
   );
-}
+};
 
-export default InitialBanner
+export default InitialBanner;
