@@ -4,7 +4,7 @@ import type {
   EntryFieldTypes,
   EntrySkeletonType,
   LocaleCode,
-} from "contentful";
+} from 'contentful';
 
 export interface TypeLandingSectionFields {
   title?: EntryFieldTypes.Symbol;
@@ -15,7 +15,7 @@ export interface TypeLandingSectionFields {
 
 export type TypeLandingSectionSkeleton = EntrySkeletonType<
   TypeLandingSectionFields,
-  "landingSection"
+  'landingSection'
 >;
 export type TypeLandingSection<
   Modifiers extends ChainModifiers,

@@ -4,7 +4,6 @@ const PlayButton = () => (
     width={140}
     height={141}
     fill="none"
-    // {...props}
   >
     <path
       fill="#EEE9DF"
