@@ -7,7 +7,13 @@ const nextConfig = {
       process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
   },
   images: {
-    domains: ["images.ctfassets.net"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
