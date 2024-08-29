@@ -8,8 +8,8 @@ interface AboutLoveLettersProps {
 const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({ data }) => {
   const description = data.description;
 
-  const firstDescription = description.substring(0, 295);
-  const secondDescription = description.substring(295);
+  const firstDescription = description?.substring(0, 295);
+  const secondDescription = description?.substring(295);
 
   return (
     <section className="flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:px-[60px] lg:flex-row xl:gap-28">
@@ -17,14 +17,14 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({ data }) => {
         <AboutLoveLettersSVG />
       </div>
       <div className="flex flex-1 flex-col xl:gap-5">
-        <p className="mb-5 text-center font-playfair-display text-2xl font-bold text-custom-black lg:text-start lg:text-5xl 2xl:text-6xl">
+        <p className="mb-5 text-center font-playfair-display text-2xl font-bold text-custom-black md:text-5xl lg:text-start 2xl:text-6xl">
           {data.title}
         </p>
         <div>
-          <p className="mb-4 text-center font-lato text-sm text-custom-black md:text-lg lg:text-start lg:text-[20px] 2xl:text-2xl">
+          <p className="mb-4 text-center font-lato text-sm text-custom-black md:text-xl lg:text-start 2xl:text-2xl">
             {firstDescription}
           </p>
-          <p className="text-center font-lato text-sm text-custom-black md:text-lg lg:text-start xl:text-[20px] 2xl:text-2xl">
+          <p className="text-center font-lato text-sm text-custom-black md:text-xl lg:text-start 2xl:text-2xl">
             {secondDescription}
           </p>
         </div>
