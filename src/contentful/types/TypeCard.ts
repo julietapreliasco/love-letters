@@ -4,7 +4,7 @@ import type {
   EntryFieldTypes,
   EntrySkeletonType,
   LocaleCode,
-} from "contentful";
+} from 'contentful';
 
 export interface TypeCardFields {
   title?: EntryFieldTypes.Symbol;
@@ -14,7 +14,7 @@ export interface TypeCardFields {
   section: EntryFieldTypes.Symbol;
 }
 
-export type TypeCardSkeleton = EntrySkeletonType<TypeCardFields, "card">;
+export type TypeCardSkeleton = EntrySkeletonType<TypeCardFields, 'card'>;
 export type TypeCard<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode,
