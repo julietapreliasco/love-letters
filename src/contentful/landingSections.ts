@@ -1,23 +1,47 @@
-import { TypeLandingSectionSkeleton } from './types';
-import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
+import type { Entry } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
+import {
+  TypeLandingSectionSkeleton,
+  TypeCardSkeleton,
+  TypeVideoSkeleton,
+} from './types';
+import { Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
   ContentImage,
   parseContentfulContentImage,
 } from './parseContentfulImage';
+import { parseContentfulCard, CardType } from './cards';
+import { parseContentfulVideo, VideoType } from './videos';
 
 export interface LandingSectionType {
   title?: string;
   description?: string;
   backgroundImage?: ContentImage | null;
   section: string;
+  cards?: CardType[];
+  videos?: VideoType[];
+  richDescription?: Document | null;
+}
+
+function getRichTextFieldValue(
+  field?: Document | { [key: string]: Document | undefined } | null
+): Document | null {
+  if (field && 'nodeType' in field) {
+    return field as Document;
+  } else if (field && typeof field === 'object') {
+    return Object.values(field)[0] || null;
+  }
+  return null;
 }
 
 function getFieldValue(
-  field?: string | { [key: string]: string | undefined }
+  field?: string | { [key: string]: string | undefined } | Document
 ): string {
   if (typeof field === 'string') {
     return field;
+  } else if (field && typeof field === 'object' && 'nodeType' in field) {
+    return '';
   } else if (field && typeof field === 'object') {
     return Object.values(field)[0] || '';
   }
@@ -42,11 +66,32 @@ export function parseContentfulLandingSection(
       )
     : null;
 
+  const cards: CardType[] = landingSectionEntry.fields.cards
+    ? (landingSectionEntry.fields.cards as Entry<TypeCardSkeleton>[])
+        .map((cardEntry) =>
+          parseContentfulCard(cardEntry as Entry<TypeCardSkeleton>)
+        )
+        .filter((card): card is CardType => card !== null)
+    : [];
+
+  const videos: VideoType[] = landingSectionEntry.fields.videos
+    ? (landingSectionEntry.fields.videos as Entry<TypeVideoSkeleton>[])
+        .map((videoEntry) =>
+          parseContentfulVideo(videoEntry as Entry<TypeVideoSkeleton>)
+        )
+        .filter((video): video is VideoType => video !== null)
+    : [];
+
   return {
     title: getFieldValue(landingSectionEntry.fields.title),
     description: getFieldValue(landingSectionEntry.fields.description),
     backgroundImage,
     section: getFieldValue(landingSectionEntry.fields.section),
+    cards,
+    videos,
+    richDescription: getRichTextFieldValue(
+      landingSectionEntry.fields.richDescription
+    ),
   };
 }
 

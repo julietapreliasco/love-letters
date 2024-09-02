@@ -11,8 +11,7 @@ interface AboutMeSectionProps {
 const AboutMeSection: React.FC<AboutMeSectionProps> = async ({
   aboutMeData,
 }) => {
-  const cards = await fetchCards({ preview: false });
-  const aboutMeCard = findSection('aboutMe', cards);
+  const aboutMeCard = aboutMeData.cards ? aboutMeData.cards[0] : null;
 
   return (
     <section className="relative w-full md:h-[80vh]">

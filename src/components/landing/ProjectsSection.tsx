@@ -10,8 +10,7 @@ interface ProjectsSectionClientProps {
 const ProjectsSection: React.FC<ProjectsSectionClientProps> = async ({
   projectData,
 }) => {
-  const cards = await fetchCards({ preview: false });
-  const projectCards = cards.filter((item) => item.section === 'projects');
+  const projectCards = projectData.cards;
 
   return (
     <section>
