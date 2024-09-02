@@ -2,11 +2,13 @@ import { LandingSectionType } from '@/contentful/landingSections';
 import AboutLoveLettersSVG from '../ui/AboutLoveLettersSVG';
 
 interface AboutLoveLettersProps {
-  data: LandingSectionType;
+  aboutLoveLettersData: LandingSectionType;
 }
 
-const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({ data }) => {
-  const description = data.description;
+const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
+  aboutLoveLettersData,
+}) => {
+  const description = aboutLoveLettersData.description;
 
   const firstDescription = description?.substring(0, 295);
   const secondDescription = description?.substring(295);
@@ -18,7 +20,7 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({ data }) => {
       </div>
       <div className="flex flex-1 flex-col xl:gap-5">
         <p className="mb-5 text-center font-playfair-display text-2xl font-bold text-custom-black md:text-5xl lg:text-start 2xl:text-6xl">
-          {data.title}
+          {aboutLoveLettersData.title}
         </p>
         <div>
           <p className="mb-4 text-center font-lato text-sm text-custom-black md:text-xl lg:text-start 2xl:text-2xl">
