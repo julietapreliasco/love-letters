@@ -5,6 +5,7 @@ import Videos from '@/components/landing/Videos';
 import Header from '@/components/layout/Header';
 import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
+import ProjectsSection from '@/components/landing/ProjectsSection';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -16,14 +17,16 @@ const Home: React.FC = async () => {
     landingSections
   );
   const videos = findSection('videos', landingSections);
+  const project = findSection('projects', landingSections);
 
   return (
     <div>
       <Header />
 
       <InitialBanner bannerData={initialBanner!} />
-      <AboutLoveLetters data={aboutLoveLettersSection!} />
+      <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
+      <ProjectsSection projectData={project!} />
       <Videos videosData={videos!} />
     </div>
   );

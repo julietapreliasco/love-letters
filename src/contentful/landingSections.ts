@@ -1,10 +1,10 @@
-import { TypeLandingSectionSkeleton } from "./types";
-import { Entry, Asset, UnresolvedLink, AssetLink } from "contentful";
-import contentfulClient from "./contentfulClient";
+import { TypeLandingSectionSkeleton } from './types';
+import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
+import contentfulClient from './contentfulClient';
 import {
   ContentImage,
   parseContentfulContentImage,
-} from "./parseContentfulImage";
+} from './parseContentfulImage';
 
 export interface LandingSectionType {
   title?: string;
@@ -16,12 +16,12 @@ export interface LandingSectionType {
 function getFieldValue(
   field?: string | { [key: string]: string | undefined }
 ): string {
-  if (typeof field === "string") {
+  if (typeof field === 'string') {
     return field;
-  } else if (field && typeof field === "object") {
-    return Object.values(field)[0] || "";
+  } else if (field && typeof field === 'object') {
+    return Object.values(field)[0] || '';
   }
-  return "";
+  return '';
 }
 
 export function parseContentfulLandingSection(
@@ -38,7 +38,7 @@ export function parseContentfulLandingSection(
         backgroundImageField as
           | Asset<undefined, string>
           | { sys: AssetLink }
-          | UnresolvedLink<"Asset">
+          | UnresolvedLink<'Asset'>
       )
     : null;
 
@@ -62,9 +62,9 @@ export async function fetchLandingSections({
 
   const sectionsResult =
     await contentful.getEntries<TypeLandingSectionSkeleton>({
-      content_type: "landingSection",
+      content_type: 'landingSection',
       include: 2,
-      order: ["fields.title"],
+      order: ['fields.title'],
     });
 
   return sectionsResult.items.map(
@@ -81,8 +81,8 @@ export async function fetchLandingSection({
 
   const sectionsResult =
     await contentful.getEntries<TypeLandingSectionSkeleton>({
-      content_type: "landingSection",
-      "sys.id": id,
+      content_type: 'landingSection',
+      'sys.id': id,
       include: 2,
     });
 

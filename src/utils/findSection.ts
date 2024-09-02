@@ -1,5 +1,5 @@
-import { CardType } from "@/contentful/cards";
-import { LandingSectionType } from "@/contentful/landingSections";
+import { CardType } from '@/contentful/cards';
+import { LandingSectionType } from '@/contentful/landingSections';
 
 type ItemType = LandingSectionType | CardType;
 

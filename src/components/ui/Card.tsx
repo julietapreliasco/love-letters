@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ card, buttonLabel }) => {
 
   return (
     <div className="flex w-fit flex-col gap-5 rounded-[10px] bg-white p-10">
-      <div className="xs:flex-row flex flex-col gap-5 font-playfair-display">
+      <div className="flex flex-col gap-5 font-playfair-display xs:flex-row">
         {image?.src && (
           <Image
             src={image.src}

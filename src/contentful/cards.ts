@@ -1,10 +1,10 @@
-import { TypeCardSkeleton } from "./types";
-import { Entry, Asset, UnresolvedLink, AssetLink } from "contentful";
-import contentfulClient from "./contentfulClient";
+import { TypeCardSkeleton } from './types';
+import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
+import contentfulClient from './contentfulClient';
 import {
   ContentImage,
   parseContentfulContentImage,
-} from "./parseContentfulImage";
+} from './parseContentfulImage';
 
 export interface CardType {
   title?: string;
@@ -17,12 +17,12 @@ export interface CardType {
 function getFieldValue(
   field?: string | { [key: string]: string | undefined }
 ): string {
-  if (typeof field === "string") {
+  if (typeof field === 'string') {
     return field;
-  } else if (field && typeof field === "object") {
-    return Object.values(field)[0] || "";
+  } else if (field && typeof field === 'object') {
+    return Object.values(field)[0] || '';
   }
-  return "";
+  return '';
 }
 
 export function parseContentfulCard(
@@ -39,7 +39,7 @@ export function parseContentfulCard(
         imageField as
           | Asset<undefined, string>
           | { sys: AssetLink }
-          | UnresolvedLink<"Asset">
+          | UnresolvedLink<'Asset'>
       )
     : null;
 
@@ -63,9 +63,9 @@ export async function fetchCards({
   const contentful = contentfulClient({ preview });
 
   const cardsResult = await contentful.getEntries<TypeCardSkeleton>({
-    content_type: "card",
+    content_type: 'card',
     include: 2,
-    order: ["fields.title"],
+    order: ['fields.title'],
   });
 
   return cardsResult.items.map(
@@ -80,8 +80,8 @@ export async function fetchCard({
   const contentful = contentfulClient({ preview });
 
   const cardsResult = await contentful.getEntries<TypeCardSkeleton>({
-    content_type: "card",
-    "sys.id": id,
+    content_type: 'card',
+    'sys.id': id,
     include: 2,
   });
 
