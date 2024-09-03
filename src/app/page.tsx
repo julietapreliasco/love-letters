@@ -7,6 +7,7 @@ import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
+import Footer from '@/components/layout/Footer';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -31,6 +32,8 @@ const Home: React.FC = async () => {
       <ProjectsSection projectData={project!} />
       <Videos videosData={videos!} />
       <ContactUs contactUsData={contactUs!} />
+
+      <Footer />
     </div>
   );
 };
