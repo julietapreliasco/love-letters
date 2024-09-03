@@ -15,7 +15,7 @@ const Videos: React.FC<VideosProps> = async ({ videosData }) => {
   );
 
   return (
-    <section className="w-full px-5 md:px-[70px] md:py-20">
+    <section className="mb-8 w-full px-5 md:mb-0 md:px-[70px] md:py-20">
       <div className="mb-6 flex w-full justify-between border-b border-custom-black py-2">
         <span className="font-playfair-display text-4xl font-semibold md:px-0 xl:text-5xl 2xl:text-6xl">
           {videosData.title}

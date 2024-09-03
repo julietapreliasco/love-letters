@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
+import ContactUs from '@/components/landing/ContactUs';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -18,6 +19,7 @@ const Home: React.FC = async () => {
   );
   const videos = findSection('videos', landingSections);
   const project = findSection('projects', landingSections);
+  const contactUs = findSection('contactUs', landingSections);
 
   return (
     <div>
@@ -28,6 +30,7 @@ const Home: React.FC = async () => {
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
       <Videos videosData={videos!} />
+      <ContactUs contactUsData={contactUs!} />
     </div>
   );
 };
