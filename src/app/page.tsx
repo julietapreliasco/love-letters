@@ -8,6 +8,7 @@ import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
 import Footer from '@/components/layout/Footer';
+import Partners from '@/components/landing/Partners';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -31,6 +32,7 @@ const Home: React.FC = async () => {
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
       <Videos videosData={videos!} />
+      <Partners />
       <ContactUs contactUsData={contactUs!} />
 
       <Footer />
