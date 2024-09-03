@@ -4,9 +4,17 @@ interface ButtonProps {
   type?: 'submit' | 'reset' | 'button' | undefined;
   disabled?: boolean;
   label: string;
+  className?: string;
 }
 
-const Button = ({ onClick, variant, type, disabled, label }: ButtonProps) => {
+const Button = ({
+  onClick,
+  variant,
+  type,
+  disabled,
+  label,
+  className,
+}: ButtonProps) => {
   let variantClass;
   switch (variant) {
     case 'SECONDARY':
@@ -24,12 +32,12 @@ const Button = ({ onClick, variant, type, disabled, label }: ButtonProps) => {
   }
 
   return (
-    <div className="h-fit w-fit">
+    <div className={className ?? 'h-fit w-fit'}>
       <button
         type={type}
         onClick={onClick}
         disabled={disabled}
-        className={`${disabled ? 'bg-custom-gray' : variantClass} rounded-md px-[24px] py-[10px] font-lato text-base font-bold uppercase 2xl:text-xl`}
+        className={`${disabled ? 'bg-custom-gray' : variantClass} ${className ?? ''} rounded-md px-[24px] py-[10px] font-lato text-base font-bold uppercase 2xl:text-xl`}
       >
         {label}
       </button>
