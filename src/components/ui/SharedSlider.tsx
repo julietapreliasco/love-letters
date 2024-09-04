@@ -25,7 +25,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
     slidesToScroll: 2,
     autoplay: autoPlay,
     speed: 10000,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 0,
     cssEase: 'linear',
 
     responsive: [
@@ -33,7 +33,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 3,
+          slidesToScroll: 2,
           infinite: true,
         },
       },
