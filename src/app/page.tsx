@@ -22,6 +22,7 @@ const Home: React.FC = async () => {
   const videos = findSection('videos', landingSections);
   const project = findSection('projects', landingSections);
   const contactUs = findSection('contactUs', landingSections);
+  const partners = findSection('partners', landingSections);
 
   return (
     <div>
@@ -32,7 +33,7 @@ const Home: React.FC = async () => {
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
       <Videos videosData={videos!} />
-      <Partners />
+      <Partners partnersData={partners!} />
       <ContactUs contactUsData={contactUs!} />
 
       <Footer />
