@@ -14,6 +14,7 @@ const config: Config = {
       },
       colors: {
         'custom-yellow': '#F3C937',
+        'custom-lighter-yellow': '#FBE8A5',
         'custom-gray': '#C1B7A3',
         'custom-lighter-gray': '#EEE9DF',
         'custom-black': '#29241F',
