@@ -9,6 +9,7 @@ export type {
   TypeLandingSectionFields,
   TypeLandingSectionSkeleton,
 } from './TypeLandingSection';
+export type { TypePage, TypePageFields, TypePageSkeleton } from './TypePage';
 export type {
   TypeSocialMedia,
   TypeSocialMediaFields,

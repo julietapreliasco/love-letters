@@ -12,6 +12,7 @@ export interface CardType {
   description?: string;
   image?: ContentImage | null;
   section: string;
+  url?: string;
 }
 
 function getFieldValue(
@@ -49,6 +50,7 @@ export function parseContentfulCard(
     description: getFieldValue(cardEntry.fields.description),
     image,
     section: getFieldValue(cardEntry.fields.section),
+    url: getFieldValue(cardEntry.fields.url),
   };
 }
 
