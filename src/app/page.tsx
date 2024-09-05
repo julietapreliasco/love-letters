@@ -2,7 +2,6 @@ import AboutMeSection from '@/components/landing/AboutMeSection';
 import InitialBanner from '@/components/landing/InitialBanner';
 import AboutLoveLetters from '@/components/landing/AboutLoveLetters';
 import Videos from '@/components/landing/Videos';
-import Header from '@/components/layout/Header';
 import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
