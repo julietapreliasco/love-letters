@@ -36,7 +36,7 @@ const Header = () => {
 
   const headerClass = !headerTwo
     ? 'bg-transparent w-full absolute'
-    : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 fixed';
+    : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
 
   const logoClass = !headerTwo
     ? 'w-[104px] h-[30px] md:w-[208px] md:h-[60px] 2xl:w-[248px] 2xl:h-auto'
