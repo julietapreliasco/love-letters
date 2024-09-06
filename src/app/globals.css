@@ -13,3 +13,13 @@
   white-space: normal;
   line-clamp: 2;
 }
+
+.slick-dots li button:before {
+  font-size: 12px !important;
+  color: #f3c937 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1 !important;
+  color: #f3c937 !important;
+}

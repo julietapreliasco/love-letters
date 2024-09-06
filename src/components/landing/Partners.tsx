@@ -3,7 +3,7 @@ import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { LandingSectionType } from '@/contentful/landingSections';
-import SharedSlider, { CardTypes } from '../ui/SharedSlider';
+import SharedSlider, { Types } from '../ui/SharedSlider';
 
 interface PartnersProps {
   partnersData: LandingSectionType;
@@ -21,8 +21,8 @@ const Partners: React.FC<PartnersProps> = ({ partnersData }) => {
       </div>
       <SharedSlider
         sliderData={partnersCards!}
-        cardType={CardTypes.PARTNER_CARD}
-        autoPlay={true}
+        type={Types.PARTNER}
+        isPartners={true}
       />
     </section>
   );
