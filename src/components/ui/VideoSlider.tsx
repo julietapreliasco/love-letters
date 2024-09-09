@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import VideoPlayer from './VideoPlayer';
-import { extractVideoId } from '@/utils/extractVideoId';
 import SliderButton from './SliderButton';
 import { ContentImage } from '@/contentful/parseContentfulImage';
 
@@ -19,8 +18,11 @@ interface VideoFields {
 const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
   const videoURLs = videos.map((item) => item.videoUrl);
   const videoTitles = videos.map((item) => item.title);
-
+  const videoThumbnails = videos.map((item) => item.thumbnail);
   const [selectedVideo, setSelectedVideo] = useState<string>(videoURLs[0]);
+  const [selectedThumbnail, setSelectedThumbnail] = useState<
+    ContentImage | null | undefined
+  >(videoThumbnails[0]);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isClient, setIsClient] = useState<boolean>(false);
 
@@ -28,9 +30,13 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
     setIsClient(true);
   }, []);
 
-  const handleThumbnailClick = (url: string) => {
+  const handleThumbnailClick = (
+    url: string,
+    thumbnail: ContentImage | null | undefined
+  ) => {
     if (selectedVideo !== url) {
       setSelectedVideo(url);
+      setSelectedThumbnail(thumbnail);
     }
   };
 
@@ -65,7 +71,11 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
   return (
     <div className="flex md:flex-col">
       <div className="hidden md:block">
-        <VideoPlayer key={selectedVideo} videoUrl={selectedVideo} />
+        <VideoPlayer
+          key={selectedVideo}
+          videoUrl={selectedVideo}
+          thumbnail={selectedThumbnail}
+        />
       </div>
 
       {videoURLs.length > 1 && (
@@ -74,16 +84,24 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
             {videoURLs.map((url, index) => (
               <div
                 key={index}
-                className={`p-4`}
-                onClick={() => handleThumbnailClick(url)}
+                className="p-4"
+                onClick={() =>
+                  handleThumbnailClick(url, videoThumbnails[index])
+                }
               >
-                <Image
-                  src={`https://img.youtube.com/vi/${extractVideoId(url)}/hqdefault.jpg`}
-                  alt="Video Thumbnail"
-                  className="h-auto object-cover"
-                  width={408}
-                  height={237}
-                />
+                {videoThumbnails[index] ? (
+                  <Image
+                    src={videoThumbnails[index]?.src || ''}
+                    alt="Video Thumbnail"
+                    className="w-fit object-cover"
+                    width={videoThumbnails[index]?.width}
+                    height={videoThumbnails[index]?.height}
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-gray-300">
+                    No Thumbnail
+                  </div>
+                )}
                 <p className="truncate-2-lines mt-[10px] font-playfair-display text-xl lg:text-2xl">
                   {videoTitles[index]}
                 </p>
@@ -95,7 +113,7 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
 
       <div className="block w-full md:hidden">
         <div className="w-full p-2">
-          <VideoPlayer videoUrl={videoURLs[0]} />
+          <VideoPlayer videoUrl={videoURLs[0]} thumbnail={videoThumbnails[0]} />
         </div>
       </div>
     </div>

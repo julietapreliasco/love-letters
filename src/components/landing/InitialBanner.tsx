@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Button from '../ui/Button';
 import { LandingSectionType } from '@/contentful/landingSections';
@@ -11,14 +11,26 @@ interface InitialBannerProps {
 
 const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
   const [scrollY, setScrollY] = useState(0);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const controls = useAnimation();
+  const [imageScale, setImageScale] = useState(1.2);
+  const [imageOpacity, setImageOpacity] = useState(1);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-      if (window.scrollY > 0) {
-        setHasScrolled(true);
+      const scrollPosition = window.scrollY;
+      setScrollY(scrollPosition);
+
+      const scaleValue = 1.2 - (scrollPosition / window.innerHeight) * 0.2;
+      setImageScale(Math.max(scaleValue, 1));
+
+      const imageHeight = window.innerHeight;
+      const startOpacityChange = imageHeight / 2;
+
+      if (scrollPosition > startOpacityChange) {
+        const opacityValue =
+          1 - (scrollPosition - startOpacityChange) / (imageHeight / 2);
+        setImageOpacity(Math.max(opacityValue, 0));
+      } else {
+        setImageOpacity(1);
       }
     };
 
@@ -28,28 +40,21 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const imageHeight = window.innerHeight;
-    const opacityTarget =
-      scrollY > imageHeight / 2
-        ? Math.max(1 - (scrollY - imageHeight / 2) / (imageHeight / 2), 0.7)
-        : 1;
-
-    controls.start({
-      scale: hasScrolled ? 1 : 1.2,
-      opacity: opacityTarget,
-      transition: { duration: 1, ease: 'easeOut' },
-    });
-  }, [scrollY, hasScrolled, controls]);
-
   return (
     <motion.section
       id="initial-banner"
-      className="relative h-screen w-full overflow-hidden bg-custom-lighter-yellow"
+      className="relative h-screen w-full overflow-hidden bg-custom-lighter-gray"
     >
       {bannerData?.backgroundImage?.src && (
         <motion.div
-          animate={controls}
+          animate={{
+            scale: imageScale,
+            opacity: imageOpacity,
+          }}
+          transition={{
+            duration: 0.5,
+            ease: 'easeOut',
+          }}
           initial={{
             scale: 1.2,
             opacity: 1,
@@ -60,7 +65,7 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
             src={bannerData.backgroundImage.src}
             alt="Love Letters Home Banner"
             fill
-            className="object-cover"
+            className="object-cover object-bottom"
             priority
           />
         </motion.div>
