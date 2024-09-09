@@ -69,7 +69,7 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
       </div>
 
       {videoURLs.length > 1 && (
-        <div className="mt-10 hidden md:block">
+        <div className="mt-5 hidden md:block">
           <Slider {...settings}>
             {videoURLs.map((url, index) => (
               <div
@@ -80,7 +80,7 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
                 <Image
                   src={`https://img.youtube.com/vi/${extractVideoId(url)}/hqdefault.jpg`}
                   alt="Video Thumbnail"
-                  className="h-auto w-full object-cover"
+                  className="h-auto object-cover"
                   width={408}
                   height={237}
                 />
@@ -94,15 +94,9 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
       )}
 
       <div className="block w-full md:hidden">
-        <Slider {...mobileSettings}>
-          {videoURLs.map((url, index) => (
-            <div key={index} className="w-full p-2">
-              <div>
-                <VideoPlayer videoUrl={url} />
-              </div>
-            </div>
-          ))}
-        </Slider>
+        <div className="w-full p-2">
+          <VideoPlayer videoUrl={videoURLs[0]} />
+        </div>
       </div>
     </div>
   );

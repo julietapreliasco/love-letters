@@ -23,3 +23,7 @@
   opacity: 1 !important;
   color: #f3c937 !important;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}

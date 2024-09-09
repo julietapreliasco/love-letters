@@ -4,11 +4,13 @@ import Button from '../ui/Button';
 import Logo from '../ui/Logo';
 import { IoIosMenu } from 'react-icons/io';
 import Menu from '../ui/Menu';
+import { motion, useAnimation } from 'framer-motion';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [headerTwo, setHeaderTwo] = useState(false);
   const [lastScrollPos, setLastScrollPos] = useState(0);
+  const headerControls = useAnimation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +36,13 @@ const Header = () => {
     };
   }, [lastScrollPos]);
 
+  useEffect(() => {
+    headerControls.start({
+      opacity: 1,
+      transition: { duration: 1, ease: 'easeOut' },
+    });
+  }, [headerControls]);
+
   const headerClass = !headerTwo
     ? 'bg-transparent w-full absolute'
     : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
@@ -46,8 +55,10 @@ const Header = () => {
 
   return (
     <>
-      <header
+      <motion.header
         className={`top-0 z-50 flex justify-between px-[20px] py-[20px] ${headerClass}`}
+        initial={{ opacity: 0 }}
+        animate={headerControls}
       >
         <Logo color={headerTwo ? '#29241F' : undefined} className={logoClass} />
         <div className="hidden items-center md:flex">
@@ -72,7 +83,7 @@ const Header = () => {
         >
           <IoIosMenu onClick={toggleMenu} />
         </div>
-      </header>
+      </motion.header>
 
       {openMenu && <Menu onClick={toggleMenu} />}
     </>
