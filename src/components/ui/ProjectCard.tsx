@@ -1,17 +1,17 @@
 'use client';
 import { CardType } from '@/contentful/cards';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Card from './Card';
 import { useRef } from 'react';
 
-interface ProjectCard {
+interface ProjectCardProps {
   project: CardType;
   index: number;
-  innerScale: any;
-  range: any;
-  progress: any;
-  targetScale: any;
+  innerScale: MotionValue<number>;
+  range: [number, number];
+  progress: MotionValue<number>;
+  targetScale: number;
 }
 
 const ProjectCard = ({
@@ -21,7 +21,7 @@ const ProjectCard = ({
   range,
   progress,
   targetScale,
-}: ProjectCard) => {
+}: ProjectCardProps) => {
   const container = useRef<HTMLDivElement>(null);
 
   const projectScale = useTransform(progress, range, [1, targetScale]);
@@ -40,8 +40,7 @@ const ProjectCard = ({
           src={project.image?.src!}
           alt={project.image?.alt!}
           fill
-          objectFit="cover"
-          className="rounded-xl"
+          className="rounded-xl object-cover"
         />
       </motion.div>
       <motion.div
