@@ -1,20 +1,43 @@
+'use client';
 import { LandingSectionType } from '@/contentful/landingSections';
 import Button from '../ui/Button';
-import Card from '../ui/Card';
-import { CardType, fetchCards } from '@/contentful/cards';
+import { CardType } from '@/contentful/cards';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import ProjectCard from '../ui/ProjectCard';
 
 interface ProjectsSectionClientProps {
   projectData: LandingSectionType;
 }
 
-const ProjectsSection: React.FC<ProjectsSectionClientProps> = async ({
-  projectData,
-}) => {
+const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
+  const container = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end'],
+  });
+
   const projectCards = projectData.cards;
 
+  const innerScale = useTransform(scrollYProgress, [0, 1], [0.8, 0.75]);
+  const headerOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
+  const headerTranslateY = useTransform(scrollYProgress, [0.8, 1], [0, -50], {
+    clamp: false,
+  });
+
+  const roundedTranslateY = useTransform(headerTranslateY, (value) =>
+    Math.round(value)
+  );
+
   return (
-    <section>
-      <div className="mx-[20px] mb-[20px] mt-[80px] flex h-auto flex-row justify-between md:mx-[60px] md:mb-[40px]">
+    <section ref={container}>
+      <motion.div
+        style={{
+          opacity: headerOpacity,
+          transform: `translateY(${roundedTranslateY}px)`,
+        }}
+        className="sticky top-7 z-10 mx-[20px] mb-[20px] mt-[80px] flex h-auto flex-row justify-between md:top-3 md:mx-[60px] md:mb-[40px] lg:top-2"
+      >
         <h1 className="font-playfair-display text-[32px] font-bold md:text-[64px]">
           {projectData.title}
         </h1>
@@ -26,34 +49,30 @@ const ProjectsSection: React.FC<ProjectsSectionClientProps> = async ({
             <Button variant="SECONDARY" label={'Check our projects'} />
           </div>
         </div>
-      </div>
-      <ul>
-        {projectCards &&
-          projectCards.map((project: CardType, index) => (
-            <li key={index} className="relative">
-              <div
-                className="sticky top-0 z-10 h-[110vh] bg-black"
-                style={{
-                  backgroundImage: `url(${project?.image?.src})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundAttachment: 'fixed',
-                }}
-              >
-                <div className="absolute right-0 top-1/4 m-6">
-                  <Card
-                    buttonLabel="about me"
-                    card={{
-                      title: project.title,
-                      description: project.description,
-                      section: project.section,
-                    }}
+      </motion.div>
+      <div className="flex w-full flex-col items-center">
+        <div className="relative w-[85%]">
+          {projectCards &&
+            projectCards.map((project: CardType, index) => {
+              const targetScale = 1 - (projectCards.length - index) * 0.05;
+              return (
+                <div
+                  key={index}
+                  className="sticky top-16 mb-36 lg:top-20 lg:mb-28"
+                >
+                  <ProjectCard
+                    innerScale={innerScale}
+                    project={project}
+                    index={index}
+                    range={[index * 0.25, 1]}
+                    progress={scrollYProgress}
+                    targetScale={targetScale}
                   />
                 </div>
-              </div>
-            </li>
-          ))}
-      </ul>
+              );
+            })}
+        </div>
+      </div>
     </section>
   );
 };
