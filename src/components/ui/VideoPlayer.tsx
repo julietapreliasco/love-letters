@@ -12,31 +12,6 @@ const VideoPlayer = ({ videoUrl }: { videoUrl: string }) => {
     setIsPlaying(true);
   };
 
-  useEffect(() => {
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          setIsPlaying(false);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.9,
-    });
-
-    const currentRef = videoRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
-
   const Thumbnail = videoId
     ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
     : '';

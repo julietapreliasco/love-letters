@@ -27,7 +27,9 @@ const Videos: React.FC<VideosProps> = async ({ videosData }) => {
           <Button variant="SECONDARY" label="View all" />
         </div>
       </div>
-      <VideoSlider videos={landingVideos} />
+      <div className="md:px-10 md:py-5 lg:px-20 xl:px-32 2xl:px-64">
+        <VideoSlider videos={landingVideos} />
+      </div>
     </section>
   );
 };
