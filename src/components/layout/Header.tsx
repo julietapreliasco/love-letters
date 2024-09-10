@@ -5,6 +5,7 @@ import Logo from '../ui/Logo';
 import { IoIosMenu } from 'react-icons/io';
 import Menu from '../ui/Menu';
 import { motion, useAnimation } from 'framer-motion';
+import Link from 'next/link';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -66,10 +67,12 @@ const Header = () => {
             label="Projects"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
-          <Button
-            label="About me"
-            variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
-          />
+          <Link href={"/about-me"}>
+            <Button
+              label="About me"
+              variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+            />
+          </Link>
           <Button
             label="Partners"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
