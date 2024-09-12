@@ -15,57 +15,10 @@ interface AboutMeProps {
 const AboutMe = ({ data }: AboutMeProps) => {
   const { description, bannerTitle, bannerImg } = data;
   const [hoveredIndices, setHoveredIndices] = useState<number[]>([]);
-  const [imageScale, setImageScale] = useState(1.2);
-  const [imageOpacity, setImageOpacity] = useState(1);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-
-      const containerElement = containerRef.current;
-      if (containerElement) {
-        const containerTop =
-          containerElement.getBoundingClientRect().top + window.scrollY;
-        const containerBottom = containerTop + containerElement.offsetHeight;
-
-        const isInView =
-          scrollPosition >= containerTop && scrollPosition <= containerBottom;
-
-        if (isInView) {
-          const scaleValue = 1.2 - (scrollPosition / window.innerHeight) * 0.2;
-          setImageScale(Math.max(scaleValue, 1));
-
-          const imageHeight = window.innerHeight;
-          const startOpacityChange = imageHeight / 2;
-
-          if (scrollPosition > startOpacityChange) {
-            const opacityValue =
-              1 - (scrollPosition - startOpacityChange) / (imageHeight / 2);
-            setImageOpacity(Math.max(opacityValue, 0));
-          } else {
-            setImageOpacity(1);
-          }
-        } else {
-          setImageScale(1.2);
-          setImageOpacity(1);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const handleMouseEnter = (index: number) => {
-    setHoveredIndices((prev) => [...prev, index]);
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoveredIndices((prev) => prev.filter((i) => i !== index));
-  };
+  const [blurAmount, setBlurAmount] = useState('blur(0px)');
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const bannerIsInView = useInView(bannerRef, { amount: 0.3 });
+  const bannerControls = useAnimation();
 
   let assetIndex = 0;
 
@@ -137,12 +90,12 @@ const AboutMe = ({ data }: AboutMeProps) => {
       const isOdd = groupedContent.length % 2 === 0;
 
       const contentRef = useRef(null);
-      const contentIsInView = useInView(contentRef, { amount: 0.6 });
-      const controls = useAnimation();
+      const contentIsInView = useInView(contentRef);
+      const contentControls = useAnimation();
 
       useEffect(() => {
         if (contentIsInView) {
-          controls.start('visible');
+          contentControls.start('visible');
         }
       }, [contentIsInView]);
 
@@ -162,7 +115,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
             stiffness: 60,
           }}
           initial="hidden"
-          animate={controls}
+          animate={contentControls}
           className={`flex flex-col md:flex-row ${
             !isOdd
               ? 'md:flex-row-reverse md:pl-10 lg:pl-20'
@@ -183,23 +136,42 @@ const AboutMe = ({ data }: AboutMeProps) => {
     }
   }
 
+  useEffect(() => {
+    if (bannerIsInView) {
+      setBlurAmount('blur(5px)');
+      bannerControls.start('visible');
+    } else {
+      bannerControls.start('hidden');
+      setBlurAmount('blur(0px)');
+    }
+  }, [bannerIsInView]);
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndices((prev) => [...prev, index]);
+  };
+
+  const handleMouseLeave = (index: number) => {
+    setHoveredIndices((prev) => prev.filter((i) => i !== index));
+  };
+
   return (
-    <div className="flex flex-col bg-custom-lighter-gray" ref={containerRef}>
-      <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden md:flex-row">
+    <div className="flex flex-col bg-custom-lighter-gray">
+      <div className="relative flex h-screen w-screen flex-col items-center justify-center overflow-hidden md:flex-row">
         {bannerImg && (
           <motion.div
-            animate={{
-              scale: imageScale,
-              opacity: imageOpacity,
+            ref={bannerRef}
+            variants={{
+              hidden: { filter: blurAmount },
+              visible: { filter: blurAmount },
             }}
             transition={{
-              duration: 0.5,
-              ease: 'easeOut',
+              duration: 1,
+              stiffness: 60,
+              damping: 8,
+              type: 'spring',
             }}
-            initial={{
-              scale: 1.2,
-              opacity: 1,
-            }}
+            initial="hidden"
+            animate={bannerControls}
             className="z-0 flex items-center justify-center pt-20"
           >
             <Image
@@ -207,14 +179,22 @@ const AboutMe = ({ data }: AboutMeProps) => {
               alt="Love Letters Home Banner"
               width={bannerImg.width}
               height={bannerImg.height}
-              className="z-0 h-screen w-full self-center object-cover shadow-xl"
+              className="z-0 h-full w-full self-center object-cover shadow-xl"
               priority
             />
           </motion.div>
         )}
-        <div className="absolute bottom-2 w-full p-10 text-center font-playfair-display text-2xl font-semibold tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 md:top-[60%] md:max-w-[620px] md:text-start md:text-[46px] md:leading-[48px] md:text-white">
+        <motion.div
+          initial={{ y: 300 }}
+          animate={{ y: 0 }}
+          transition={{
+            duration: 1,
+            delay: 0.4,
+          }}
+          className="absolute bottom-2 w-full p-10 text-center font-playfair-display text-2xl font-semibold tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 md:top-[60%] md:max-w-[620px] md:text-start md:text-[46px] md:leading-[48px] md:text-white"
+        >
           <span>{bannerTitle}</span>
-        </div>
+        </motion.div>
       </div>
       <div className="px-6 py-10 lg:px-16 lg:py-10 xl:px-28">
         {groupedContent}
