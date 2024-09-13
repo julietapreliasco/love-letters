@@ -135,3 +135,18 @@ export async function fetchPage({
 
   return parseContentfulPage(pagesResult.items[0]);
 }
+
+export async function fetchPageByName({
+  page,
+  preview,
+}: FetchOptions & { page: string }): Promise<PageType | null> {
+  const contentful = contentfulClient({ preview });
+
+  const pagesResult = await contentful.getEntries<TypePageSkeleton>({
+    content_type: 'page',
+    'fields.page': page,
+    include: 2,
+  });
+
+  return parseContentfulPage(pagesResult.items[0]);
+}

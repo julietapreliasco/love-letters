@@ -8,14 +8,16 @@ interface CardProps {
   buttonLabel?: string;
   titleSize?: string;
   descriptionSize?: string;
+  linkTo?: string;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   card,
   buttonLabel,
   titleSize,
   descriptionSize,
-}) => {
+  linkTo,
+}: CardProps) => {
   const { title, subtitle, description, image } = card;
 
   return (
@@ -56,7 +58,7 @@ const Card: React.FC<CardProps> = ({
       )}
       {buttonLabel && (
         <div className="flex justify-center md:justify-start">
-          <Button label={buttonLabel} />
+          <Button linkTo={linkTo} label={buttonLabel} />
         </div>
       )}
     </div>

@@ -1,10 +1,10 @@
 import AboutMe from '@/components/about-me/AboutMe';
-import { fetchPage } from '@/contentful/pages';
+import { fetchPageByName } from '@/contentful/pages';
 
 const AboutMePage = async () => {
-  const page = await fetchPage({
+  const page = await fetchPageByName({
     preview: false,
-    id: '369XvOoZWrBOqOsdxKVp6A',
+    page: 'About me',
   });
 
   return (

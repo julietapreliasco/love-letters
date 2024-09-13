@@ -61,18 +61,22 @@ const Header = () => {
         initial={{ opacity: 0 }}
         animate={headerControls}
       >
-        <Logo color={headerTwo ? '#29241F' : undefined} className={logoClass} />
+        <Link href="/">
+          <Logo
+            color={headerTwo ? '#29241F' : undefined}
+            className={logoClass}
+          />
+        </Link>
         <div className="hidden items-center md:flex">
           <Button
             label="Projects"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
-          <Link href={"/about-me"}>
-            <Button
-              label="About me"
-              variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
-            />
-          </Link>
+          <Button
+            linkTo="/about-me"
+            label="About me"
+            variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
           <Button
             label="Partners"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}

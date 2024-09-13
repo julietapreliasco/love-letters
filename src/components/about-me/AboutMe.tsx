@@ -2,12 +2,12 @@
 import { PageType } from '@/contentful/pages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import Image from 'next/image';
-import { motion, useAnimation, useInView, useScroll } from 'framer-motion';
 import LottieAnimation from '../ui/LottieAnimation';
 import animationData from '../../../public/about-us-animation.json';
-import { useEffect, useState, useRef } from 'react';
-
+import { useState } from 'react';
+import ContentBlock from './ContentBlock';
+import PageBanner from '../ui/PageBanner';
+import Image from 'next/image';
 interface AboutMeProps {
   data: PageType;
 }
@@ -15,10 +15,14 @@ interface AboutMeProps {
 const AboutMe = ({ data }: AboutMeProps) => {
   const { description, bannerTitle, bannerImg } = data;
   const [hoveredIndices, setHoveredIndices] = useState<number[]>([]);
-  const [blurAmount, setBlurAmount] = useState('blur(0px)');
-  const bannerRef = useRef<HTMLDivElement>(null);
-  const bannerIsInView = useInView(bannerRef, { amount: 0.3 });
-  const bannerControls = useAnimation();
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndices((prev) => [...prev, index]);
+  };
+
+  const handleMouseLeave = (index: number) => {
+    setHoveredIndices((prev) => prev.filter((i) => i !== index));
+  };
 
   let assetIndex = 0;
 
@@ -34,8 +38,9 @@ const AboutMe = ({ data }: AboutMeProps) => {
       ),
       [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
         const { file, title } = node.data.target.fields;
-        const imageUrl = 'https:' + file.url;
-
+        const imageUrl = file.url.startsWith('//')
+          ? `https:${file.url}`
+          : file.url;
         const currentAssetIndex = assetIndex;
         assetIndex += 1;
 
@@ -56,12 +61,15 @@ const AboutMe = ({ data }: AboutMeProps) => {
             </div>
 
             <div className="relative flex h-[60%] w-[60%] items-center justify-center">
-              <img
-                key={file.url}
-                src={imageUrl}
-                alt={title || ''}
-                className="h-full w-full rounded-full object-cover object-top"
-              />
+              {
+                <Image
+                  src={imageUrl}
+                  alt={title || 'Embedded Image'}
+                  width={file.details.image.width}
+                  height={file.details.image.height}
+                  className="h-full w-full rounded-full object-cover object-top"
+                />
+              }
             </div>
           </div>
         );
@@ -88,47 +96,13 @@ const AboutMe = ({ data }: AboutMeProps) => {
 
     if (currentImage && nextParagraphs.length === 2) {
       const isOdd = groupedContent.length % 2 === 0;
-
-      const contentRef = useRef(null);
-      const contentIsInView = useInView(contentRef);
-      const contentControls = useAnimation();
-
-      useEffect(() => {
-        if (contentIsInView) {
-          contentControls.start('visible');
-        }
-      }, [contentIsInView]);
-
       groupedContent.push(
-        <motion.div
+        <ContentBlock
           key={i}
-          ref={contentRef}
-          variants={{
-            hidden: { opacity: 0, translateY: 100 },
-            visible: { opacity: 1, translateY: 0 },
-          }}
-          transition={{
-            type: 'spring',
-            duration: 0.3,
-            damping: 8,
-            delay: 0.1,
-            stiffness: 60,
-          }}
-          initial="hidden"
-          animate={contentControls}
-          className={`flex flex-col md:flex-row ${
-            !isOdd
-              ? 'md:flex-row-reverse md:pl-10 lg:pl-20'
-              : 'md:pr-10 lg:pr-20'
-          }`}
-        >
-          <div className="flex flex-1 items-center justify-center">
-            {currentImage}
-          </div>
-          <div className="flex flex-1 items-center justify-center px-10 sm:px-20 md:p-0">
-            <div className="flex flex-col gap-4">{nextParagraphs}</div>
-          </div>
-        </motion.div>
+          image={currentImage}
+          paragraphs={nextParagraphs}
+          isOdd={isOdd}
+        />
       );
       i += 3;
     } else {
@@ -136,66 +110,9 @@ const AboutMe = ({ data }: AboutMeProps) => {
     }
   }
 
-  useEffect(() => {
-    if (bannerIsInView) {
-      setBlurAmount('blur(5px)');
-      bannerControls.start('visible');
-    } else {
-      bannerControls.start('hidden');
-      setBlurAmount('blur(0px)');
-    }
-  }, [bannerIsInView]);
-
-  const handleMouseEnter = (index: number) => {
-    setHoveredIndices((prev) => [...prev, index]);
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoveredIndices((prev) => prev.filter((i) => i !== index));
-  };
-
   return (
     <div className="flex flex-col bg-custom-lighter-gray">
-      <div className="relative flex h-screen w-screen flex-col items-center justify-center overflow-hidden md:flex-row">
-        {bannerImg && (
-          <motion.div
-            ref={bannerRef}
-            variants={{
-              hidden: { filter: blurAmount },
-              visible: { filter: blurAmount },
-            }}
-            transition={{
-              duration: 1,
-              stiffness: 60,
-              damping: 8,
-              type: 'spring',
-            }}
-            initial="hidden"
-            animate={bannerControls}
-            className="z-0 flex items-center justify-center pt-20"
-          >
-            <Image
-              src={bannerImg.src}
-              alt="Love Letters Home Banner"
-              width={bannerImg.width}
-              height={bannerImg.height}
-              className="z-0 h-full w-full self-center object-cover shadow-xl"
-              priority
-            />
-          </motion.div>
-        )}
-        <motion.div
-          initial={{ y: 300 }}
-          animate={{ y: 0 }}
-          transition={{
-            duration: 1,
-            delay: 0.4,
-          }}
-          className="absolute bottom-2 w-full p-10 text-center font-playfair-display text-2xl font-semibold tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 md:top-[60%] md:max-w-[620px] md:text-start md:text-[46px] md:leading-[48px] md:text-white"
-        >
-          <span>{bannerTitle}</span>
-        </motion.div>
-      </div>
+      <PageBanner bannerImg={bannerImg!} bannerTitle={bannerTitle!} />
       <div className="px-6 py-10 lg:px-16 lg:py-10 xl:px-28">
         {groupedContent}
       </div>
