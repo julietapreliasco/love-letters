@@ -71,7 +71,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
   };
 
   return (
-    <div className="slider-container flex max-h-[470px] justify-center md:max-h-[470px] lg:max-h-[350px]">
+    <div className="flex max-h-[470px] justify-center md:max-h-[470px] lg:max-h-[350px]">
       <Slider className="mb-10 w-full" {...settings}>
         {sliderData?.map((card, index) => (
           <div className="mb-5 px-3" key={index}>
