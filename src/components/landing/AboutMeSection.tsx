@@ -1,6 +1,4 @@
-import { fetchCards } from '@/contentful/cards';
 import { LandingSectionType } from '@/contentful/landingSections';
-import findSection from '@/utils/findSection';
 import Image from 'next/image';
 import Card from '../ui/Card';
 
@@ -26,7 +24,7 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = async ({
         </div>
       )}
       <div className="flex w-full justify-center md:absolute md:left-0 md:top-1/2 md:block md:-translate-y-1/2 md:pl-[60px]">
-        <Card buttonLabel="about me" card={aboutMeCard!} />
+        <Card linkTo="/about-me" buttonLabel="about me" card={aboutMeCard!} />
       </div>
     </section>
   );

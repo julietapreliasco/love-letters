@@ -2,12 +2,10 @@ import AboutMeSection from '@/components/landing/AboutMeSection';
 import InitialBanner from '@/components/landing/InitialBanner';
 import AboutLoveLetters from '@/components/landing/AboutLoveLetters';
 import Videos from '@/components/landing/Videos';
-import Header from '@/components/layout/Header';
 import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
-import Footer from '@/components/layout/Footer';
 import Partners from '@/components/landing/Partners';
 import Press from '@/components/landing/Press';
 
@@ -28,8 +26,6 @@ const Home: React.FC = async () => {
 
   return (
     <div>
-      <Header />
-
       <InitialBanner bannerData={initialBanner!} />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
@@ -38,8 +34,6 @@ const Home: React.FC = async () => {
       <Partners partnersData={partners!} />
       <ContactUs contactUsData={contactUs!} />
       <Press pressData={press!} />
-
-      <Footer />
     </div>
   );
 };

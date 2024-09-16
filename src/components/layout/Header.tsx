@@ -5,6 +5,7 @@ import Logo from '../ui/Logo';
 import { IoIosMenu } from 'react-icons/io';
 import Menu from '../ui/Menu';
 import { motion, useAnimation } from 'framer-motion';
+import Link from 'next/link';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -60,13 +61,19 @@ const Header = () => {
         initial={{ opacity: 0 }}
         animate={headerControls}
       >
-        <Logo color={headerTwo ? '#29241F' : undefined} className={logoClass} />
+        <Link href="/">
+          <Logo
+            color={headerTwo ? '#29241F' : undefined}
+            className={logoClass}
+          />
+        </Link>
         <div className="hidden items-center md:flex">
           <Button
             label="Projects"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
           <Button
+            linkTo="/about-me"
             label="About me"
             variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />

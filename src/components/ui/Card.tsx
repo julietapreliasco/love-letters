@@ -6,9 +6,18 @@ import Button from './Button';
 interface CardProps {
   card: CardType;
   buttonLabel?: string;
+  titleSize?: string;
+  descriptionSize?: string;
+  linkTo?: string;
 }
 
-const Card: React.FC<CardProps> = ({ card, buttonLabel }) => {
+const Card = ({
+  card,
+  buttonLabel,
+  titleSize,
+  descriptionSize,
+  linkTo,
+}: CardProps) => {
   const { title, subtitle, description, image } = card;
 
   return (
@@ -17,7 +26,7 @@ const Card: React.FC<CardProps> = ({ card, buttonLabel }) => {
         {image?.src && (
           <Image
             src={image.src}
-            alt="Brian Rashid"
+            alt={image.alt}
             width={image.width}
             height={image.height}
             className="flex h-[120px] w-[120px] self-center object-cover"
@@ -25,7 +34,9 @@ const Card: React.FC<CardProps> = ({ card, buttonLabel }) => {
         )}
         <div className="flex flex-col justify-center text-left text-custom-black">
           {title && (
-            <span className="text-2xl font-bold md:text-4xl 2xl:text-5xl">
+            <span
+              className={`${titleSize ?? 'text-2xl font-bold md:text-4xl 2xl:text-5xl'}`}
+            >
               {title}
             </span>
           )}
@@ -38,14 +49,16 @@ const Card: React.FC<CardProps> = ({ card, buttonLabel }) => {
       </div>
       {description && (
         <div>
-          <p className="max-w-[400px] font-lato text-custom-black md:text-xl 2xl:text-2xl">
+          <p
+            className={`font-lato text-custom-black ${descriptionSize ?? 'max-w-[400px] md:text-xl 2xl:text-2xl'} `}
+          >
             {description}
           </p>
         </div>
       )}
       {buttonLabel && (
         <div className="flex justify-center md:justify-start">
-          <Button label={buttonLabel} />
+          <Button linkTo={linkTo} label={buttonLabel} />
         </div>
       )}
     </div>
