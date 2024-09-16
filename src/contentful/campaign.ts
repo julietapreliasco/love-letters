@@ -31,6 +31,8 @@ export interface CampaignType {
   imageCaption?: string;
   videos?: VideoType[];
   press?: CardType[];
+  bannerColor?: string;
+  videoCaption?: string;
 }
 
 function getFieldValue(
@@ -112,6 +114,8 @@ export function parseContentfulCampaign(
     imageCaption: getFieldValue(campaignEntry.fields.imageCaption),
     videos: videos,
     press: pressCards,
+    bannerColor: getFieldValue(campaignEntry.fields.bannerColor),
+    videoCaption: getFieldValue(campaignEntry.fields.videoCaption),
   };
 }
 

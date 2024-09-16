@@ -1,10 +1,10 @@
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, Document } from '@contentful/rich-text-types';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 interface DescriptionProps {
-  description: any;
-  imageCaption?: any;
+  description: Document;
+  imageCaption?: string;
 }
 
 const Description = ({ description, imageCaption }: DescriptionProps) => {
@@ -14,8 +14,9 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => {
         paragraphIndex++;
+
         return (
-          <p key={paragraphIndex} className="p-1 text-justify">
+          <p key={paragraphIndex} className="py-4 text-justify">
             {children}
           </p>
         );
@@ -45,7 +46,9 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
               height={file.details.image.height}
               className="w-full shadow-lg"
             />
-            <p className="pt-3 text-center text-sm italic">{imageCaption}</p>
+            {imageCaption && (
+              <p className="pt-3 text-center text-sm italic">{imageCaption}</p>
+            )}
           </div>
         );
       },

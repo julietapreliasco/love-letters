@@ -19,11 +19,11 @@ const ContactUsCard = () => {
   };
 
   return (
-    <div className="m-5 flex w-1/2 flex-col gap-5 rounded bg-custom-lighter-gray p-10">
-      <p className="justify font-playfair-display text-3xl font-semibold">
+    <div className="flex flex-col gap-5 rounded bg-custom-lighter-gray p-10 md:w-2/3 lg:m-5 lg:w-1/2">
+      <p className="justify font-playfair-display text-lg font-semibold lg:text-3xl">
         Ready to bring love letters to your city?
       </p>
-      <p className="mb-2 text-base">
+      <p className="mb-2 text-sm lg:text-base">
         Join our mission to spread love! Share your story, sponsor, or bring us
         to your city—we’re excited to collaborate!
       </p>

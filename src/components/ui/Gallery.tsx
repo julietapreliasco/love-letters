@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { IoIosClose } from 'react-icons/io';
 import Image from 'next/image';
-import { IoArrowForwardCircleOutline } from 'react-icons/io5';
-import { IoArrowBackCircleOutline } from 'react-icons/io5';
+import {
+  IoArrowForwardCircleOutline,
+  IoArrowBackCircleOutline,
+  IoArrowForwardCircle,
+  IoArrowBackCircle,
+} from 'react-icons/io5';
 
 interface ImageData {
   src: string;
@@ -58,7 +62,7 @@ const Gallery = ({ images }: ImageGalleryProps) => {
   }, [currentIndex]);
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
       {images.map((image, index) => (
         <div
           key={index}
@@ -70,13 +74,13 @@ const Gallery = ({ images }: ImageGalleryProps) => {
             alt={image.alt || `Imagen ${index + 1}`}
             width={image.width}
             height={image.height}
-            className="max-h-[200px] min-h-[200px] object-cover"
+            className="object-cover md:max-h-[200px] md:min-h-[200px]"
           />
         </div>
       ))}
 
       {currentIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white p-52">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white lg:p-40">
           <p className="absolute left-4 top-4 font-playfair-display text-custom-black">
             {`${currentIndex + 1}/${images.length}`}
           </p>
@@ -86,9 +90,21 @@ const Gallery = ({ images }: ImageGalleryProps) => {
           >
             <IoIosClose size={24} />
           </button>
-          <button onClick={prevImage} className="absolute left-4 text-white">
-            <IoArrowBackCircleOutline size={24} className="text-custom-black" />
-          </button>
+          {images.length > 1 && (
+            <button
+              onClick={prevImage}
+              className="absolute left-1 text-white lg:left-4"
+            >
+              <IoArrowBackCircle
+                size={24}
+                className="block text-white lg:hidden"
+              />
+              <IoArrowBackCircleOutline
+                size={24}
+                className="hidden text-custom-black lg:block"
+              />
+            </button>
+          )}
 
           <Image
             src={images[currentIndex].src}
@@ -96,13 +112,21 @@ const Gallery = ({ images }: ImageGalleryProps) => {
             width={images[currentIndex].width}
             height={images[currentIndex].height}
           />
-
-          <button onClick={nextImage} className="absolute right-4 text-white">
-            <IoArrowForwardCircleOutline
-              size={24}
-              className="text-custom-black"
-            />
-          </button>
+          {images.length > 1 && (
+            <button
+              onClick={nextImage}
+              className="absolute right-1 text-white lg:right-4"
+            >
+              <IoArrowForwardCircle
+                size={24}
+                className="block text-white lg:hidden"
+              />
+              <IoArrowForwardCircleOutline
+                size={24}
+                className="hidden text-custom-black lg:block"
+              />
+            </button>
+          )}
         </div>
       )}
     </div>
