@@ -19,7 +19,7 @@ const Menu = ({ onClick }: MenuProps) => {
         </button>
       </div>
       <div className="flex flex-grow flex-col items-center gap-10 pt-[60px]">
-        <Button label="Projects" variant="SECONDARY_NAV" />
+        <Button linkTo="/campaigns" label="Projects" variant="SECONDARY_NAV" />
         <Button linkTo="/about-me" label="About me" variant="SECONDARY_NAV" />
         <Button label="Partners" variant="SECONDARY_NAV" />
         <Button label="Join us" />

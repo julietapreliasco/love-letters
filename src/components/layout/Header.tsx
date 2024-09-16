@@ -6,12 +6,16 @@ import { IoIosMenu } from 'react-icons/io';
 import Menu from '../ui/Menu';
 import { motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [headerTwo, setHeaderTwo] = useState(false);
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const headerControls = useAnimation();
+
+  const pathname = usePathname();
+  const blackText = pathname === '/campaigns';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,23 +67,24 @@ const Header = () => {
       >
         <Link href="/">
           <Logo
-            color={headerTwo ? '#29241F' : undefined}
+            color={headerTwo || blackText ? '#29241F' : undefined}
             className={logoClass}
           />
         </Link>
         <div className="hidden items-center md:flex">
           <Button
             label="Projects"
-            variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
+            linkTo="/campaigns"
           />
           <Button
             linkTo="/about-me"
             label="About me"
-            variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
           />
           <Button
             label="Partners"
-            variant={!headerTwo ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
           />
           <Button label="Join us" />
         </div>

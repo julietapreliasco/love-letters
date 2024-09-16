@@ -33,6 +33,7 @@ export interface CampaignType {
   press?: CardType[];
   bannerColor?: string;
   videoCaption?: string;
+  isHighlighted?: boolean;
 }
 
 function getFieldValue(
@@ -101,6 +102,11 @@ export function parseContentfulCampaign(
         .filter((card): card is CardType => card !== null)
     : [];
 
+  const isHighlighted =
+    typeof campaignEntry.fields.isHighlighted === 'boolean'
+      ? campaignEntry.fields.isHighlighted
+      : false;
+
   return {
     id: campaignEntry.sys.id,
     bannerTitle: getFieldValue(campaignEntry.fields.bannerTitle),
@@ -116,6 +122,7 @@ export function parseContentfulCampaign(
     press: pressCards,
     bannerColor: getFieldValue(campaignEntry.fields.bannerColor),
     videoCaption: getFieldValue(campaignEntry.fields.videoCaption),
+    isHighlighted,
   };
 }
 

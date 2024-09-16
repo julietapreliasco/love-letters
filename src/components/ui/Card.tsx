@@ -1,6 +1,5 @@
 import { CardType } from '@/contentful/cards';
 import Image from 'next/image';
-import React from 'react';
 import Button from './Button';
 
 interface CardProps {
@@ -8,6 +7,7 @@ interface CardProps {
   buttonLabel?: string;
   titleSize?: string;
   descriptionSize?: string;
+  subtitleSize?: string;
   linkTo?: string;
 }
 
@@ -17,6 +17,7 @@ const Card = ({
   titleSize,
   descriptionSize,
   linkTo,
+  subtitleSize,
 }: CardProps) => {
   const { title, subtitle, description, image } = card;
 
@@ -41,7 +42,9 @@ const Card = ({
             </span>
           )}
           {subtitle && (
-            <span className="max-w-[300px] text-xl font-bold md:text-2xl 2xl:text-3xl">
+            <span
+              className={`${subtitleSize ?? 'max-w-[300px] text-xl font-bold md:text-2xl 2xl:text-3xl'} `}
+            >
               {subtitle}
             </span>
           )}

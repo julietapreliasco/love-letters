@@ -1,6 +1,6 @@
 import { CardType } from '@/contentful/cards';
 import Slider from 'react-slick';
-import SharedCard, { CardStyles } from './PartnerCard';
+import SharedCard, { CardStyles } from './SharedCard';
 import SliderButton from './SliderButton';
 
 export enum Types {
