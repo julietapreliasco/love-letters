@@ -10,7 +10,7 @@ export interface TypePageFields {
   page: EntryFieldTypes.Symbol;
   bannerTitle?: EntryFieldTypes.Symbol;
   bannerImg?: EntryFieldTypes.AssetLink;
-  bannerDescription?: EntryFieldTypes.Text;
+  subtitle?: EntryFieldTypes.Text;
   description?: EntryFieldTypes.RichText;
   images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
   projectCards?: EntryFieldTypes.Array<

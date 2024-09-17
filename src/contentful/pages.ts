@@ -14,7 +14,7 @@ export interface PageType {
   page: string;
   bannerTitle?: string;
   bannerImg?: ContentImage | null;
-  bannerDescription?: string;
+  subtitle?: string;
   description?: Document | null;
   images?: ContentImage[] | null;
   projectCards?: CardType[] | null;
@@ -92,7 +92,7 @@ export function parseContentfulPage(
     page: getFieldValue(pageEntry.fields.page),
     bannerTitle: getFieldValue(pageEntry.fields.bannerTitle),
     bannerImg,
-    bannerDescription: getFieldValue(pageEntry.fields.bannerDescription),
+    subtitle: getFieldValue(pageEntry.fields.subtitle),
     description: getRichTextFieldValue(pageEntry.fields.description),
     images: images.length ? images : null,
     projectCards: projectCards.length ? projectCards : null,

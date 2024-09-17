@@ -13,7 +13,10 @@ const LottieAnimation = dynamic(() => import('../ui/LottieAnimation'), {
 
 const ContactUs: React.FC<ContactUsProps> = ({ contactUsData }) => {
   return (
-    <div className="flex flex-col bg-custom-lighter-gray px-9 py-[60px] md:flex-row md:items-center md:p-0">
+    <div
+      id="contact"
+      className="flex flex-col bg-custom-lighter-gray px-9 py-[60px] md:flex-row md:items-center md:p-0"
+    >
       <div className="md:mx-[70px] lg:mx-[100px] 2xl:mx-[156px]">
         <LottieAnimation animationData={animationData} />
       </div>

@@ -1,3 +1,8 @@
+export type {
+  TypeCampaign,
+  TypeCampaignFields,
+  TypeCampaignSkeleton,
+} from './TypeCampaign';
 export type { TypeCard, TypeCardFields, TypeCardSkeleton } from './TypeCard';
 export type {
   TypeFooter,

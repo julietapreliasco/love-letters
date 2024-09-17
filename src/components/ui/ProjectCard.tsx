@@ -49,10 +49,12 @@ const ProjectCard = ({
       >
         <Card
           buttonLabel="See more"
+          linkTo={`campaigns/${project?.campaign?.id}`}
           card={{
             title: project.title,
             description: project.description,
             section: project.section,
+            campaign: project.campaign,
           }}
         />
       </motion.div>

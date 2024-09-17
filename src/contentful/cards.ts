@@ -1,10 +1,17 @@
-import { TypeCardSkeleton } from './types';
-import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
+import { TypeCampaignSkeleton, TypeCardSkeleton } from './types';
+import {
+  Entry,
+  Asset,
+  UnresolvedLink,
+  AssetLink,
+  EntrySkeletonType,
+} from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
   ContentImage,
   parseContentfulContentImage,
 } from './parseContentfulImage';
+import { CampaignType, parseContentfulCampaign } from './campaign';
 
 export interface CardType {
   title?: string;
@@ -13,6 +20,7 @@ export interface CardType {
   image?: ContentImage | null;
   section: string;
   url?: string;
+  campaign: CampaignType | null;
 }
 
 function getFieldValue(
@@ -44,6 +52,11 @@ export function parseContentfulCard(
       )
     : null;
 
+  const campaignField = cardEntry.fields.campaign;
+  const campaign = campaignField
+    ? parseContentfulCampaign(campaignField as Entry<TypeCampaignSkeleton>)
+    : null;
+
   return {
     title: getFieldValue(cardEntry.fields.title),
     subtitle: getFieldValue(cardEntry.fields.subtitle),
@@ -51,6 +64,7 @@ export function parseContentfulCard(
     image,
     section: getFieldValue(cardEntry.fields.section),
     url: getFieldValue(cardEntry.fields.url),
+    campaign,
   };
 }
 
