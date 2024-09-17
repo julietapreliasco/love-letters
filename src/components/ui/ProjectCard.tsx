@@ -3,7 +3,8 @@ import { CardType } from '@/contentful/cards';
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Card from './Card';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { CampaignType } from '@/contentful/campaign';
 
 interface ProjectCardProps {
   project: CardType;
@@ -23,8 +24,17 @@ const ProjectCard = ({
   targetScale,
 }: ProjectCardProps) => {
   const container = useRef<HTMLDivElement>(null);
+  const [campaign, setCampaign] = useState<CampaignType | null>(null);
 
   const projectScale = useTransform(progress, range, [1, targetScale]);
+
+  useEffect(() => {
+    if (project.campaign instanceof Promise) {
+      project.campaign.then(setCampaign);
+    } else {
+      setCampaign(project.campaign);
+    }
+  }, [project.campaign]);
 
   return (
     <motion.div
@@ -49,12 +59,12 @@ const ProjectCard = ({
       >
         <Card
           buttonLabel="See more"
-          linkTo={`campaigns/${project?.campaign?.id}`}
+          linkTo={campaign ? `campaigns/${campaign.id}` : '#'}
           card={{
             title: project.title,
             description: project.description,
             section: project.section,
-            campaign: project.campaign,
+            campaign: campaign,
           }}
         />
       </motion.div>

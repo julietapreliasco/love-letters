@@ -1,6 +1,6 @@
 import { CardType } from '@/contentful/cards';
 import Slider from 'react-slick';
-import SharedCard, { CardStyles } from './PartnerCard';
+import SharedCard, { CardStyles } from './SharedCard';
 import SliderButton from './SliderButton';
 
 export enum Types {
@@ -76,7 +76,10 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
         {sliderData?.map((card, index) => (
           <div className="mb-5 px-3" key={index}>
             {type === Types.PARTNER ? (
-              <SharedCard cardData={card} />
+              <SharedCard
+                linkTo={`/campaigns?partner=${encodeURIComponent(card.title!)}`}
+                cardData={card}
+              />
             ) : (
               <SharedCard cardData={card} styles={pressCardStyles} />
             )}

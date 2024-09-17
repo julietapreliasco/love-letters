@@ -19,10 +19,25 @@ const Menu = ({ onClick }: MenuProps) => {
         </button>
       </div>
       <div className="flex flex-grow flex-col items-center gap-10 pt-[60px]">
-        <Button label="Projects" variant="SECONDARY_NAV" />
-        <Button linkTo="/about-me" label="About me" variant="SECONDARY_NAV" />
-        <Button label="Partners" variant="SECONDARY_NAV" />
-        <Button label="Join us" />
+        <Button
+          onClick={onClick}
+          linkTo="/campaigns"
+          label="Campaigns"
+          variant="SECONDARY_NAV"
+        />
+        <Button
+          onClick={onClick}
+          linkTo="/about-me"
+          label="About me"
+          variant="SECONDARY_NAV"
+        />
+        <Button
+          onClick={onClick}
+          linkTo="/#partners"
+          label="Partners"
+          variant="SECONDARY_NAV"
+        />
+        <Button onClick={onClick} linkTo="/#contact" label="Join us" />
       </div>
       <div className="mx-9 my-10 mt-auto flex flex-col items-center gap-[10px] border-t-[1px] border-custom-black pt-[10px] font-lato leading-[19.2px]">
         <span>Follow us:</span>

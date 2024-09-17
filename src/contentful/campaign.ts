@@ -12,6 +12,7 @@ import {
 } from './parseContentfulImage';
 import { parseContentfulVideo, VideoType } from './videos';
 import { CardType, parseContentfulCard } from './cards';
+import { reverseGeocode } from '@/utils/geocodingService';
 
 interface FetchOptions {
   preview: boolean;
@@ -33,6 +34,13 @@ export interface CampaignType {
   press?: CardType[];
   bannerColor?: string;
   videoCaption?: string;
+  isHighlighted?: boolean;
+  location?: {
+    lat: number;
+    lon: number;
+    city?: string | null;
+    country?: string | null;
+  } | null;
 }
 
 function getFieldValue(
@@ -59,9 +67,9 @@ function getRichTextFieldValue(
   return null;
 }
 
-export function parseContentfulCampaign(
+export async function parseContentfulCampaign(
   campaignEntry?: Entry<TypeCampaignSkeleton>
-): CampaignType | null {
+): Promise<CampaignType | null> {
   if (!campaignEntry) {
     return null;
   }
@@ -101,6 +109,27 @@ export function parseContentfulCampaign(
         .filter((card): card is CardType => card !== null)
     : [];
 
+  const isHighlighted =
+    typeof campaignEntry.fields.isHighlighted === 'boolean'
+      ? campaignEntry.fields.isHighlighted
+      : false;
+
+  const locationField = campaignEntry.fields.location;
+
+  let location = null;
+  if (locationField && 'lat' in locationField && 'lon' in locationField) {
+    const lat = locationField.lat as number;
+    const lon = locationField.lon as number;
+
+    const geoData = await reverseGeocode(lat, lon);
+    location = {
+      lat,
+      lon,
+      city: geoData?.city ?? null,
+      country: geoData?.country ?? null,
+    };
+  }
+
   return {
     id: campaignEntry.sys.id,
     bannerTitle: getFieldValue(campaignEntry.fields.bannerTitle),
@@ -116,6 +145,8 @@ export function parseContentfulCampaign(
     press: pressCards,
     bannerColor: getFieldValue(campaignEntry.fields.bannerColor),
     videoCaption: getFieldValue(campaignEntry.fields.videoCaption),
+    isHighlighted,
+    location,
   };
 }
 
@@ -130,8 +161,11 @@ export async function fetchCampaigns({
     order: ['fields.date'],
   });
 
-  return campaignsResult.items.map(
-    (campaignEntry) => parseContentfulCampaign(campaignEntry) as CampaignType
+  return Promise.all(
+    campaignsResult.items.map(
+      async (campaignEntry) =>
+        (await parseContentfulCampaign(campaignEntry)) as CampaignType
+    )
   );
 }
 

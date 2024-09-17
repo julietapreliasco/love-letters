@@ -43,10 +43,18 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
         </h1>
         <div className="flex items-center">
           <div className="block md:hidden">
-            <Button variant="SECONDARY" label={'View all '} />
+            <Button
+              linkTo="/campaigns"
+              variant="SECONDARY"
+              label={'View all '}
+            />
           </div>
           <div className="hidden md:block">
-            <Button variant="SECONDARY" label={'Check our projects'} />
+            <Button
+              linkTo="/campaigns"
+              variant="SECONDARY"
+              label={'Check our campaigns'}
+            />
           </div>
         </div>
       </motion.div>
