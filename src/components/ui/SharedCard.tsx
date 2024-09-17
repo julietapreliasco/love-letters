@@ -33,13 +33,25 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
       <div className={`flex w-full flex-col ${styles?.contentWrapper ?? ''}`}>
         {image?.src && (
           <div className="flex justify-center">
-            <Image
-              src={image.src}
-              alt="Brian Rashid Partners"
-              width={image.width}
-              height={image.height}
-              className={`${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain`}
-            />
+            {linkTo ? (
+              <Link href={linkTo}>
+                <Image
+                  src={image.src}
+                  alt="Brian Rashid Partners"
+                  width={image.width}
+                  height={image.height}
+                  className={`transform transition-transform md:hover:scale-105 ${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain`}
+                />
+              </Link>
+            ) : (
+              <Image
+                src={image.src}
+                alt="Brian Rashid Partners"
+                width={image.width}
+                height={image.height}
+                className={`${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain`}
+              />
+            )}
           </div>
         )}
         <div

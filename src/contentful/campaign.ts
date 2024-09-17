@@ -146,7 +146,7 @@ export async function parseContentfulCampaign(
     bannerColor: getFieldValue(campaignEntry.fields.bannerColor),
     videoCaption: getFieldValue(campaignEntry.fields.videoCaption),
     isHighlighted,
-    location, // Incluye la ubicación con ciudad y país
+    location,
   };
 }
 

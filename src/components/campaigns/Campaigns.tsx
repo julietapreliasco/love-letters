@@ -1,8 +1,12 @@
+'use client';
 import { CampaignType } from '@/contentful/campaign';
 import { PageType } from '@/contentful/pages';
 import Image from 'next/image';
 import Card from '../ui/Card';
 import SharedCard from '../ui/SharedCard';
+import { useState, useMemo, useEffect } from 'react';
+import SearchBar from '../ui/SearchBar';
+import { useSearchParams } from 'next/navigation';
 
 interface CampaignsProps {
   page: PageType;
@@ -10,12 +14,42 @@ interface CampaignsProps {
 }
 
 export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
-  const highlightedCampaigns = campaigns.filter(
-    (campaign) => campaign.isHighlighted
-  );
-  const regularCampaigns = campaigns.filter(
-    (campaign) => !campaign.isHighlighted
-  );
+  const [searchTerm, setSearchTerm] = useState('');
+  const searchParams = useSearchParams();
+  const partnerParam = searchParams.get('partner');
+
+  useEffect(() => {
+    if (partnerParam) {
+      setSearchTerm(partnerParam);
+    }
+  }, [partnerParam]);
+
+  console.log(campaigns);
+
+  const filteredCampaigns = useMemo(() => {
+    return campaigns.filter((campaign) => {
+      const searchFields = [
+        campaign.bannerTitle,
+        campaign.subtitle,
+        campaign.partner,
+        campaign.location?.city,
+        campaign.location?.country,
+      ];
+      return searchFields.some(
+        (field) =>
+          field && field.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  }, [campaigns, searchTerm]);
+
+  const isFiltering = searchTerm !== '';
+
+  const highlightedCampaigns = isFiltering
+    ? []
+    : campaigns.filter((campaign) => campaign.isHighlighted);
+  const regularCampaigns = isFiltering
+    ? filteredCampaigns
+    : campaigns.filter((campaign) => !campaign.isHighlighted);
 
   const cardStyles = {
     mainDivColor: 'bg-white',
@@ -27,72 +61,84 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
     linkWrapper: 'h-full flex flex-col justify-between',
   };
 
-  console.log(campaigns);
-
   return (
     <div className="flex flex-col px-4 py-12 md:px-[60px] md:py-[120px]">
       <h2 className="mb-8 text-center font-playfair-display text-4xl md:text-6xl">
         {page.page}
       </h2>
+      <div className="w-1/2 self-center">
+        <SearchBar onSearch={setSearchTerm} initialValue={partnerParam || ''} />
+      </div>
 
-      <div className="mb-12 space-y-8">
-        {highlightedCampaigns.map((campaign) => (
-          <div key={campaign.id} className="relative">
-            {campaign.bannerImage && (
-              <>
-                <div className="hidden md:block">
-                  <Image
-                    alt={campaign.bannerImage.alt}
-                    src={campaign.bannerImage.src}
-                    width={1200}
-                    height={600}
-                    className="h-[600px] w-full object-cover"
-                  />
-                  <div className="absolute right-10 top-1/2 -translate-y-1/2 transform p-4">
-                    <Card
-                      card={{
+      {!isFiltering && (
+        <div className="mb-12 space-y-8">
+          {highlightedCampaigns.map((campaign) => (
+            <div key={campaign.id} className="relative">
+              {campaign.bannerImage && (
+                <>
+                  <div className="hidden md:block">
+                    <Image
+                      alt={campaign.bannerImage.alt}
+                      src={campaign.bannerImage.src}
+                      width={1200}
+                      height={600}
+                      className="h-[600px] w-full object-cover"
+                    />
+                    <div className="absolute right-10 top-1/2 -translate-y-1/2 transform p-4">
+                      <Card
+                        card={{
+                          title: campaign.bannerTitle,
+                          subtitle: campaign.subtitle,
+                          section: 'projects',
+                        }}
+                        buttonLabel="See more"
+                        subtitleSize="text-lg md:text-xl 2xl:text-2xl max-w-[500px]"
+                        linkTo={`/campaigns/${campaign.id}`}
+                      />
+                    </div>
+                  </div>
+                  <div className="px-5 md:hidden">
+                    <SharedCard
+                      cardData={{
                         title: campaign.bannerTitle,
-                        subtitle: campaign.subtitle,
+                        description: campaign.subtitle,
+                        image: campaign.bannerImage,
                         section: 'projects',
                       }}
-                      buttonLabel="See more"
-                      subtitleSize="text-lg md:text-xl 2xl:text-2xl max-w-[500px]"
+                      styles={cardStyles}
+                      linkTo={`/campaigns/${campaign.id}`}
                     />
                   </div>
-                </div>
-                <div className="md:hidden">
-                  <SharedCard
-                    cardData={{
-                      title: campaign.bannerTitle,
-                      description: campaign.subtitle,
-                      image: campaign.bannerImage,
-                      section: 'projects',
-                    }}
-                    styles={cardStyles}
-                    linkTo={`/campaigns/${campaign.id}`}
-                  />
-                </div>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {regularCampaigns.map((campaign) => (
-          <SharedCard
-            key={campaign.id}
-            cardData={{
-              title: campaign.bannerTitle,
-              description: campaign.subtitle,
-              image: campaign.bannerImage,
-              section: 'projects',
-            }}
-            styles={cardStyles}
-            linkTo={`/campaigns/${campaign.id}`}
-          />
-        ))}
-      </div>
+      {regularCampaigns.length > 0 ? (
+        <div className="grid grid-cols-1 gap-10 px-5 md:grid-cols-3 md:px-0">
+          {regularCampaigns.map((campaign) => (
+            <SharedCard
+              key={campaign.id}
+              cardData={{
+                title: campaign.bannerTitle,
+                description: campaign.subtitle,
+                image: campaign.bannerImage,
+                section: 'projects',
+              }}
+              styles={cardStyles}
+              linkTo={`/campaigns/${campaign.id}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="py-12 text-center">
+          <p className="text-2xl font-semibold text-gray-600">
+            No campaigns related to {searchTerm}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

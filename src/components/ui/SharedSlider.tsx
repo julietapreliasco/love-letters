@@ -76,7 +76,10 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
         {sliderData?.map((card, index) => (
           <div className="mb-5 px-3" key={index}>
             {type === Types.PARTNER ? (
-              <SharedCard cardData={card} />
+              <SharedCard
+                linkTo={`/campaigns?partner=${encodeURIComponent(card.title!)}`}
+                cardData={card}
+              />
             ) : (
               <SharedCard cardData={card} styles={pressCardStyles} />
             )}
