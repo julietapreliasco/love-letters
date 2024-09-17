@@ -73,7 +73,7 @@ const Header = () => {
         </Link>
         <div className="hidden items-center md:flex">
           <Button
-            label="Projects"
+            label="Campaigns"
             variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
             linkTo="/campaigns"
           />
@@ -84,13 +84,14 @@ const Header = () => {
           />
           <Button
             label="Partners"
+            linkTo="/#partners"
             variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
           />
-          <Button label="Join us" />
+          <Button linkTo="/#contact" label="Join us" />
         </div>
         <div
           className={`items-center text-[24px] md:hidden ${
-            !headerTwo ? 'text-white' : 'text-custom-black'
+            headerTwo || blackText ? 'text-custom-black' : 'text-white'
           }`}
         >
           <IoIosMenu onClick={toggleMenu} />

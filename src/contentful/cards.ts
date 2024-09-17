@@ -20,7 +20,7 @@ export interface CardType {
   image?: ContentImage | null;
   section: string;
   url?: string;
-  campaign: CampaignType | null;
+  campaign: Promise<CampaignType | null> | CampaignType | null;
 }
 
 function getFieldValue(

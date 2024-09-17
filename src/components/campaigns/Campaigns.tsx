@@ -24,8 +24,6 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
     }
   }, [partnerParam]);
 
-  console.log(campaigns);
-
   const filteredCampaigns = useMemo(() => {
     return campaigns.filter((campaign) => {
       const searchFields = [
@@ -90,6 +88,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
                           title: campaign.bannerTitle,
                           subtitle: campaign.subtitle,
                           section: 'projects',
+                          campaign,
                         }}
                         buttonLabel="See more"
                         subtitleSize="text-lg md:text-xl 2xl:text-2xl max-w-[500px]"
@@ -104,6 +103,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
                         description: campaign.subtitle,
                         image: campaign.bannerImage,
                         section: 'projects',
+                        campaign,
                       }}
                       styles={cardStyles}
                       linkTo={`/campaigns/${campaign.id}`}
@@ -126,6 +126,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
                 description: campaign.subtitle,
                 image: campaign.bannerImage,
                 section: 'projects',
+                campaign,
               }}
               styles={cardStyles}
               linkTo={`/campaigns/${campaign.id}`}

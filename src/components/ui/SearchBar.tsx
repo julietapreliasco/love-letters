@@ -33,7 +33,7 @@ export default function SearchBar({
         placeholder="Search campaigns..."
         value={searchTerm}
         onChange={handleSearch}
-        className="focus:border-primary focus:ring-primary w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+        className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-custom-yellow focus:outline-none focus:ring-2 focus:ring-custom-yellow focus:ring-opacity-50"
       />
     </div>
   );

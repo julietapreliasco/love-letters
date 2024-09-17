@@ -68,10 +68,7 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
           )}
           {description && <p className="font-lato text-base">{description}</p>}
           {linkTo && (
-            <Link
-              href={linkTo}
-              className={`underline ${styles?.linkWrapper ? 'mt-auto' : ''}`}
-            >
+            <Link href={linkTo} className={`mt-3 text-sm underline md:mt-1`}>
               Read more
             </Link>
           )}

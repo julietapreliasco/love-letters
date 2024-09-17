@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense } from 'react';
 import { Campaigns as CampaignsContent } from '@/components/campaigns/Campaigns';
 import { fetchPageByName } from '@/contentful/pages';
 import { fetchCampaigns } from '@/contentful/campaign';
@@ -9,7 +9,12 @@ const Campaigns = async () => {
     page: 'Campaigns',
   });
   const campaigns = await fetchCampaigns({ preview: false });
-  return <CampaignsContent campaigns={campaigns!} page={page!} />;
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CampaignsContent campaigns={campaigns!} page={page!} />
+    </Suspense>
+  );
 };
 
 export default Campaigns;
