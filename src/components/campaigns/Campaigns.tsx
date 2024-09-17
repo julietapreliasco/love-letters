@@ -27,6 +27,8 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
     linkWrapper: 'h-full flex flex-col justify-between',
   };
 
+  console.log(campaigns);
+
   return (
     <div className="flex flex-col px-4 py-12 md:px-[60px] md:py-[120px]">
       <h2 className="mb-8 text-center font-playfair-display text-4xl md:text-6xl">
