@@ -149,7 +149,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
       )}
 
       {campaignsWithLocation.length > 0 && (
-        <div className="mt-12">
+        <div className="mt-16 md:mt-20">
           <h2 className="mb-8 text-center font-playfair-display text-4xl tracking-widest md:text-6xl">
             Love letters around the world
           </h2>
