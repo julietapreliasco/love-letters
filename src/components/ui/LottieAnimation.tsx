@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import lottie from 'lottie-web';
 
 interface LottieAnimationProps {
@@ -9,12 +9,12 @@ interface LottieAnimationProps {
   hover?: boolean;
 }
 
-const LottieAnimation: React.FC<LottieAnimationProps> = ({
+const LottieAnimation = ({
   animationData,
   autoplay = true,
   loop = true,
   hover = false,
-}) => {
+}: LottieAnimationProps) => {
   const animationContainer = useRef<HTMLDivElement>(null);
   const animationInstance = useRef<any>(null);
 
@@ -24,22 +24,25 @@ const LottieAnimation: React.FC<LottieAnimationProps> = ({
         container: animationContainer.current,
         renderer: 'svg',
         loop: loop,
-        autoplay: autoplay,
+        autoplay: false,
         animationData: animationData,
       });
       animationInstance.current = anim;
 
       return () => anim.destroy();
     }
-  }, [animationData, autoplay, loop]);
+  }, [animationData, loop]);
 
   useEffect(() => {
-    if (hover) {
-      animationInstance.current?.play();
-    } else {
-      animationInstance.current?.pause();
+    const animation = animationInstance.current;
+    if (animation) {
+      if (hover || (autoplay && !hover)) {
+        animation.play();
+      } else {
+        animation.pause();
+      }
     }
-  }, [hover]);
+  }, [hover, autoplay]);
 
   return <div ref={animationContainer} />;
 };

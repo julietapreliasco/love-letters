@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ContentBlock from './ContentBlock';
 import PageBanner from '../ui/PageBanner';
 import Image from 'next/image';
+
 interface AboutMeProps {
   data: PageType;
 }
@@ -61,15 +62,13 @@ const AboutMe = ({ data }: AboutMeProps) => {
             </div>
 
             <div className="relative flex h-[60%] w-[60%] items-center justify-center">
-              {
-                <Image
-                  src={imageUrl}
-                  alt={title || 'Embedded Image'}
-                  width={file.details.image.width}
-                  height={file.details.image.height}
-                  className="h-full w-full rounded-full object-cover object-top"
-                />
-              }
+              <Image
+                src={imageUrl}
+                alt={title || 'Embedded Image'}
+                width={file.details.image.width}
+                height={file.details.image.height}
+                className="h-full w-full rounded-full object-cover object-top"
+              />
             </div>
           </div>
         );
