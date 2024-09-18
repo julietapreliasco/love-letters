@@ -7,6 +7,9 @@ import SharedCard from '../ui/SharedCard';
 import { useState, useMemo, useEffect } from 'react';
 import SearchBar from '../ui/SearchBar';
 import { useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('../ui/Map'), { ssr: false });
 
 interface CampaignsProps {
   page: PageType;
@@ -59,9 +62,13 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
     linkWrapper: 'h-full flex flex-col justify-between',
   };
 
+  const campaignsWithLocation = campaigns.filter(
+    (campaign) => campaign.location
+  );
+
   return (
-    <div className="flex flex-col px-4 py-12 md:px-[60px] md:py-[120px]">
-      <h2 className="mb-8 text-center font-playfair-display text-4xl md:text-6xl">
+    <div className="flex flex-col px-4 py-20 md:px-[60px] md:py-[120px]">
+      <h2 className="mb-8 text-center font-playfair-display text-4xl tracking-widest md:text-6xl">
         {page.page}
       </h2>
       <div className="w-1/2 self-center">
@@ -138,6 +145,20 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
           <p className="text-2xl font-semibold text-gray-600">
             No campaigns related to {searchTerm}
           </p>
+        </div>
+      )}
+
+      {campaignsWithLocation.length > 0 && (
+        <div className="mt-16 md:mt-20">
+          <h2 className="mb-8 text-center font-playfair-display text-4xl tracking-widest md:text-6xl">
+            Love letters around the world
+          </h2>
+          <Map
+            locations={campaignsWithLocation.map((campaign) => ({
+              ...campaign.location!,
+              id: campaign.id,
+            }))}
+          />
         </div>
       )}
     </div>

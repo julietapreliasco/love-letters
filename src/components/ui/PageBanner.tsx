@@ -63,7 +63,7 @@ const PageBanner = ({ bannerImg, bannerTitle }: PageBannerProps) => {
         }}
         className="absolute bottom-2 w-full p-10 text-center font-playfair-display text-2xl font-semibold tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 md:top-[60%] md:max-w-[620px] md:text-start md:text-[46px] md:leading-[48px] md:text-white"
       >
-        <span className="shadow-2xl">{bannerTitle}</span>
+        <span className="drop-shadow-2xl">{bannerTitle}</span>
       </motion.div>
     </div>
   );

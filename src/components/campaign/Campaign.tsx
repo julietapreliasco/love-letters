@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 import { FaArrowUp } from 'react-icons/fa';
 import VideoSlider from '../ui/VideoSlider';
 import PageBanner from '../ui/PageBanner';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('../ui/Map'), { ssr: false });
 
 interface CampaignProps {
   data: CampaignType;
@@ -29,6 +32,7 @@ const Campaign = ({ data }: CampaignProps) => {
     videos,
     press,
     videoCaption,
+    location,
   } = data;
 
   const [backToTopButton, setBackToTopButton] = useState(false);
@@ -107,6 +111,14 @@ const Campaign = ({ data }: CampaignProps) => {
               Gallery
             </p>
             <Gallery images={gallery!} />
+          </div>
+        )}
+        {location && (
+          <div className="my-10">
+            <p className="mb-5 font-playfair-display text-2xl font-medium tracking-widest md:text-4xl lg:mb-11 lg:text-5xl">
+              Campaign Location
+            </p>
+            <Map locations={location} />
           </div>
         )}
         <div className="mt-10 flex justify-center">
