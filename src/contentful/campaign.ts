@@ -43,6 +43,12 @@ export interface CampaignType {
   } | null;
 }
 
+// In-memory cache for geocoding results
+const geocodeCache: Record<
+  string,
+  { city: string | null; country: string | null }
+> = {};
+
 function getFieldValue(
   field?: string | { [key: string]: string | undefined } | Document
 ): string {
@@ -74,7 +80,9 @@ export async function parseContentfulCampaign(
     return null;
   }
 
-  const bannerImageField = campaignEntry.fields.bannerImage;
+  const fields = campaignEntry.fields;
+
+  const bannerImageField = fields.bannerImage;
 
   const bannerImage = bannerImageField
     ? parseContentfulContentImage(
@@ -85,24 +93,24 @@ export async function parseContentfulCampaign(
       )
     : null;
 
-  const gallery = campaignEntry.fields.gallery
-    ? (campaignEntry.fields.gallery as Asset[])
+  const gallery = fields.gallery
+    ? (fields.gallery as Asset[])
         .map((image) =>
           parseContentfulContentImage(image as Asset<undefined, string>)
         )
         .filter((image): image is ContentImage => image !== null)
     : [];
 
-  const videos: VideoType[] = campaignEntry.fields.videos
-    ? (campaignEntry.fields.videos as unknown as Entry<TypeVideoSkeleton>[])
+  const videos: VideoType[] = fields.videos
+    ? (fields.videos as unknown as Entry<TypeVideoSkeleton>[])
         .map((videoEntry) =>
           parseContentfulVideo(videoEntry as Entry<TypeVideoSkeleton>)
         )
         .filter((video): video is VideoType => video !== null)
     : [];
 
-  const pressCards: CardType[] = campaignEntry.fields.press
-    ? (campaignEntry.fields.press as Entry<TypeCardSkeleton>[])
+  const pressCards: CardType[] = fields.press
+    ? (fields.press as Entry<TypeCardSkeleton>[])
         .map((cardEntry) =>
           parseContentfulCard(cardEntry as Entry<TypeCardSkeleton>)
         )
@@ -110,41 +118,51 @@ export async function parseContentfulCampaign(
     : [];
 
   const isHighlighted =
-    typeof campaignEntry.fields.isHighlighted === 'boolean'
-      ? campaignEntry.fields.isHighlighted
-      : false;
+    typeof fields.isHighlighted === 'boolean' ? fields.isHighlighted : false;
 
-  const locationField = campaignEntry.fields.location;
+  const locationField = fields.location;
 
   let location = null;
   if (locationField && 'lat' in locationField && 'lon' in locationField) {
     const lat = locationField.lat as number;
     const lon = locationField.lon as number;
 
-    const geoData = await reverseGeocode(lat, lon);
+    const cacheKey = `${lat},${lon}`;
+    let city: string | null = null;
+    let country: string | null = null;
+
+    if (cacheKey in geocodeCache) {
+      ({ city, country } = geocodeCache[cacheKey]);
+    } else {
+      const geoData = await reverseGeocode(lat, lon);
+      city = geoData?.city ?? null;
+      country = geoData?.country ?? null;
+      geocodeCache[cacheKey] = { city, country };
+    }
+
     location = {
       lat,
       lon,
-      city: geoData?.city ?? null,
-      country: geoData?.country ?? null,
+      city,
+      country,
     };
   }
 
   return {
     id: campaignEntry.sys.id,
-    bannerTitle: getFieldValue(campaignEntry.fields.bannerTitle),
+    bannerTitle: getFieldValue(fields.bannerTitle),
     bannerImage,
-    partner: getFieldValue(campaignEntry.fields.partner),
-    date: getFieldValue(campaignEntry.fields.date),
-    subtitle: getFieldValue(campaignEntry.fields.subtitle),
-    description: getRichTextFieldValue(campaignEntry.fields.description),
+    partner: getFieldValue(fields.partner),
+    date: getFieldValue(fields.date),
+    subtitle: getFieldValue(fields.subtitle),
+    description: getRichTextFieldValue(fields.description),
     gallery: gallery.length ? gallery : null,
-    finalText: getRichTextFieldValue(campaignEntry.fields.finalText),
-    imageCaption: getFieldValue(campaignEntry.fields.imageCaption),
+    finalText: getRichTextFieldValue(fields.finalText),
+    imageCaption: getFieldValue(fields.imageCaption),
     videos: videos,
     press: pressCards,
-    bannerColor: getFieldValue(campaignEntry.fields.bannerColor),
-    videoCaption: getFieldValue(campaignEntry.fields.videoCaption),
+    bannerColor: getFieldValue(fields.bannerColor),
+    videoCaption: getFieldValue(fields.videoCaption),
     isHighlighted,
     location,
   };

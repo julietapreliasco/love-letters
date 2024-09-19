@@ -55,7 +55,8 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
   const cardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image: 'min-h-[30vh] max-h-[30vh] md:min-h-[35vh] object-cover',
+    image:
+      'min-h-[30vh] max-h-[30vh] rounded-lg md:min-h-[35vh] object-cover shadow-xl',
     mainDivHeight: 'h-full',
     titleFont: 'text-xl',
     contentWrapper: 'h-full',
@@ -87,7 +88,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
                       src={campaign.bannerImage.src}
                       width={1200}
                       height={600}
-                      className="h-[600px] w-full object-cover"
+                      className="h-[600px] w-full rounded-lg object-cover"
                     />
                     <div className="absolute right-10 top-1/2 -translate-y-1/2 transform p-4">
                       <Card
