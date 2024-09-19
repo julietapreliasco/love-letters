@@ -55,7 +55,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
   const cardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image: 'max-h-[30vh] md:max-h-[35vh] object-cover',
+    image: 'min-h-[30vh] max-h-[30vh] md:min-h-[35vh] object-cover',
     mainDivHeight: 'h-full',
     titleFont: 'text-xl',
     contentWrapper: 'h-full',

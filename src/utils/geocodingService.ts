@@ -1,28 +1,53 @@
 import axios from 'axios';
 
-const OPEN_CAGE_API_KEY = process.env.OPEN_CAGE_API_KEY;
-
 interface GeocodingResult {
   city: string | null;
   country: string | null;
 }
 
+const geocodeCache: { [key: string]: GeocodingResult } = {};
+
+let lastRequestTime = 0;
+const requestInterval = 1000;
+
 export async function reverseGeocode(
   lat: number,
   lon: number
 ): Promise<GeocodingResult | null> {
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${OPEN_CAGE_API_KEY}`;
+  const cacheKey = `${lat},${lon}`;
+
+  if (geocodeCache[cacheKey]) {
+    return geocodeCache[cacheKey];
+  }
+
+  const now = Date.now();
+  if (now - lastRequestTime < requestInterval) {
+    const waitTime = requestInterval - (now - lastRequestTime);
+    await new Promise((resolve) => setTimeout(resolve, waitTime));
+  }
+  lastRequestTime = Date.now();
+
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`;
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Love letters (paula@dandelion.software)',
+      },
+    });
+
     const data = response.data;
 
-    if (data && data.results.length > 0) {
-      const locationData = data.results[0].components;
+    if (data && data.address) {
+      const locationData = data.address;
       const city =
         locationData.city || locationData.town || locationData.village || null;
       const country = locationData.country || null;
-      return { city, country };
+      const result: GeocodingResult = { city, country };
+
+      geocodeCache[cacheKey] = result;
+
+      return result;
     }
 
     return { city: null, country: null };

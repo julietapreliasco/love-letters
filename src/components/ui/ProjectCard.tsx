@@ -29,11 +29,20 @@ const ProjectCard = ({
   const projectScale = useTransform(progress, range, [1, targetScale]);
 
   useEffect(() => {
-    if (project.campaign instanceof Promise) {
-      project.campaign.then(setCampaign);
-    } else {
-      setCampaign(project.campaign);
-    }
+    const checkCampaign = async () => {
+      if (project?.campaign instanceof Promise) {
+        try {
+          const resolvedCampaign = await project.campaign;
+          setCampaign(resolvedCampaign);
+        } catch (error) {
+          console.error('Error resolving campaign:', error);
+        }
+      } else {
+        setCampaign(project.campaign);
+      }
+    };
+
+    checkCampaign();
   }, [project.campaign]);
 
   return (
