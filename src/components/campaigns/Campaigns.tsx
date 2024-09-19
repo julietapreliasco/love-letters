@@ -55,7 +55,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
   const cardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image: 'h-full md:h-[35vh] object-cover',
+    image: 'max-h-[30vh] md:max-h-[35vh] object-cover',
     mainDivHeight: 'h-full',
     titleFont: 'text-xl',
     contentWrapper: 'h-full',
@@ -157,6 +157,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
             locations={campaignsWithLocation.map((campaign) => ({
               ...campaign.location!,
               id: campaign.id,
+              title: campaign.subtitle,
             }))}
           />
         </div>
