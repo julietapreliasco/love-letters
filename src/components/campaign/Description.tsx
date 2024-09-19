@@ -16,7 +16,10 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
         paragraphIndex++;
 
         return (
-          <p key={paragraphIndex} className="py-4 text-justify">
+          <p
+            key={paragraphIndex}
+            className="py-4 text-justify text-base 2xl:text-xl"
+          >
             {children}
           </p>
         );
@@ -47,7 +50,9 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
               className="w-full shadow-lg"
             />
             {imageCaption && (
-              <p className="pt-3 text-center text-sm italic">{imageCaption}</p>
+              <p className="pt-3 text-center text-sm italic lg:text-base">
+                {imageCaption}
+              </p>
             )}
           </div>
         );

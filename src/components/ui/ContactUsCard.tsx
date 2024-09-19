@@ -2,7 +2,7 @@ import Button from './Button';
 
 const ContactUsCard = () => {
   return (
-    <div className="flex w-full flex-col gap-5 rounded bg-custom-lighter-gray p-10">
+    <div className="flex w-full flex-col gap-5 rounded-[10px] bg-custom-lighter-gray p-10">
       <p className="justify font-playfair-display text-lg font-semibold lg:text-3xl">
         Ready to bring love letters to your city?
       </p>
