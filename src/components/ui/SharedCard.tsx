@@ -4,11 +4,11 @@ import Link from 'next/link';
 import React from 'react';
 
 export interface CardStyles {
-  mainDivColor: string;
-  mainDivPadding: string;
-  image: string;
-  mainDivHeight: string;
-  titleFont: string;
+  mainDivColor?: string;
+  mainDivPadding?: string;
+  image?: string;
+  mainDivHeight?: string;
+  titleFont?: string;
   contentWrapper?: string;
   linkWrapper?: string;
 }
@@ -34,7 +34,7 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
         {image?.src && (
           <div className="flex justify-center">
             {linkTo ? (
-              <Link href={linkTo}>
+              <Link href={linkTo} className="w-full">
                 <Image
                   src={image.src}
                   alt="Brian Rashid Partners"

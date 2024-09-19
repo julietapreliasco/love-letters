@@ -55,7 +55,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
   const cardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image: 'h-full md:w-[30vw] md:h-[35vh] object-cover',
+    image: 'h-full md:h-[35vh] object-cover',
     mainDivHeight: 'h-full',
     titleFont: 'text-xl',
     contentWrapper: 'h-full',
@@ -124,7 +124,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
       )}
 
       {regularCampaigns.length > 0 ? (
-        <div className="grid grid-cols-1 gap-10 px-5 md:grid-cols-3 md:px-0">
+        <div className="grid grid-cols-1 gap-10 px-5 md:grid-cols-2 md:px-0 lg:grid-cols-3">
           {regularCampaigns.map((campaign) => (
             <SharedCard
               key={campaign.id}

@@ -65,23 +65,30 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
   const pressCardStyles: CardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image: 'h-full',
-    mainDivHeight: 'h-auto',
+    image:
+      'h-[220px] md:h-[180px] lg:min-h-[200px] 2xl:min-h-[300px] object-cover',
+    mainDivHeight: 'h-full ',
     titleFont: 'text-xl',
+    contentWrapper: 'h-full',
+    linkWrapper: 'h-full flex flex-col justify-between',
   };
 
   return (
     <div className="flex max-h-[470px] justify-center md:max-h-[470px] lg:max-h-[350px]">
       <Slider className="mb-10 w-full" {...settings}>
         {sliderData?.map((card, index) => (
-          <div className="mb-5 px-3" key={index}>
+          <div className="mb-24 px-3 lg:mb-5" key={index}>
             {type === Types.PARTNER ? (
               <SharedCard
                 linkTo={`/campaigns?partner=${encodeURIComponent(card.title!)}`}
                 cardData={card}
               />
             ) : (
-              <SharedCard cardData={card} styles={pressCardStyles} />
+              <SharedCard
+                cardData={card}
+                styles={pressCardStyles}
+                linkTo={card.url}
+              />
             )}
           </div>
         ))}
