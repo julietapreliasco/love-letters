@@ -115,7 +115,7 @@ const Campaign = ({ data }: CampaignProps) => {
         )}
         {location && (
           <div className="my-10">
-            <p className="mb-5 font-playfair-display text-2xl font-medium tracking-widest md:text-4xl lg:mb-11 lg:text-5xl">
+            <p className="mb-5 font-playfair-display text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
               Campaign Location
             </p>
             <Map locations={location} />
@@ -155,9 +155,9 @@ const Campaign = ({ data }: CampaignProps) => {
               </div>
             </div>
           )}
-          <div className="mb-5 mt-14 flex justify-center md:mb-0">
-            <ContactUsCard />
-          </div>
+        </div>
+        <div className="mb-5 mt-14 flex justify-center md:mb-0">
+          <ContactUsCard />
         </div>
       </div>
       {backToTopButton && (

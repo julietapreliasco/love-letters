@@ -16,20 +16,12 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
         paragraphIndex++;
 
         return (
-          <p
-            key={paragraphIndex}
-            className="py-4 text-justify text-base 2xl:text-xl"
-          >
-            {children}
-          </p>
+          <p className="py-4 text-justify text-base 2xl:text-xl">{children}</p>
         );
       },
       [BLOCKS.HEADING_3]: (node: any, children: React.ReactNode) => (
         <div className="my-10 border-y border-custom-black p-5">
-          <h3
-            key={paragraphIndex}
-            className="font text-center font-playfair-display text-2xl font-medium"
-          >
+          <h3 className="font text-center font-playfair-display text-2xl font-medium">
             {children}
           </h3>
         </div>

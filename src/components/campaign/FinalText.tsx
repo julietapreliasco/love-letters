@@ -15,12 +15,7 @@ const FinalText = ({ finalText, imageCaption }: FinalTextProps) => {
       [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => {
         paragraphIndex++;
         return (
-          <p
-            key={paragraphIndex}
-            className="py-4 text-justify text-base 2xl:text-xl"
-          >
-            {children}
-          </p>
+          <p className="py-4 text-justify text-base 2xl:text-xl">{children}</p>
         );
       },
 
