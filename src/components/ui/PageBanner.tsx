@@ -12,12 +12,12 @@ interface PageBannerProps {
 const PageBanner = ({ bannerImg, bannerTitle }: PageBannerProps) => {
   const [blurAmount, setBlurAmount] = useState('blur(0px)');
   const bannerRef = useRef<HTMLDivElement>(null);
-  const bannerIsInView = useInView(bannerRef, { amount: 0.3 });
+  const bannerIsInView = useInView(bannerRef, { amount: 0.8 });
   const bannerControls = useAnimation();
 
   useEffect(() => {
     if (bannerIsInView) {
-      setBlurAmount('blur(5px)');
+      setBlurAmount('blur(3px)');
       bannerControls.start('visible');
     } else {
       bannerControls.start('hidden');
@@ -36,9 +36,6 @@ const PageBanner = ({ bannerImg, bannerTitle }: PageBannerProps) => {
           }}
           transition={{
             duration: 1,
-            stiffness: 60,
-            damping: 8,
-            type: 'spring',
           }}
           initial="hidden"
           animate={bannerControls}
@@ -52,6 +49,7 @@ const PageBanner = ({ bannerImg, bannerTitle }: PageBannerProps) => {
             className="z-0 h-screen w-screen self-center object-cover object-[54%] shadow-xl"
             priority
           />
+          <div className="absolute inset-0 z-10 bg-custom-black opacity-30"></div>
         </motion.div>
       )}
       <motion.div
