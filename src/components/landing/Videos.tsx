@@ -2,7 +2,6 @@ import React from 'react';
 import VideoSlider from '../ui/VideoSlider';
 import { LandingSectionType } from '@/contentful/landingSections';
 import { fetchVideos } from '@/contentful/videos';
-import Button from '../ui/Button';
 
 interface VideosProps {
   videosData: LandingSectionType;

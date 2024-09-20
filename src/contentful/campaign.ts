@@ -43,7 +43,6 @@ export interface CampaignType {
   } | null;
 }
 
-// In-memory cache for geocoding results
 const geocodeCache: Record<
   string,
   { city: string | null; country: string | null }

@@ -38,9 +38,9 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
         }}
         className="sticky top-7 z-10 mx-[20px] mb-[20px] mt-[80px] flex h-auto flex-row justify-between md:top-3 md:mx-[60px] md:mb-[40px] lg:top-2"
       >
-        <h1 className="font-playfair-display text-[32px] font-bold md:text-[64px]">
+        <h2 className="font-playfair-display text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl">
           {projectData.title}
-        </h1>
+        </h2>
         <div className="flex items-center">
           <div className="block md:hidden">
             <Button
