@@ -103,7 +103,7 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
                     No Thumbnail
                   </div>
                 )}
-                <p className="truncate-2-lines mt-[10px] font-playfair-display text-xl lg:text-2xl">
+                <p className="truncate-2-lines mt-[10px] font-lato text-lg lg:text-xl">
                   {videoTitles[index]}
                 </p>
               </div>

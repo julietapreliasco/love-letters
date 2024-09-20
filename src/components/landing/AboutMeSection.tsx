@@ -12,7 +12,7 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = async ({
   const aboutMeCard = aboutMeData.cards ? aboutMeData.cards[0] : null;
 
   return (
-    <section className="relative w-full md:h-[80vh]">
+    <section className="relative mb-20 w-full md:h-[80vh]">
       {aboutMeData.backgroundImage?.src && (
         <div className="relative h-[50vh] w-full md:h-[80vh]">
           <Image

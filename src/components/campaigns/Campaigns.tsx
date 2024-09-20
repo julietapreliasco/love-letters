@@ -90,7 +90,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
                       height={600}
                       className="h-[600px] w-full rounded-lg object-cover"
                     />
-                    <div className="absolute right-10 top-1/2 -translate-y-1/2 transform p-4">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 transform p-4">
                       <Card
                         card={{
                           title: campaign.bannerTitle,
