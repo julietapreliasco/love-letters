@@ -12,12 +12,12 @@ interface PageBannerProps {
 const PageBanner = ({ bannerImg, bannerTitle }: PageBannerProps) => {
   const [blurAmount, setBlurAmount] = useState('blur(0px)');
   const bannerRef = useRef<HTMLDivElement>(null);
-  const bannerIsInView = useInView(bannerRef, { amount: 0.8 });
+  const bannerIsInView = useInView(bannerRef, { amount: 1.0 });
   const bannerControls = useAnimation();
 
   useEffect(() => {
     if (bannerIsInView) {
-      setBlurAmount('blur(3px)');
+      setBlurAmount('blur(4px)');
       bannerControls.start('visible');
     } else {
       bannerControls.start('hidden');

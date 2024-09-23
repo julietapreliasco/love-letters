@@ -1,15 +1,11 @@
 import { LandingSectionType } from '@/contentful/landingSections';
 import ContactForm from '../ui/ContactForm';
 import animationData from '../../../public/animation-2.json';
-import dynamic from 'next/dynamic';
+import LottieAnimation from '../ui/LottieAnimation';
 
 interface ContactUsProps {
   contactUsData: LandingSectionType;
 }
-
-const LottieAnimation = dynamic(() => import('../ui/LottieAnimation'), {
-  ssr: false,
-});
 
 const ContactUs: React.FC<ContactUsProps> = ({ contactUsData }) => {
   return (
