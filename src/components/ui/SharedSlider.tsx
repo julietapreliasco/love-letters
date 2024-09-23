@@ -79,9 +79,9 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
 
   return (
     <div className="flex justify-center">
-      <Slider className="mb-10 w-full" {...settings}>
+      <Slider className="w-full lg:mt-10" {...settings}>
         {sliderData?.map((card, index) => (
-          <div className="mb-24 px-3 lg:mb-5" key={index}>
+          <div className="mb-10 px-3 lg:mb-0" key={index}>
             {type === Types.PARTNER ? (
               <SharedCard
                 linkTo={`/campaigns?partner=${encodeURIComponent(card.title!)}`}

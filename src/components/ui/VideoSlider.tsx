@@ -48,12 +48,6 @@ const VideoSlider = ({ videos }: { videos: VideoFields[] }) => {
     slidesToScroll: 1,
     centerMode: false,
     beforeChange: (current: number, next: number) => setCurrentSlide(next),
-    nextArrow:
-      videoURLs.length > 3 && currentSlide < videoURLs.length - 3 ? (
-        <SliderButton next={true} />
-      ) : undefined,
-    prevArrow:
-      videoURLs.length > 3 && currentSlide > 0 ? <SliderButton /> : undefined,
   };
 
   const mobileSettings = {

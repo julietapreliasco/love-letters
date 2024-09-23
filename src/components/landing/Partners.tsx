@@ -13,8 +13,11 @@ const Partners: React.FC<PartnersProps> = ({ partnersData }) => {
   const partnersCards = partnersData.cards;
 
   return (
-    <section id="partners" className="w-full px-5 md:px-[70px] lg:mb-20">
-      <div className="mb-6 flex w-full justify-between pb-12">
+    <section
+      id="partners"
+      className="w-full px-5 md:mb-10 md:px-[70px] lg:mb-20"
+    >
+      <div className="flex w-full justify-between pb-10 lg:pb-6">
         <h2 className="font-playfair-display text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl">
           {partnersData.title}
         </h2>

@@ -2,6 +2,8 @@ import React from 'react';
 import VideoSlider from '../ui/VideoSlider';
 import { LandingSectionType } from '@/contentful/landingSections';
 import { fetchVideos } from '@/contentful/videos';
+import LottieAnimation from '../ui/LottieAnimation';
+import animationData from '../../../public/videos-background.json';
 
 interface VideosProps {
   videosData: LandingSectionType;
@@ -14,9 +16,18 @@ const Videos = async ({ videosData }: VideosProps) => {
   );
 
   return (
-    <section className="w-full px-8 py-10 md:px-10 md:py-32 lg:px-28 xl:px-40">
-      <div>
-        <VideoSlider videos={landingVideos} />
+    <section className="relative mb-14 mt-10 w-full overflow-hidden p-3 md:p-20 lg:px-48 lg:py-20">
+      <div className="absolute inset-0 h-full w-full">
+        <LottieAnimation
+          animationData={animationData}
+          autoplay={true}
+          loop={true}
+        />
+      </div>
+      <div className="relative z-10 flex w-full items-center justify-center">
+        <div className="w-full xl:max-w-7xl">
+          <VideoSlider videos={landingVideos} />
+        </div>
       </div>
     </section>
   );

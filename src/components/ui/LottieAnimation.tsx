@@ -1,6 +1,7 @@
 'use client';
+
 import { useEffect, useRef, useState } from 'react';
-import lottie from 'lottie-web';
+import lottie, { AnimationItem } from 'lottie-web';
 
 interface LottieAnimationProps {
   animationData: any;
@@ -9,14 +10,14 @@ interface LottieAnimationProps {
   hover?: boolean;
 }
 
-const LottieAnimation = ({
+export default function Component({
   animationData,
   autoplay = true,
   loop = true,
   hover = false,
-}: LottieAnimationProps) => {
+}: LottieAnimationProps) {
   const animationContainer = useRef<HTMLDivElement>(null);
-  const animationInstance = useRef<any>(null);
+  const animationInstance = useRef<AnimationItem | null>(null);
 
   useEffect(() => {
     if (animationContainer.current) {
@@ -26,10 +27,15 @@ const LottieAnimation = ({
         loop: loop,
         autoplay: false,
         animationData: animationData,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice',
+        },
       });
       animationInstance.current = anim;
 
-      return () => anim.destroy();
+      return () => {
+        anim.destroy();
+      };
     }
   }, [animationData, loop]);
 
@@ -44,7 +50,10 @@ const LottieAnimation = ({
     }
   }, [hover, autoplay]);
 
-  return <div ref={animationContainer} />;
-};
-
-export default LottieAnimation;
+  return (
+    <div
+      ref={animationContainer}
+      className="relative h-full w-full overflow-hidden"
+    />
+  );
+}
