@@ -36,26 +36,12 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
           opacity: headerOpacity,
           transform: `translateY(${roundedTranslateY}px)`,
         }}
-        className="sticky top-7 z-10 mx-[20px] mb-[20px] mt-[80px] flex h-auto flex-row justify-between md:top-3 md:mx-[60px] md:mb-[40px] lg:top-2"
+        className="sticky top-7 z-10 mt-[80px] flex h-auto flex-row justify-between md:mx-[60px]"
       >
-        <h2 className="font-playfair-display text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl">
-          {projectData.title}
-        </h2>
-        <div className="flex items-center">
-          <div className="block md:hidden">
-            <Button
-              linkTo="/campaigns"
-              variant="SECONDARY"
-              label={'View all '}
-            />
-          </div>
-          <div className="hidden md:block">
-            <Button
-              linkTo="/campaigns"
-              variant="SECONDARY"
-              label={'Check our campaigns'}
-            />
-          </div>
+        <div className="flex w-full justify-center lg:pb-6">
+          <h2 className="font-playfair-display text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl">
+            {projectData.title}
+          </h2>
         </div>
       </motion.div>
       <div className="flex w-full flex-col items-center">
@@ -80,6 +66,9 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
               );
             })}
         </div>
+      </div>
+      <div className="flex justify-center">
+        <Button linkTo="/campaigns" variant="SECONDARY" label={'See all'} />
       </div>
     </section>
   );
