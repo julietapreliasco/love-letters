@@ -13,7 +13,7 @@ const Videos = async ({ videosData }: VideosProps) => {
   );
 
   return (
-    <section className="relative mb-14 mt-10 w-full overflow-hidden bg-gradient-to-b from-[#f5d771] to-[#faebb9] p-3 md:p-20 lg:px-48 lg:py-20">
+    <section className="relative mb-14 mt-10 w-full overflow-hidden p-3 md:p-20 lg:px-48 lg:py-20">
       <div className="relative z-10 flex w-full items-center justify-center">
         <div className="w-full xl:max-w-7xl">
           <VideoSlider videos={landingVideos} />

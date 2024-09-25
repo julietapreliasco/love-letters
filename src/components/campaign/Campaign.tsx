@@ -64,19 +64,19 @@ const Campaign = ({ data }: CampaignProps) => {
         <div className="mb-8 justify-between md:mb-16 md:flex">
           {date && (
             <div>
-              <p className="font-futura-std text-xl font-semibold">Date</p>
+              <p className="font-futura text-xl font-semibold">Date</p>
               <p className="font-lato text-base">{date}</p>
             </div>
           )}
           {partner && (
             <div>
-              <p className="font-futura-std text-xl font-semibold">Partner</p>
+              <p className="font-futura text-xl font-semibold">Partner</p>
               <p className="font-lato text-base">{partner}</p>
             </div>
           )}
         </div>
         <div>
-          <h3 className="font-futura-std mb-5 text-2xl font-medium tracking-widest md:text-4xl lg:mb-10 lg:text-5xl">
+          <h3 className="font-futura mb-5 text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-10 lg:text-5xl lg:leading-normal">
             {subtitle}
           </h3>
         </div>
@@ -103,7 +103,7 @@ const Campaign = ({ data }: CampaignProps) => {
         )}
         {gallery != null && (
           <div id="gallery" className="mt-10 lg:mt-20">
-            <p className="font-futura-std mb-5 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
+            <p className="font-futura mb-5 text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11">
               Gallery
             </p>
             <Gallery images={gallery!} />
@@ -111,7 +111,7 @@ const Campaign = ({ data }: CampaignProps) => {
         )}
         {location && (
           <div className="my-10">
-            <p className="font-futura-std mb-5 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
+            <p className="font-futura mb-5 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
               Campaign Location
             </p>
             <Map locations={location} />
@@ -120,7 +120,7 @@ const Campaign = ({ data }: CampaignProps) => {
         <div className="mt-10 flex justify-center">
           {press && press.length > 0 && (
             <div className="mt-14 lg:mt-20">
-              <p className="font-futura-std mb-6 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
+              <p className="font-futura mb-6 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
                 Press about this campaign
               </p>
               <div

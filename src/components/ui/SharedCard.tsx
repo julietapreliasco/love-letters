@@ -25,7 +25,7 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
   return (
     <div
       className={`flex ${styles?.mainDivHeight ?? 'h-[350px]'} justify-center rounded-[10px] ${
-        styles?.mainDivColor ?? 'bg-custom-lighter-yellow'
+        styles?.mainDivColor ?? 'border-2 border-custom-black bg-white'
       } ${styles?.mainDivPadding ?? 'p-6'} md:min-w-[210px] ${
         styles?.mainDivHeight ?? 'xl:h-80'
       }`}
@@ -59,15 +59,15 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
         >
           {title && (
             <p
-              className={`font-futura-std ${
+              className={`font-futura leading-normal ${
                 styles?.titleFont ?? 'text-2xl'
-              } font-bold`}
+              } font-semibold`}
             >
               {title}
             </p>
           )}
           {description && (
-            <p className="truncate-2-lines font-lato text-base">
+            <p className="truncate-2-lines font-lato text-base leading-normal">
               {description}
             </p>
           )}
