@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   variant?: 'PRIMARY_NAV' | 'SECONDARY_NAV' | 'SECONDARY';
   type?: 'submit' | 'reset' | 'button' | undefined;
   disabled?: boolean;
@@ -37,6 +37,8 @@ const Button = ({
       variantClass =
         'bg-custom-yellow hover:bg-[#dab431] border border-2 border-custom-black text-custom-black';
   }
+
+  console.log(type);
 
   return (
     <div className={className ?? 'h-fit w-fit'}>

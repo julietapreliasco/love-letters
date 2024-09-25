@@ -130,7 +130,7 @@ const ContactForm = () => {
 
       <Button
         className="mt-5 h-full w-full"
-        type="submit"
+        onClick={(e) => handleSubmit(e)}
         disabled={isLoading}
         label={isLoading ? 'Sending...' : 'Send →'}
       />
