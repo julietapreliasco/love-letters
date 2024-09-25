@@ -81,7 +81,7 @@ const Gallery = ({ images }: ImageGalleryProps) => {
 
       {currentIndex !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white lg:p-40">
-          <p className="font-futura-std absolute left-4 top-4 text-custom-black">
+          <p className="font-futura absolute left-4 top-4 text-custom-black">
             {`${currentIndex + 1}/${images.length}`}
           </p>
           <button

@@ -79,7 +79,7 @@ const Header = () => {
           />
           <Button
             linkTo="/about-me"
-            label="About me"
+            label="About"
             variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
           />
           <Button

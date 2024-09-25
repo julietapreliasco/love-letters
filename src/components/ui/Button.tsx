@@ -38,8 +38,6 @@ const Button = ({
         'bg-custom-yellow hover:bg-[#dab431] border border-2 border-custom-black text-custom-black';
   }
 
-  console.log(type);
-
   return (
     <div className={className ?? 'h-fit w-fit'}>
       <Link href={linkTo}>
