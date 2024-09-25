@@ -68,7 +68,7 @@ const InitialBanner = ({ bannerData }: InitialBannerProps) => {
             className="object-cover object-top"
             priority
           />
-          <div className="absolute inset-0 z-10 bg-custom-black opacity-10"></div>
+          <div className="absolute inset-0 z-10 bg-custom-black opacity-20"></div>
         </motion.div>
       )}
       <div className="absolute left-0 top-[50%] z-10 w-full -translate-y-1/2 text-center text-white">
@@ -84,17 +84,6 @@ const InitialBanner = ({ bannerData }: InitialBannerProps) => {
             {bannerData.title}
           </h1>
         </motion.div>
-        {/* <motion.div
-          className="my-5 flex justify-center 2xl:my-7"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, ease: 'easeOut', delay: 2 },
-          }}
-        >
-          <Button label="Join us" />
-        </motion.div> */}
       </div>
     </motion.section>
   );

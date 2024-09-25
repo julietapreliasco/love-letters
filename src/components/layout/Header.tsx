@@ -53,8 +53,8 @@ const Header = () => {
     : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
 
   const logoClass = !headerTwo
-    ? 'w-[104px] h-[30px] md:w-[208px] md:h-[60px] 2xl:w-[248px] 2xl:h-auto'
-    : 'w-[104px] h-[30px] md:w-[138px] md:h-[40px] 2xl:w-[208px] 2xl:h-[80px]';
+    ? 'w-[104px] h-[30px] md:w-[208px] md:h-[60px] '
+    : 'w-[104px] h-[30px] md:w-[138px] md:h-[40px] ';
 
   const toggleMenu = () => setOpenMenu(!openMenu);
 
@@ -79,7 +79,7 @@ const Header = () => {
           />
           <Button
             linkTo="/about-me"
-            label="About me"
+            label="About"
             variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
           />
           <Button

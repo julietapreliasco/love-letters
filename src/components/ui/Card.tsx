@@ -36,14 +36,14 @@ const Card = ({
         <div className="flex flex-col justify-center text-left text-custom-black">
           {title && (
             <span
-              className={`${titleSize ?? 'text-2xl font-bold md:text-4xl'}`}
+              className={`${titleSize ?? 'text-2xl font-semibold leading-normal md:text-4xl md:leading-normal'}`}
             >
               {title}
             </span>
           )}
           {subtitle && (
             <span
-              className={`${subtitleSize ?? 'max-w-[300px] text-xl uppercase md:text-2xl'} `}
+              className={`${subtitleSize ?? 'max-w-[300px] text-xl uppercase leading-normal md:text-2xl md:leading-normal'} `}
             >
               {subtitle}
             </span>
@@ -53,7 +53,7 @@ const Card = ({
       {description && (
         <div>
           <p
-            className={`font-lato text-custom-black ${descriptionSize ?? 'max-w-[400px] md:text-xl'} `}
+            className={`font-lato leading-normal text-custom-black md:leading-normal ${descriptionSize ?? 'max-w-[400px] md:text-xl'} `}
           >
             {description}
           </p>

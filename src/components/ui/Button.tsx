@@ -34,7 +34,8 @@ const Button = ({
         'text-custom-black transition-transform transform hover:scale-105 duration-200';
       break;
     default:
-      variantClass = 'bg-custom-yellow hover:bg-[#dab431] text-custom-black';
+      variantClass =
+        'bg-custom-yellow hover:bg-[#dab431] border border-2 border-custom-black text-custom-black';
   }
 
   return (
@@ -44,7 +45,7 @@ const Button = ({
           type={type}
           onClick={onClick}
           disabled={disabled}
-          className={`${disabled ? 'bg-custom-gray' : variantClass} ${className ?? ''} rounded-md px-[24px] py-[10px] font-lato text-sm font-bold uppercase 2xl:text-xl`}
+          className={`${disabled ? 'bg-custom-gray' : variantClass} ${className ?? ''} rounded-md px-[24px] py-[10px] font-lato text-sm font-bold uppercase 2xl:text-base`}
         >
           {label}
         </button>

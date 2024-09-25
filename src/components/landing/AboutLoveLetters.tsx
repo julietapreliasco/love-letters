@@ -23,7 +23,7 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
         />
       </div>
       <div className="flex flex-1 flex-col xl:gap-5">
-        <p className="font-futura mb-5 text-center text-2xl font-bold text-custom-black md:text-5xl lg:text-start 2xl:text-5xl">
+        <p className="font-futura mb-5 text-center text-2xl font-semibold leading-normal tracking-wider text-custom-black md:text-5xl md:leading-normal lg:text-start lg:leading-normal 2xl:text-5xl 2xl:leading-normal">
           {aboutLoveLettersData.title}
         </p>
         <div className="text-center font-lato text-sm text-custom-black md:text-xl lg:text-start">
