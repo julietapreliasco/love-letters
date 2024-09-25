@@ -23,7 +23,7 @@ const Card = ({
 
   return (
     <div className="flex w-fit flex-col gap-5 rounded-[10px] bg-white p-10">
-      <div className="flex flex-col gap-5 font-playfair-display xs:flex-row">
+      <div className="font-futura flex flex-col gap-5 xs:flex-row">
         {image?.src && (
           <Image
             src={image.src}
@@ -36,14 +36,14 @@ const Card = ({
         <div className="flex flex-col justify-center text-left text-custom-black">
           {title && (
             <span
-              className={`${titleSize ?? 'text-2xl font-bold md:text-4xl 2xl:text-5xl'}`}
+              className={`${titleSize ?? 'text-2xl font-bold md:text-4xl'}`}
             >
               {title}
             </span>
           )}
           {subtitle && (
             <span
-              className={`${subtitleSize ?? 'max-w-[300px] text-xl font-bold md:text-2xl 2xl:text-3xl'} `}
+              className={`${subtitleSize ?? 'max-w-[300px] text-xl uppercase md:text-2xl'} `}
             >
               {subtitle}
             </span>
@@ -53,7 +53,7 @@ const Card = ({
       {description && (
         <div>
           <p
-            className={`font-lato text-custom-black ${descriptionSize ?? 'max-w-[400px] md:text-xl 2xl:text-2xl'} `}
+            className={`font-lato text-custom-black ${descriptionSize ?? 'max-w-[400px] md:text-xl'} `}
           >
             {description}
           </p>

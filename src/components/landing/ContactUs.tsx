@@ -21,7 +21,7 @@ const ContactUs: React.FC<ContactUsProps> = ({ contactUsData }) => {
         />
       </div>
       <div className="flex flex-col gap-5 text-[16px] text-custom-black md:py-[2.5rem] md:pr-[3.75rem] md:text-base">
-        <span className="font-playfair-display text-3xl font-semibold md:text-4xl">
+        <span className="font-futura-std text-3xl font-semibold md:text-4xl">
           {contactUsData.title}
         </span>
         <p className="font-lato">{contactUsData.description}</p>

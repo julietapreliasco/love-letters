@@ -59,7 +59,7 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
         >
           {title && (
             <p
-              className={`font-playfair-display ${
+              className={`font-futura-std ${
                 styles?.titleFont ?? 'text-2xl'
               } font-bold`}
             >

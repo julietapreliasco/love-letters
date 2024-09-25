@@ -21,7 +21,7 @@ const Description = ({ description, imageCaption }: DescriptionProps) => {
       },
       [BLOCKS.HEADING_3]: (node: any, children: React.ReactNode) => (
         <div className="my-10 border-y border-custom-black p-5">
-          <h3 className="font text-center font-playfair-display text-2xl font-medium">
+          <h3 className="font font-futura-std text-center text-2xl font-medium">
             {children}
           </h3>
         </div>

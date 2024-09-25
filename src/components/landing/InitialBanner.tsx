@@ -9,7 +9,7 @@ interface InitialBannerProps {
   bannerData: LandingSectionType;
 }
 
-const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
+const InitialBanner = ({ bannerData }: InitialBannerProps) => {
   const [scrollY, setScrollY] = useState(0);
   const [imageScale, setImageScale] = useState(1.2);
   const [imageOpacity, setImageOpacity] = useState(1);
@@ -65,26 +65,27 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
             src={bannerData.backgroundImage.src}
             alt="Love Letters Home Banner"
             fill
-            className="object-cover object-bottom"
+            className="object-cover object-top"
             priority
           />
+          <div className="absolute inset-0 z-10 bg-custom-black opacity-10"></div>
         </motion.div>
       )}
-      <div className="absolute left-0 top-1/2 z-10 w-2/3 -translate-y-1/2 p-[20px] text-white md:p-[60px]">
+      <div className="absolute left-0 top-[50%] z-10 w-full -translate-y-1/2 text-center text-white">
         <motion.div
-          className="w-[260px] md:w-[460px] lg:w-[610px] 2xl:w-[810px]"
+          className="mx-auto"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
             transition: { duration: 1.7, ease: 'easeIn', delay: 0.4 },
           }}
         >
-          <h1 className="leading[43px] md:leading[64px] text-left font-playfair-display text-[32px] font-bold drop-shadow-2xl md:text-5xl 2xl:text-7xl">
+          <h1 className="font-futura text-center text-[32px] font-bold drop-shadow-2xl md:text-5xl md:leading-normal">
             {bannerData.title}
           </h1>
         </motion.div>
-        <motion.div
-          className="my-5 2xl:my-7"
+        {/* <motion.div
+          className="my-5 flex justify-center 2xl:my-7"
           initial={{ opacity: 0, y: -10 }}
           animate={{
             opacity: 1,
@@ -93,7 +94,7 @@ const InitialBanner: React.FC<InitialBannerProps> = ({ bannerData }) => {
           }}
         >
           <Button label="Join us" />
-        </motion.div>
+        </motion.div> */}
       </div>
     </motion.section>
   );

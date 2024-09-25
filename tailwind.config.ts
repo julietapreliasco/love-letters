@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
         'playfair-display': ['Playfair Display', 'serif'],
+        futura: ['FuturaLT', 'sans-serif'],
       },
       colors: {
         'custom-yellow': '#F3C937',

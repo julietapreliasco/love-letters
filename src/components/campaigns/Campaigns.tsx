@@ -69,7 +69,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
 
   return (
     <div className="flex flex-col px-4 py-20 md:px-[60px] md:py-[120px]">
-      <h2 className="mb-8 text-center font-playfair-display text-4xl tracking-widest md:text-6xl">
+      <h2 className="font-futura-std mb-8 text-center text-4xl tracking-widest md:text-6xl">
         {page.page}
       </h2>
       <div className="w-1/2 self-center">
@@ -151,7 +151,7 @@ export const Campaigns = ({ page, campaigns }: CampaignsProps) => {
 
       {campaignsWithLocation.length > 0 && (
         <div className="mt-16 md:mt-20">
-          <h2 className="mb-8 text-center font-playfair-display text-4xl tracking-widest md:text-6xl">
+          <h2 className="font-futura-std mb-8 text-center text-4xl tracking-widest md:text-6xl">
             Love letters around the world
           </h2>
           <Map
