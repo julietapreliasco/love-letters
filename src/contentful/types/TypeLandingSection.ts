@@ -14,6 +14,7 @@ export interface TypeLandingSectionFields {
   cards?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   videos?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   richDescription?: EntryFieldTypes.RichText;
+  bannerImages?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
 }
 
 export type TypeLandingSectionSkeleton = EntrySkeletonType<
