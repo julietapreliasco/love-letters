@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Button from '../ui/Button';
 import { LandingSectionType } from '@/contentful/landingSections';
 
 interface InitialBannerProps {
@@ -80,7 +79,7 @@ const InitialBanner = ({ bannerData }: InitialBannerProps) => {
             transition: { duration: 1.7, ease: 'easeIn', delay: 0.4 },
           }}
         >
-          <h1 className="font-futura text-center text-[32px] font-bold drop-shadow-2xl md:text-5xl md:leading-normal">
+          <h1 className="text-center font-futura text-[32px] font-bold drop-shadow-2xl md:text-5xl md:leading-normal">
             {bannerData.title}
           </h1>
         </motion.div>

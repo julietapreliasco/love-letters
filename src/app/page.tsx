@@ -8,6 +8,8 @@ import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
 import Partners from '@/components/landing/Partners';
 import Press from '@/components/landing/Press';
+import Banner from '@/components/landing/Banner';
+import { BannerType } from '@/types';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -24,9 +26,22 @@ const Home: React.FC = async () => {
   const partners = findSection('partners', landingSections);
   const press = findSection('press', landingSections);
 
+  const campaignLinks = [
+    { title: 'Moravian Uniersity', link: '/campaigns' },
+    { title: 'Allentown', link: '/#partners' },
+    { title: 'Bethlehem', link: '/' },
+    {
+      title: 'Promise neighbourhoods: ending gun violence',
+      link: '/about-me',
+    },
+  ];
+
   return (
     <div>
-      <InitialBanner bannerData={initialBanner!} />
+      <Banner
+        bannerType={BannerType.MAIN_BANNER}
+        // campaignData={{ campaignLinks: campaignLinks, title: 'Lehigh Valley' }}
+      />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />

@@ -22,6 +22,7 @@ export interface LandingSectionType {
   cards?: CardType[];
   videos?: VideoType[];
   richDescription?: Document | null;
+  bannerImages?: ContentImage[];
 }
 
 function getRichTextFieldValue(
@@ -56,6 +57,7 @@ export function parseContentfulLandingSection(
   }
 
   const backgroundImageField = landingSectionEntry.fields.backgroundImage;
+  const fields = landingSectionEntry.fields;
 
   const backgroundImage = backgroundImageField
     ? parseContentfulContentImage(
@@ -65,6 +67,14 @@ export function parseContentfulLandingSection(
           | UnresolvedLink<'Asset'>
       )
     : null;
+
+  const bannerImages = fields.bannerImages
+    ? (fields.bannerImages as Asset[])
+        .map((image) =>
+          parseContentfulContentImage(image as Asset<undefined, string>)
+        )
+        .filter((image): image is ContentImage => image !== null)
+    : [];
 
   const cards: CardType[] = landingSectionEntry.fields.cards
     ? (landingSectionEntry.fields.cards as Entry<TypeCardSkeleton>[])
@@ -92,6 +102,7 @@ export function parseContentfulLandingSection(
     richDescription: getRichTextFieldValue(
       landingSectionEntry.fields.richDescription
     ),
+    bannerImages: bannerImages,
   };
 }
 

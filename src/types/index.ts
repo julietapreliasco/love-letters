@@ -1,0 +1,4 @@
+export enum BannerType {
+  MAIN_BANNER = 'MAIN_BANNER',
+  CAMPAIGN_BANNER = 'CAMPAIGN_BANNER',
+}
