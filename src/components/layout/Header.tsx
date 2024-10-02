@@ -10,12 +10,9 @@ import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [headerTwo, setHeaderTwo] = useState(false);
+  const [header, setHeader] = useState(false);
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const headerControls = useAnimation();
-
-  const pathname = usePathname();
-  const blackText = pathname === '/campaigns';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +22,10 @@ const Header = () => {
       const oneThirdBanner = bannerOffsetTop + bannerHeight / 2;
       const currentScrollPos = window.scrollY;
 
-      if (currentScrollPos > bannerHeight && currentScrollPos < lastScrollPos) {
-        setHeaderTwo(true);
+      if (currentScrollPos > bannerHeight) {
+        setHeader(true);
       } else if (currentScrollPos <= oneThirdBanner) {
-        setHeaderTwo(false);
+        setHeader(false);
       }
 
       setLastScrollPos(currentScrollPos);
@@ -48,12 +45,12 @@ const Header = () => {
     });
   }, [headerControls]);
 
-  const headerClass = !headerTwo
-    ? 'bg-transparent w-full absolute'
+  const headerClass = !header
+    ? 'hidden'
     : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
 
-  const logoClass = !headerTwo
-    ? 'w-[104px] h-[30px] md:w-[208px] md:h-[60px] '
+  const logoClass = !header
+    ? 'hidden'
     : 'w-[104px] h-[30px] md:w-[138px] md:h-[40px] ';
 
   const toggleMenu = () => setOpenMenu(!openMenu);
@@ -61,39 +58,28 @@ const Header = () => {
   return (
     <>
       <motion.header
-        className={`top-0 z-50 flex justify-between px-[20px] py-[20px] ${headerClass}`}
+        className={`top-0 z-50 flex justify-between px-[20px] py-[10px] ${headerClass}`}
         initial={{ opacity: 0 }}
         animate={headerControls}
       >
         <Link href="/">
-          <Logo
-            color={headerTwo || blackText ? '#29241F' : undefined}
-            className={logoClass}
-          />
+          <Logo color={'#29241F'} className={logoClass} />
         </Link>
         <div className="hidden items-center md:flex">
           <Button
             label="Campaigns"
-            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
+            variant={'SECONDARY_NAV'}
             linkTo="/campaigns"
           />
-          <Button
-            linkTo="/about-me"
-            label="About"
-            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
-          />
+          <Button linkTo="/about-me" label="About" variant={'SECONDARY_NAV'} />
           <Button
             label="Partners"
             linkTo="/#partners"
-            variant={headerTwo || blackText ? 'SECONDARY_NAV' : 'PRIMARY_NAV'}
+            variant={'SECONDARY_NAV'}
           />
           <Button linkTo="/#contact" label="Join us" />
         </div>
-        <div
-          className={`items-center text-[24px] md:hidden ${
-            headerTwo || blackText ? 'text-custom-black' : 'text-white'
-          }`}
-        >
+        <div className={'items-center text-[24px] text-custom-black md:hidden'}>
           <IoIosMenu onClick={toggleMenu} />
         </div>
       </motion.header>
