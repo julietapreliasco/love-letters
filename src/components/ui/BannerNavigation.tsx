@@ -7,7 +7,7 @@ interface BannerNavigationLink {
 }
 
 interface BannerNavigationProps {
-  links: BannerNavigationLink[];
+  links: BannerNavigationLink[] | undefined;
   onLinkHover: (index: number) => void;
   onLinkLeave: () => void;
   bannerType: BannerType;
@@ -21,13 +21,13 @@ const BannerNavigation = ({
 }: BannerNavigationProps) => {
   return (
     <div
-      className={`m-6 flex ${bannerType === BannerType.CAMPAIGN_BANNER ? 'flex-col' : 'flex-row gap-2'} text-center font-futura uppercase text-white sm:flex-row`}
+      className={`m-6 flex ${bannerType === BannerType.CAMPAIGN_BANNER ? 'grid grid-cols-2 md:flex' : 'flex-row gap-2'} text-center font-futura uppercase text-white`}
     >
-      {links.map((link, index) => (
+      {links?.map((link, index) => (
         <Link
           href={link.link}
           key={index}
-          className="truncate py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:px-2 sm:text-sm lg:text-base"
+          className="px-3 py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:text-sm lg:text-base"
           onMouseEnter={() => onLinkHover(index)}
           onMouseLeave={onLinkLeave}
         >

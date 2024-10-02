@@ -8,11 +8,7 @@ import AlternativeLogo from '../ui/AlternativeLogo';
 import { BannerType } from '@/types';
 import { motion } from 'framer-motion';
 import { IoIosArrowDropdown } from 'react-icons/io';
-
-interface CampaignData {
-  campaignLinks: BannerNavigationLink[];
-  title: string;
-}
+import { PlaceType } from '@/contentful/places';
 
 interface BannerNavigationLink {
   title: string;
@@ -20,9 +16,9 @@ interface BannerNavigationLink {
 }
 
 interface InitialBannerProps {
-  bannerData: LandingSectionType;
+  bannerData?: LandingSectionType;
   bannerType: BannerType;
-  campaignData?: CampaignData;
+  placeData?: PlaceType;
 }
 
 const images = [
@@ -32,18 +28,14 @@ const images = [
   '/banner_img_4.png',
 ];
 
-const defaultLinks = [
+const defaultLinks: BannerNavigationLink[] = [
   { title: 'Places', link: '/campaigns' },
   { title: 'Partners', link: '/#partners' },
   { title: 'Press', link: '/' },
   { title: 'About', link: '/about-me' },
 ];
 
-const Banner = ({
-  bannerData,
-  bannerType,
-  campaignData,
-}: InitialBannerProps) => {
+const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
   const [activeImage, setActiveImage] = useState(
     bannerData?.bannerImages?.[0]?.src || images[0]
   );
@@ -67,6 +59,12 @@ const Banner = ({
     }
   };
 
+  const placeLinks: BannerNavigationLink[] =
+    placeData?.campaigns?.map((campaign) => ({
+      title: campaign.bannerTitle || '',
+      link: '',
+    })) || [];
+
   return (
     <section className="relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
       <motion.div
@@ -85,20 +83,24 @@ const Banner = ({
         />
       </motion.div>
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
-        <div className="w-3/4 md:w-1/2">
+        <div className="flex w-full flex-col items-center">
           {bannerType === BannerType.MAIN_BANNER ? (
-            <Logo />
+            <Logo className="w-2/3 md:w-1/2" />
           ) : (
-            <AlternativeLogo />
+            <AlternativeLogo className="w-48 md:w-72" />
           )}
           {bannerType === BannerType.CAMPAIGN_BANNER && (
-            <p className="text-center font-futura text-2xl font-bold uppercase tracking-wider text-white sm:text-4xl lg:text-6xl 2xl:text-7xl">
-              {campaignData?.title}
+            <p className="text-center font-futura text-4xl font-bold uppercase tracking-wider text-white md:text-6xl">
+              {placeData?.title}
             </p>
           )}
         </div>
         <BannerNavigation
-          links={campaignData?.campaignLinks ?? defaultLinks}
+          links={
+            bannerType === BannerType.CAMPAIGN_BANNER
+              ? placeLinks
+              : defaultLinks
+          }
           bannerType={bannerType}
           onLinkHover={handleMouseEnter}
           onLinkLeave={handleMouseLeave}

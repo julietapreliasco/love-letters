@@ -26,23 +26,9 @@ const Home: React.FC = async () => {
   const partners = findSection('partners', landingSections);
   const press = findSection('press', landingSections);
 
-  const campaignLinks = [
-    { title: 'Allentown', link: '/#partners' },
-    { title: 'Bethlehem', link: '/' },
-    {
-      title: 'Ending gun violence',
-      link: '/about-me',
-    },
-    { title: 'Moravian Uniersity', link: '/campaigns' },
-  ];
-
   return (
     <div>
-      <Banner
-        bannerData={initialBanner!}
-        bannerType={BannerType.CAMPAIGN_BANNER}
-        campaignData={{ campaignLinks: campaignLinks, title: 'Lehigh Valley' }}
-      />
+      <Banner bannerData={initialBanner!} bannerType={BannerType.MAIN_BANNER} />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
