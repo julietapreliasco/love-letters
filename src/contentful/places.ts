@@ -9,6 +9,7 @@ import { CampaignType, parseContentfulCampaign } from './campaign';
 import { Document } from '@contentful/rich-text-types';
 
 export interface PlaceType {
+  id: string;
   title: string;
   backgroundImage: ContentImage | null;
   campaigns: CampaignType[] | null;
@@ -66,6 +67,7 @@ export async function parseContentfulPlace(
   const description = getRichTextFieldValue(placeEntry.fields.description);
 
   return {
+    id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
     backgroundImage,
     campaigns:

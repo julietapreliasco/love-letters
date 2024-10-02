@@ -17,7 +17,7 @@ const Footer = async () => {
     <footer className="w-full bg-custom-lighter-yellow px-[35px] py-[46px] md:px-[60px] md:py-[46px]">
       <div className="flex flex-col items-center justify-between gap-10 border-b border-custom-black pb-5 md:flex-row">
         <FooterLogo className="h-auto w-[189px]" />
-        <p className="font-futura max-w-[480px] self-center text-center text-lg font-medium text-custom-black md:max-w-[680px] lg:text-xl 2xl:text-2xl">
+        <p className="max-w-[480px] self-center text-center font-futura text-lg font-medium text-custom-black md:max-w-[680px] lg:text-xl 2xl:text-2xl">
           {data?.description}
         </p>
         <div className="flex flex-col gap-[10px] md:self-center">
