@@ -8,6 +8,8 @@ import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
 import Partners from '@/components/landing/Partners';
 import Press from '@/components/landing/Press';
+import Banner from '@/components/landing/Banner';
+import { BannerType } from '@/types';
 
 const Home: React.FC = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -26,7 +28,7 @@ const Home: React.FC = async () => {
 
   return (
     <div>
-      <InitialBanner bannerData={initialBanner!} />
+      <Banner bannerData={initialBanner!} bannerType={BannerType.MAIN_BANNER} />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />

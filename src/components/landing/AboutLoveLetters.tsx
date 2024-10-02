@@ -14,7 +14,10 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
   const richDescription = aboutLoveLettersData.richDescription;
 
   return (
-    <section className="flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:px-[60px] lg:flex-row xl:gap-28">
+    <section
+      id="aboutLoveLetters"
+      className="flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:px-[60px] lg:flex-row xl:gap-28"
+    >
       <div className="flex flex-1 justify-center">
         <LottieAnimation
           autoplay={true}
@@ -23,7 +26,7 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
         />
       </div>
       <div className="flex flex-1 flex-col xl:gap-5">
-        <p className="font-futura mb-5 text-center text-2xl font-semibold leading-normal tracking-wider text-custom-black md:text-5xl md:leading-normal lg:text-start lg:leading-normal 2xl:text-5xl 2xl:leading-normal">
+        <p className="mb-5 text-center font-futura text-2xl font-semibold leading-normal tracking-wider text-custom-black md:text-5xl md:leading-normal lg:text-start lg:leading-normal 2xl:text-5xl 2xl:leading-normal">
           {aboutLoveLettersData.title}
         </p>
         <div className="text-center font-lato text-sm text-custom-black md:text-xl lg:text-start">

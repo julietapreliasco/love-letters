@@ -3,12 +3,12 @@ interface LogoProps {
   className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ color = "#fff", className }) => (
+const Logo: React.FC<LogoProps> = ({ color = '#fff', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     fill="none"
-    viewBox="0 0 208 60"
+    viewBox="0 0 200 60"
   >
     <path
       fill={color}
