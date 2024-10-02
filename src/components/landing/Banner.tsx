@@ -29,19 +29,28 @@ const images = [
 ];
 
 const defaultLinks: BannerNavigationLink[] = [
-  { title: 'Places', link: '/campaigns' },
+  { title: 'Places', link: '/places' },
   { title: 'Partners', link: '/#partners' },
   { title: 'Press', link: '/' },
   { title: 'About', link: '/about-me' },
 ];
 
 const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
+  const campaigns = placeData?.campaigns || [];
+
   const [activeImage, setActiveImage] = useState(
-    bannerData?.bannerImages?.[0]?.src || images[0]
+    campaigns.length > 0
+      ? campaigns[0]?.bannerImage?.src || ''
+      : bannerData?.bannerImages?.[0]?.src || images[0]
   );
 
   const handleMouseEnter = (index: number) => {
-    if (bannerData?.bannerImages?.[index]?.src) {
+    if (campaigns.length > 0) {
+      const campaignImage = campaigns[index]?.bannerImage?.src;
+      if (campaignImage) {
+        setActiveImage(campaignImage);
+      }
+    } else if (bannerData?.bannerImages?.[index]?.src) {
       setActiveImage(bannerData.bannerImages[index].src);
     } else if (images[index]) {
       setActiveImage(images[index]);
@@ -49,8 +58,18 @@ const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
   };
 
   const handleMouseLeave = () => {
-    setActiveImage(bannerData?.bannerImages?.[0]?.src || images[0]);
+    setActiveImage(
+      campaigns.length > 0
+        ? campaigns[0]?.bannerImage?.src || ''
+        : bannerData?.bannerImages?.[0]?.src || images[0]
+    );
   };
+
+  const placeLinks: BannerNavigationLink[] =
+    campaigns.map((campaign) => ({
+      title: campaign?.bannerTitle || '',
+      link: '',
+    })) || [];
 
   const scrollToSection = () => {
     const section = document.getElementById('aboutLoveLetters');
@@ -58,12 +77,6 @@ const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const placeLinks: BannerNavigationLink[] =
-    placeData?.campaigns?.map((campaign) => ({
-      title: campaign.bannerTitle || '',
-      link: '',
-    })) || [];
 
   return (
     <section className="relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
