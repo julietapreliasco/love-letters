@@ -1,9 +1,10 @@
 'use client';
+
 import { LandingSectionType } from '@/contentful/landingSections';
 import Logo from '../ui/Logo';
 import Image from 'next/image';
 import BannerNavigation from '../ui/BannerNavigation';
-import { useState } from 'react';
+import { useState, useEffect, useMemo, RefObject } from 'react';
 import AlternativeLogo from '../ui/AlternativeLogo';
 import { BannerType } from '@/types';
 import { motion } from 'framer-motion';
@@ -19,6 +20,10 @@ interface InitialBannerProps {
   bannerData?: LandingSectionType;
   bannerType: BannerType;
   placeData?: PlaceType;
+  onCampaignChange?: (index: number) => void;
+  activeCampaignIndex?: number | null;
+  nextSectionRef?: RefObject<HTMLElement>;
+  nextSectionId?: string;
 }
 
 const images = [
@@ -35,34 +40,68 @@ const defaultLinks: BannerNavigationLink[] = [
   { title: 'About', link: '/about-me' },
 ];
 
-const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
-  const campaigns = placeData?.campaigns || [];
+const Banner = ({
+  bannerData,
+  bannerType,
+  placeData,
+  onCampaignChange,
+  activeCampaignIndex = null,
+  nextSectionRef,
+  nextSectionId,
+}: InitialBannerProps) => {
+  const campaigns = useMemo(() => placeData?.campaigns || [], [placeData]);
 
   const [activeImage, setActiveImage] = useState(
-    campaigns.length > 0
-      ? campaigns[0]?.bannerImage?.src || ''
-      : bannerData?.bannerImages?.[0]?.src || images[0]
+    bannerType === BannerType.MAIN_BANNER
+      ? bannerData?.bannerImages?.[0]?.src || images[0]
+      : placeData?.backgroundImage?.src || ''
   );
 
-  const handleMouseEnter = (index: number) => {
-    if (campaigns.length > 0) {
-      const campaignImage = campaigns[index]?.bannerImage?.src;
-      if (campaignImage) {
-        setActiveImage(campaignImage);
+  useEffect(() => {
+    if (bannerType === BannerType.CAMPAIGN_BANNER) {
+      if (campaigns.length > 0 && activeCampaignIndex !== null) {
+        setActiveImage(
+          campaigns[activeCampaignIndex]?.bannerImage?.src ||
+            placeData?.backgroundImage?.src ||
+            ''
+        );
+      } else {
+        setActiveImage(placeData?.backgroundImage?.src || '');
       }
-    } else if (bannerData?.bannerImages?.[index]?.src) {
-      setActiveImage(bannerData.bannerImages[index].src);
-    } else if (images[index]) {
-      setActiveImage(images[index]);
+    }
+  }, [activeCampaignIndex, campaigns, placeData, bannerType]);
+
+  const handleMouseEnter = (index: number) => {
+    if (bannerType === BannerType.MAIN_BANNER) {
+      if (bannerData?.bannerImages?.[index]?.src) {
+        setActiveImage(bannerData.bannerImages[index].src);
+      } else if (images[index]) {
+        setActiveImage(images[index]);
+      }
+    } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
+      if (campaigns.length > 0) {
+        const campaignImage = campaigns[index]?.bannerImage?.src;
+        if (campaignImage) {
+          setActiveImage(campaignImage);
+        }
+      }
     }
   };
 
   const handleMouseLeave = () => {
-    setActiveImage(
-      campaigns.length > 0
-        ? campaigns[0]?.bannerImage?.src || ''
-        : bannerData?.bannerImages?.[0]?.src || images[0]
-    );
+    if (bannerType === BannerType.MAIN_BANNER) {
+      setActiveImage(bannerData?.bannerImages?.[0]?.src || images[0]);
+    } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
+      if (activeCampaignIndex !== null && campaigns.length > 0) {
+        setActiveImage(
+          campaigns[activeCampaignIndex]?.bannerImage?.src ||
+            placeData?.backgroundImage?.src ||
+            ''
+        );
+      } else {
+        setActiveImage(placeData?.backgroundImage?.src || '');
+      }
+    }
   };
 
   const placeLinks: BannerNavigationLink[] =
@@ -72,9 +111,13 @@ const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
     })) || [];
 
   const scrollToSection = () => {
-    const section = document.getElementById('aboutLoveLetters');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    if (nextSectionRef && nextSectionRef.current) {
+      nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (nextSectionId) {
+      const section = document.getElementById(nextSectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -88,7 +131,7 @@ const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
         transition={{ duration: 1 }}
       >
         <Image
-          src={activeImage!}
+          src={activeImage}
           alt="Love Letters Home Banner"
           fill
           className="object-cover object-top opacity-70"
@@ -117,6 +160,8 @@ const Banner = ({ bannerData, bannerType, placeData }: InitialBannerProps) => {
           bannerType={bannerType}
           onLinkHover={handleMouseEnter}
           onLinkLeave={handleMouseLeave}
+          onCampaignChange={onCampaignChange}
+          activeCampaignIndex={activeCampaignIndex}
         />
       </div>
       <motion.div

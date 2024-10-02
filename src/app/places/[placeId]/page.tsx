@@ -1,16 +1,21 @@
-import Banner from '@/components/landing/Banner';
+import PlaceContent from '@/components/places/PlaceContent';
 import { fetchPlace } from '@/contentful/places';
-import { BannerType } from '@/types';
+import { PlaceType } from '@/contentful/places';
 
-const Place = async ({ params }: { params: { placeId: string } }) => {
+export default async function Place({
+  params,
+}: {
+  params: { placeId: string };
+}) {
   const { placeId } = params;
-  const place = await fetchPlace({ id: placeId, preview: false });
+  const place: PlaceType | null = await fetchPlace({
+    id: placeId,
+    preview: false,
+  });
 
-  return (
-    <div>
-      <Banner bannerType={BannerType.CAMPAIGN_BANNER} placeData={place!} />
-    </div>
-  );
-};
+  if (!place) {
+    return <div>Place not found</div>;
+  }
 
-export default Place;
+  return <PlaceContent place={place} />;
+}

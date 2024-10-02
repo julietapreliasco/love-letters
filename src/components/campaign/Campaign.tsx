@@ -9,9 +9,13 @@ import { FaArrowUp } from 'react-icons/fa';
 import VideoSlider from '../ui/VideoSlider';
 import PageBanner from '../ui/PageBanner';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 const Map = dynamic(() => import('../ui/Map'), { ssr: false });
 import SharedCard from '../ui/SharedCard';
+import VideoPlayer from '../ui/VideoPlayer';
+import { IoMdPlay } from 'react-icons/io';
+import VideoGallery from '../ui/VideoGallery';
 
 interface CampaignProps {
   data: CampaignType;
@@ -35,6 +39,8 @@ const Campaign = ({ data }: CampaignProps) => {
   } = data;
 
   const [backToTopButton, setBackToTopButton] = useState(false);
+  const [isVideoGalleryOpen, setIsVideoGalleryOpen] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,10 +62,13 @@ const Campaign = ({ data }: CampaignProps) => {
     });
   };
 
-  return (
-    <section className="w-full">
-      <PageBanner bannerImg={bannerImage!} bannerTitle={bannerTitle!} />
+  const openVideoGallery = (index: number) => {
+    setCurrentVideoIndex(index);
+    setIsVideoGalleryOpen(true);
+  };
 
+  return (
+    <>
       <div className="px-10 py-10 md:px-20 md:py-20 xl:px-48 xl:py-20">
         <div className="mb-8 justify-between md:mb-16 md:flex">
           {date && (
@@ -76,13 +85,17 @@ const Campaign = ({ data }: CampaignProps) => {
           )}
         </div>
         <div>
-          <h3 className="font-futura mb-5 text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-10 lg:text-5xl lg:leading-normal">
+          <h3 className="mb-5 font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-10 lg:text-5xl lg:leading-normal">
             {subtitle}
           </h3>
         </div>
         {videos && videos?.length > 0 && (
           <div className="mb-10">
-            <VideoSlider videos={videos} />
+            <VideoPlayer
+              videoUrl={videos[0].videoUrl}
+              thumbnail={videos[0].thumbnail}
+            />
+            <p className="mt-4 text-center font-medium">{videos[0].title}</p>
             {videoCaption && (
               <p className="pt-3 text-center text-sm italic">{videoCaption}</p>
             )}
@@ -96,6 +109,44 @@ const Campaign = ({ data }: CampaignProps) => {
             />
           </div>
         )}
+
+        {videos && videos.length > 1 && (
+          <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {videos.slice(1).map((video, index) => (
+              <div key={video.videoUrl} className="mb-10">
+                <div className="md:hidden">
+                  <VideoPlayer
+                    videoUrl={video.videoUrl}
+                    thumbnail={video.thumbnail}
+                  />
+                </div>
+
+                <div
+                  className="relative hidden cursor-pointer md:block"
+                  onClick={() => openVideoGallery(index + 1)}
+                >
+                  {video.thumbnail && (
+                    <Image
+                      src={video.thumbnail}
+                      alt="Video Thumbnail"
+                      className="object-cover"
+                      width={400}
+                      height={225}
+                      layout="responsive"
+                    />
+                  )}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="rounded-full bg-custom-lighter-gray bg-opacity-70 p-4">
+                      <IoMdPlay className="text-3xl text-custom-black" />
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-4 text-center font-medium">{video.title}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
         {finalText && (
           <div>
             <FinalText finalText={finalText} />
@@ -103,24 +154,16 @@ const Campaign = ({ data }: CampaignProps) => {
         )}
         {gallery != null && (
           <div id="gallery" className="mt-10 lg:mt-20">
-            <p className="font-futura mb-5 text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11">
+            <p className="mb-5 font-futura text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11">
               Gallery
             </p>
             <Gallery images={gallery!} />
           </div>
         )}
-        {location && (
-          <div className="my-10">
-            <p className="font-futura mb-5 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
-              Campaign Location
-            </p>
-            <Map locations={location} />
-          </div>
-        )}
         <div className="mt-10 flex justify-center">
           {press && press.length > 0 && (
             <div className="mt-14 lg:mt-20">
-              <p className="font-futura mb-6 text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
+              <p className="mb-6 font-futura text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
                 Press about this campaign
               </p>
               <div
@@ -156,6 +199,14 @@ const Campaign = ({ data }: CampaignProps) => {
           <ContactUsCard />
         </div>
       </div>
+      {isVideoGalleryOpen && (
+        <VideoGallery
+          videos={videos!}
+          currentIndex={currentVideoIndex}
+          onClose={() => setIsVideoGalleryOpen(false)}
+        />
+      )}
+
       {backToTopButton && (
         <button
           onClick={scrollToTop}
@@ -164,7 +215,7 @@ const Campaign = ({ data }: CampaignProps) => {
           <FaArrowUp size={24} />
         </button>
       )}
-    </section>
+    </>
   );
 };
 

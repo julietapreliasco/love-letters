@@ -1,4 +1,8 @@
-import { TypePlaceSkeleton, TypeCampaignSkeleton } from './types';
+import {
+  TypePlaceSkeleton,
+  TypeCampaignSkeleton,
+  TypeVideoSkeleton,
+} from './types';
 import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
@@ -7,6 +11,7 @@ import {
 } from './parseContentfulImage';
 import { CampaignType, parseContentfulCampaign } from './campaign';
 import { Document } from '@contentful/rich-text-types';
+import { parseContentfulVideo, VideoType } from './videos';
 
 export interface PlaceType {
   id: string;
@@ -14,6 +19,7 @@ export interface PlaceType {
   backgroundImage: ContentImage | null;
   campaigns: CampaignType[] | null;
   description: Document | null;
+  trailer: VideoType | null; // Added trailer field
 }
 
 function getFieldValue(
@@ -66,6 +72,12 @@ export async function parseContentfulPlace(
 
   const description = getRichTextFieldValue(placeEntry.fields.description);
 
+  // Parse the trailer field
+  const trailerField = placeEntry.fields.trailer;
+  const trailer = trailerField
+    ? await parseContentfulVideo(trailerField as Entry<TypeVideoSkeleton>)
+    : null;
+
   return {
     id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
@@ -75,6 +87,7 @@ export async function parseContentfulPlace(
         (campaign): campaign is CampaignType => campaign !== null
       ) || null,
     description,
+    trailer, // Include the parsed trailer in the result
   };
 }
 

@@ -1,5 +1,5 @@
 import AboutMeSection from '@/components/landing/AboutMeSection';
-import InitialBanner from '@/components/landing/InitialBanner';
+import Banner from '@/components/landing/Banner';
 import AboutLoveLetters from '@/components/landing/AboutLoveLetters';
 import Videos from '@/components/landing/Videos';
 import { fetchLandingSections } from '@/contentful/landingSections';
@@ -8,7 +8,6 @@ import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
 import Partners from '@/components/landing/Partners';
 import Press from '@/components/landing/Press';
-import Banner from '@/components/landing/Banner';
 import { BannerType } from '@/types';
 
 const Home: React.FC = async () => {
@@ -28,7 +27,11 @@ const Home: React.FC = async () => {
 
   return (
     <div>
-      <Banner bannerData={initialBanner!} bannerType={BannerType.MAIN_BANNER} />
+      <Banner
+        bannerData={initialBanner!}
+        bannerType={BannerType.MAIN_BANNER}
+        nextSectionId="aboutLoveLetters"
+      />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
