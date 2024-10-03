@@ -1,18 +1,19 @@
 import AboutMeSection from '@/components/landing/AboutMeSection';
-import InitialBanner from '@/components/landing/InitialBanner';
+import Banner from '@/components/ui/Banner';
 import AboutLoveLetters from '@/components/landing/AboutLoveLetters';
-import Videos from '@/components/landing/Videos';
 import { fetchLandingSections } from '@/contentful/landingSections';
 import findSection from '@/utils/findSection';
 import ProjectsSection from '@/components/landing/ProjectsSection';
 import ContactUs from '@/components/landing/ContactUs';
 import Partners from '@/components/landing/Partners';
 import Press from '@/components/landing/Press';
-import Banner from '@/components/landing/Banner';
 import { BannerType } from '@/types';
+import { fetchPlaces } from '@/contentful/places';
+import { Map } from '@/components/landing/Map';
 
-const Home: React.FC = async () => {
+const Home = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
+  const places = await fetchPlaces({ preview: false });
 
   const initialBanner = findSection('initialBanner', landingSections);
   const aboutMe = findSection('aboutMe', landingSections);
@@ -20,7 +21,6 @@ const Home: React.FC = async () => {
     'aboutLoveLetters',
     landingSections
   );
-  const videos = findSection('videos', landingSections);
   const project = findSection('projects', landingSections);
   const contactUs = findSection('contactUs', landingSections);
   const partners = findSection('partners', landingSections);
@@ -28,11 +28,15 @@ const Home: React.FC = async () => {
 
   return (
     <div>
-      <Banner bannerData={initialBanner!} bannerType={BannerType.MAIN_BANNER} />
+      <Banner
+        bannerData={initialBanner!}
+        bannerType={BannerType.MAIN_BANNER}
+        nextSectionId="aboutLoveLetters"
+      />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} />
-      <Videos videosData={videos!} />
+      <Map places={places} />
       <Partners partnersData={partners!} />
       <ContactUs contactUsData={contactUs!} />
       <Press pressData={press!} />

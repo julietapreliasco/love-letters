@@ -1,4 +1,9 @@
-import { TypePlaceSkeleton, TypeCampaignSkeleton } from './types';
+import {
+  TypePlaceSkeleton,
+  TypeCampaignSkeleton,
+  TypeVideoSkeleton,
+  TypeCardSkeleton,
+} from './types';
 import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
@@ -7,6 +12,8 @@ import {
 } from './parseContentfulImage';
 import { CampaignType, parseContentfulCampaign } from './campaign';
 import { Document } from '@contentful/rich-text-types';
+import { parseContentfulVideo, VideoType } from './videos';
+import { CardType, parseContentfulCard } from './cards';
 
 export interface PlaceType {
   id: string;
@@ -14,6 +21,9 @@ export interface PlaceType {
   backgroundImage: ContentImage | null;
   campaigns: CampaignType[] | null;
   description: Document | null;
+  trailer: VideoType | null;
+  press: CardType[] | null;
+  location: { lat: number; lon: number } | null;
 }
 
 function getFieldValue(
@@ -66,6 +76,28 @@ export async function parseContentfulPlace(
 
   const description = getRichTextFieldValue(placeEntry.fields.description);
 
+  const trailerField = placeEntry.fields.trailer;
+  const trailer = trailerField
+    ? await parseContentfulVideo(trailerField as Entry<TypeVideoSkeleton>)
+    : null;
+
+  const pressField = placeEntry.fields.press;
+  const press = Array.isArray(pressField)
+    ? await Promise.all(
+        pressField.map((card) =>
+          parseContentfulCard(card as Entry<TypeCardSkeleton>)
+        )
+      )
+    : null;
+
+  const locationField = placeEntry.fields.location;
+  const location =
+    locationField &&
+    typeof locationField.lat === 'number' &&
+    typeof locationField.lon === 'number'
+      ? { lat: locationField.lat, lon: locationField.lon }
+      : null;
+
   return {
     id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
@@ -75,6 +107,9 @@ export async function parseContentfulPlace(
         (campaign): campaign is CampaignType => campaign !== null
       ) || null,
     description,
+    trailer,
+    press: press?.filter((card): card is CardType => card !== null) || null,
+    location,
   };
 }
 

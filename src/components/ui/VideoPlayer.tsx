@@ -29,6 +29,7 @@ const VideoPlayer = ({
               alt="Video Thumbnail"
               className="absolute inset-0 object-contain"
               fill
+              sizes=""
               priority
             />
           )}

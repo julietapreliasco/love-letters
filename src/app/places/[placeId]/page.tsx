@@ -1,16 +1,22 @@
-import Banner from '@/components/landing/Banner';
-import { fetchPlace } from '@/contentful/places';
-import { BannerType } from '@/types';
+import { notFound } from 'next/navigation';
+import PlaceContent from '@/components/places/PlaceContent';
+import { fetchPlace, PlaceType } from '@/contentful/places';
 
-const Place = async ({ params }: { params: { placeId: string } }) => {
+interface PlacePageProps {
+  params: { placeId: string };
+}
+
+export default async function Place({ params }: PlacePageProps) {
   const { placeId } = params;
-  const place = await fetchPlace({ id: placeId, preview: false });
 
-  return (
-    <div>
-      <Banner bannerType={BannerType.CAMPAIGN_BANNER} placeData={place!} />
-    </div>
-  );
-};
+  const place: PlaceType | null = await fetchPlace({
+    id: placeId,
+    preview: false,
+  });
 
-export default Place;
+  if (!place) {
+    notFound();
+  }
+
+  return <PlaceContent place={place} />;
+}
