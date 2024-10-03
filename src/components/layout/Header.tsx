@@ -14,6 +14,9 @@ const Header = () => {
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const headerControls = useAnimation();
 
+  const pathname = usePathname();
+  const shouldShowHeader = pathname === '/places';
+
   useEffect(() => {
     const handleScroll = () => {
       const bannerElement = document.getElementById('initial-banner');
@@ -22,21 +25,24 @@ const Header = () => {
       const oneThirdBanner = bannerOffsetTop + bannerHeight / 2;
       const currentScrollPos = window.scrollY;
 
-      if (currentScrollPos > bannerHeight) {
+      if (shouldShowHeader) {
         setHeader(true);
-      } else if (currentScrollPos <= oneThirdBanner) {
-        setHeader(false);
+      } else {
+        if (currentScrollPos > bannerHeight) {
+          setHeader(true);
+        } else if (currentScrollPos <= oneThirdBanner) {
+          setHeader(false);
+        }
       }
-
-      setLastScrollPos(currentScrollPos);
     };
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      setHeader(false);
     };
-  }, [lastScrollPos]);
+  }, [lastScrollPos, shouldShowHeader]);
 
   useEffect(() => {
     headerControls.start({
@@ -45,13 +51,15 @@ const Header = () => {
     });
   }, [headerControls]);
 
-  const headerClass = !header
-    ? 'hidden'
-    : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
+  const headerClass =
+    !header && !shouldShowHeader
+      ? 'hidden'
+      : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
 
-  const logoClass = !header
-    ? 'hidden'
-    : 'w-[104px] h-[30px] md:w-[138px] md:h-[40px] ';
+  const logoClass =
+    !header && !shouldShowHeader
+      ? 'hidden'
+      : 'w-[104px] h-[30px] md:w-[138px] md:h-[40px] ';
 
   const toggleMenu = () => setOpenMenu(!openMenu);
 
@@ -66,11 +74,7 @@ const Header = () => {
           <Logo color={'#29241F'} className={logoClass} />
         </Link>
         <div className="hidden items-center md:flex">
-          <Button
-            label="Campaigns"
-            variant={'SECONDARY_NAV'}
-            linkTo="/campaigns"
-          />
+          <Button label="Places" variant={'SECONDARY_NAV'} linkTo="/places" />
           <Button linkTo="/about-me" label="About" variant={'SECONDARY_NAV'} />
           <Button
             label="Partners"
