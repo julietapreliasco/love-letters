@@ -13,6 +13,7 @@ interface BannerNavigationProps {
   bannerType: BannerType;
   onCampaignChange?: (index: number) => void;
   activeCampaignIndex?: number | null;
+  nextSectionRef?: React.RefObject<HTMLElement>;
 }
 
 const BannerNavigation = ({
@@ -22,10 +23,14 @@ const BannerNavigation = ({
   bannerType,
   onCampaignChange,
   activeCampaignIndex,
+  nextSectionRef,
 }: BannerNavigationProps) => {
   const handleClick = (index: number, link: string) => {
     if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
       onCampaignChange(index);
+      if (nextSectionRef?.current) {
+        nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

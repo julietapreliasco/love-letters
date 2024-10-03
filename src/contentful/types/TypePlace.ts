@@ -6,6 +6,7 @@ import type {
   LocaleCode,
 } from 'contentful';
 import type { TypeCampaignSkeleton } from './TypeCampaign';
+import type { TypeCardSkeleton } from './TypeCard';
 import type { TypeVideoSkeleton } from './TypeVideo';
 
 export interface TypePlaceFields {
@@ -16,6 +17,8 @@ export interface TypePlaceFields {
   >;
   description?: EntryFieldTypes.RichText;
   trailer?: EntryFieldTypes.EntryLink<TypeVideoSkeleton>;
+  press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardSkeleton>>;
+  location?: EntryFieldTypes.Location;
 }
 
 export type TypePlaceSkeleton = EntrySkeletonType<TypePlaceFields, 'place'>;

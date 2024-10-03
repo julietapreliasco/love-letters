@@ -23,7 +23,7 @@ const Card = ({
 
   return (
     <div className="flex w-fit flex-col gap-5 rounded-[10px] bg-white p-10">
-      <div className="font-futura flex flex-col gap-5 xs:flex-row">
+      <div className="flex flex-col gap-5 font-futura xs:flex-row">
         {image?.src && (
           <Image
             src={image.src}
@@ -36,7 +36,7 @@ const Card = ({
         <div className="flex flex-col justify-center text-left text-custom-black">
           {title && (
             <span
-              className={`${titleSize ?? 'text-2xl font-semibold leading-normal md:text-4xl md:leading-normal'}`}
+              className={`${titleSize ?? 'text-2xl leading-normal md:text-4xl md:leading-normal'}`}
             >
               {title}
             </span>

@@ -59,6 +59,7 @@ const ProjectCard = ({
           src={project.image?.src!}
           alt={project.image?.alt!}
           fill
+          sizes=""
           className="rounded-xl object-cover"
         />
       </motion.div>

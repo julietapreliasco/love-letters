@@ -39,7 +39,7 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
         className="sticky top-7 z-10 mt-[80px] flex h-auto flex-row justify-between md:mx-[60px]"
       >
         <div className="flex w-full justify-center lg:pb-6">
-          <h2 className="font-futura text-3xl font-semibold tracking-wider md:text-4xl xl:text-5xl 2xl:text-6xl">
+          <h2 className="font-futura text-3xl tracking-wider text-custom-black md:text-4xl xl:text-5xl 2xl:text-6xl">
             {projectData.title}
           </h2>
         </div>

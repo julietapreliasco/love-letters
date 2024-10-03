@@ -21,6 +21,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'FuturaLT';
+  src: url('/FuturaLT-CondensedLight.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 .truncate-2-lines {
   display: -webkit-box;
   -webkit-line-clamp: 2;

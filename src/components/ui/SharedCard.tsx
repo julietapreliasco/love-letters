@@ -55,13 +55,13 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
           </div>
         )}
         <div
-          className={`mt-5 flex flex-col text-custom-black ${styles?.linkWrapper ?? ''}`}
+          className={`mt-5 flex flex-col gap-2 text-custom-black ${styles?.linkWrapper ?? ''}`}
         >
           {title && (
             <p
               className={`font-futura leading-normal ${
                 styles?.titleFont ?? 'text-2xl'
-              } font-semibold`}
+              }`}
             >
               {title}
             </p>

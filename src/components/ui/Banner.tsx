@@ -1,11 +1,11 @@
 'use client';
 
 import { LandingSectionType } from '@/contentful/landingSections';
-import Logo from '../ui/Logo';
+import Logo from './Logo';
 import Image from 'next/image';
-import BannerNavigation from '../ui/BannerNavigation';
+import BannerNavigation from './BannerNavigation';
 import { useState, useEffect, useMemo, RefObject } from 'react';
-import AlternativeLogo from '../ui/AlternativeLogo';
+import AlternativeLogo from './AlternativeLogo';
 import { BannerType } from '@/types';
 import { motion } from 'framer-motion';
 import { IoIosArrowDropdown } from 'react-icons/io';
@@ -24,6 +24,8 @@ interface InitialBannerProps {
   activeCampaignIndex?: number | null;
   nextSectionRef?: RefObject<HTMLElement>;
   nextSectionId?: string;
+  hasInitialContent?: boolean;
+  onTitleClick?: () => void;
 }
 
 const images = [
@@ -40,7 +42,7 @@ const defaultLinks: BannerNavigationLink[] = [
   { title: 'About', link: '/about-me' },
 ];
 
-const Banner = ({
+export default function Banner({
   bannerData,
   bannerType,
   placeData,
@@ -48,7 +50,9 @@ const Banner = ({
   activeCampaignIndex = null,
   nextSectionRef,
   nextSectionId,
-}: InitialBannerProps) => {
+  hasInitialContent,
+  onTitleClick,
+}: InitialBannerProps) {
   const campaigns = useMemo(() => placeData?.campaigns || [], [placeData]);
 
   const [activeImage, setActiveImage] = useState(
@@ -121,6 +125,13 @@ const Banner = ({
     }
   };
 
+  const handleTitleClick = () => {
+    if (hasInitialContent && onTitleClick) {
+      onTitleClick();
+      scrollToSection();
+    }
+  };
+
   return (
     <section className="relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
       <motion.div
@@ -134,6 +145,7 @@ const Banner = ({
           src={activeImage}
           alt="Love Letters Home Banner"
           fill
+          sizes=""
           className="object-cover object-top opacity-70"
           priority
         />
@@ -146,9 +158,15 @@ const Banner = ({
             <AlternativeLogo className="w-48 md:w-72" />
           )}
           {bannerType === BannerType.CAMPAIGN_BANNER && (
-            <p className="text-center font-futura text-4xl font-bold uppercase tracking-wider text-white md:text-6xl">
+            <motion.p
+              className={`text-center font-futura text-4xl font-bold uppercase tracking-wider text-white md:text-6xl ${
+                hasInitialContent ? 'cursor-pointer' : ''
+              }`}
+              whileHover={hasInitialContent ? { scale: 1.05 } : {}}
+              onClick={handleTitleClick}
+            >
               {placeData?.title}
-            </p>
+            </motion.p>
           )}
         </div>
         <BannerNavigation
@@ -162,6 +180,7 @@ const Banner = ({
           onLinkLeave={handleMouseLeave}
           onCampaignChange={onCampaignChange}
           activeCampaignIndex={activeCampaignIndex}
+          nextSectionRef={nextSectionRef}
         />
       </div>
       <motion.div
@@ -191,6 +210,4 @@ const Banner = ({
       </motion.div>
     </section>
   );
-};
-
-export default Banner;
+}

@@ -18,7 +18,7 @@ const Partners: React.FC<PartnersProps> = ({ partnersData }) => {
       className="w-full px-5 md:mb-10 md:px-[70px] lg:mb-20"
     >
       <div className="flex w-full justify-center pb-10 lg:pb-6">
-        <h2 className="font-futura text-3xl font-semibold tracking-wider md:text-4xl xl:text-5xl 2xl:text-6xl">
+        <h2 className="font-futura text-3xl tracking-wider text-custom-black md:text-4xl xl:text-5xl 2xl:text-6xl">
           {partnersData.title}
         </h2>
       </div>
