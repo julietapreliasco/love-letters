@@ -32,36 +32,13 @@ const Campaign = ({ data }: CampaignProps) => {
     videoCaption,
   } = data;
 
-  const [backToTopButton, setBackToTopButton] = useState(false);
   const [isVideoGalleryOpen, setIsVideoGalleryOpen] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setBackToTopButton(true);
-      } else {
-        setBackToTopButton(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   const openVideoGallery = (index: number) => {
     setCurrentVideoIndex(index);
     setIsVideoGalleryOpen(true);
   };
-
-  console.log(press);
 
   return (
     <>
@@ -172,15 +149,6 @@ const Campaign = ({ data }: CampaignProps) => {
           currentIndex={currentVideoIndex}
           onClose={() => setIsVideoGalleryOpen(false)}
         />
-      )}
-
-      {backToTopButton && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-4 right-3 z-40 rounded-full bg-custom-yellow bg-opacity-20 p-3 text-white shadow-lg hover:bg-custom-gray lg:bg-opacity-40 2xl:bottom-20 2xl:right-20"
-        >
-          <FaArrowUp size={24} />
-        </button>
       )}
     </>
   );

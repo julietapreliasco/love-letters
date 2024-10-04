@@ -48,11 +48,7 @@ const Footer = async () => {
           Copyright &copy; 2024. All rights reserved.
         </span>
         <div className="flex flex-col pb-5 md:flex-row md:p-0">
-          <Button
-            label="Campaigns"
-            linkTo="/campaigns"
-            variant={'SECONDARY_NAV'}
-          />
+          <Button label="Places" linkTo="/places" variant={'SECONDARY_NAV'} />
           <Button
             label="About me"
             linkTo="/about-me"

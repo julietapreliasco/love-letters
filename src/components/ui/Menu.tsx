@@ -2,12 +2,14 @@ import Link from 'next/link';
 import Button from './Button';
 import Logo from './Logo';
 import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import { useScrollLock } from '@/utils/scrollLock';
 
 interface MenuProps {
   onClick: () => void;
 }
 
 const Menu = ({ onClick }: MenuProps) => {
+  useScrollLock();
   return (
     <div className="fixed left-0 top-0 z-50 flex h-full w-full flex-col bg-custom-lighter-gray">
       <div className="flex justify-between px-[10px] py-5">
@@ -21,8 +23,8 @@ const Menu = ({ onClick }: MenuProps) => {
       <div className="flex flex-grow flex-col items-center gap-10 pt-[60px]">
         <Button
           onClick={onClick}
-          linkTo="/campaigns"
-          label="Campaigns"
+          linkTo="/places"
+          label="Places"
           variant="SECONDARY_NAV"
         />
         <Button
