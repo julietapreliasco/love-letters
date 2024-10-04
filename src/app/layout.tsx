@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import NavigationButtons from '@/components/layout/NavigationButtons';
+import GoUpButton from '@/components/layout/GoUpButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +23,7 @@ export default function RootLayout({
         <Header />
         <main className="relative flex-grow">
           {children}
-          <NavigationButtons />
+          <GoUpButton />
         </main>
         <Footer />
       </body>
