@@ -38,12 +38,11 @@ const images = [
 const defaultLinks: BannerNavigationLink[] = [
   { title: 'Places', link: '/places' },
   { title: 'Partners', link: '/#partners' },
-  { title: 'Press', link: '/' },
+  { title: 'Press', link: '/press' },
   { title: 'About', link: '/about-me' },
 ];
 
 export default function Banner({
-  bannerData,
   bannerType,
   placeData,
   onCampaignChange,
@@ -54,10 +53,10 @@ export default function Banner({
   onTitleClick,
 }: InitialBannerProps) {
   const campaigns = useMemo(() => placeData?.campaigns || [], [placeData]);
-
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [activeImage, setActiveImage] = useState(
     bannerType === BannerType.MAIN_BANNER
-      ? bannerData?.bannerImages?.[0]?.src || images[0]
+      ? images[0]
       : placeData?.backgroundImage?.src || ''
   );
 
@@ -77,9 +76,7 @@ export default function Banner({
 
   const handleMouseEnter = (index: number) => {
     if (bannerType === BannerType.MAIN_BANNER) {
-      if (bannerData?.bannerImages?.[index]?.src) {
-        setActiveImage(bannerData.bannerImages[index].src);
-      } else if (images[index]) {
+      if (images[index]) {
         setActiveImage(images[index]);
       }
     } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
@@ -94,7 +91,7 @@ export default function Banner({
 
   const handleMouseLeave = () => {
     if (bannerType === BannerType.MAIN_BANNER) {
-      setActiveImage(bannerData?.bannerImages?.[0]?.src || images[0]);
+      setActiveImage(images[0]);
     } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
       if (activeCampaignIndex !== null && campaigns.length > 0) {
         setActiveImage(
@@ -132,8 +129,38 @@ export default function Banner({
     }
   };
 
+  const logoAndLinksVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: 'easeOut', staggerChildren: 0.3 },
+    },
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section className="banner relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
+      {!imageLoaded && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-custom-lighter-gray">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={logoAndLinksVariants}
+            className="flex flex-col items-center justify-center"
+          >
+            <Logo className="w-1/2 md:w-1/3" />
+          </motion.div>
+        </div>
+      )}
       <motion.div
         className="absolute inset-0 z-0"
         key={activeImage}
@@ -148,10 +175,18 @@ export default function Banner({
           sizes=""
           className="object-cover object-top opacity-70"
           priority
+          loading="eager"
+          onLoad={() => setImageLoaded(true)}
         />
       </motion.div>
+
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
-        <div className="flex w-full flex-col items-center">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={logoAndLinksVariants}
+          className="flex w-full flex-col items-center"
+        >
           {bannerType === BannerType.MAIN_BANNER ? (
             <Logo className="w-2/3 md:w-1/2" />
           ) : (
@@ -168,21 +203,24 @@ export default function Banner({
               {placeData?.title}
             </motion.p>
           )}
-        </div>
-        <BannerNavigation
-          links={
-            bannerType === BannerType.CAMPAIGN_BANNER
-              ? placeLinks
-              : defaultLinks
-          }
-          bannerType={bannerType}
-          onLinkHover={handleMouseEnter}
-          onLinkLeave={handleMouseLeave}
-          onCampaignChange={onCampaignChange}
-          activeCampaignIndex={activeCampaignIndex}
-          nextSectionRef={nextSectionRef}
-        />
+          <motion.div variants={linkVariants}>
+            <BannerNavigation
+              links={
+                bannerType === BannerType.CAMPAIGN_BANNER
+                  ? placeLinks
+                  : defaultLinks
+              }
+              bannerType={bannerType}
+              onLinkHover={handleMouseEnter}
+              onLinkLeave={handleMouseLeave}
+              onCampaignChange={onCampaignChange}
+              activeCampaignIndex={activeCampaignIndex}
+              nextSectionRef={nextSectionRef}
+            />
+          </motion.div>
+        </motion.div>
       </div>
+
       <motion.div
         className="absolute bottom-10 z-30 flex w-full cursor-pointer justify-center text-white"
         initial={{ opacity: 0, y: 20 }}

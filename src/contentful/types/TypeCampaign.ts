@@ -21,7 +21,6 @@ export interface TypeCampaignFields {
   press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   videoCaption?: EntryFieldTypes.Symbol;
   isHighlighted?: EntryFieldTypes.Boolean;
-  location?: EntryFieldTypes.Location;
 }
 
 export type TypeCampaignSkeleton = EntrySkeletonType<

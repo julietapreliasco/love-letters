@@ -17,10 +17,16 @@ interface SharedCardProps {
   cardData: CardType;
   styles?: CardStyles;
   linkTo?: string;
+  isPress?: boolean;
 }
 
-const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
-  const { title, description, image } = cardData;
+const SharedCard = ({
+  cardData,
+  styles,
+  linkTo,
+  isPress = false,
+}: SharedCardProps) => {
+  const { title, description, image, logo } = cardData;
 
   return (
     <div
@@ -28,29 +34,62 @@ const SharedCard = ({ cardData, styles, linkTo }: SharedCardProps) => {
         styles?.mainDivColor ?? 'border-2 border-custom-black bg-white'
       } ${styles?.mainDivPadding ?? 'p-6'} md:min-w-[210px] ${
         styles?.mainDivHeight ?? 'xl:h-80'
-      }`}
+      } ${isPress ? 'group relative' : ''}`}
     >
-      <div className={`flex w-full flex-col ${styles?.contentWrapper ?? ''}`}>
+      <div
+        className={`flex w-full flex-col ${styles?.contentWrapper ?? ''} ${
+          isPress ? 'relative' : ''
+        }`}
+      >
         {image?.src && (
-          <div className="flex justify-center">
+          <div className={`flex justify-center ${isPress ? 'relative' : ''}`}>
             {linkTo ? (
               <Link href={linkTo} className="w-full">
                 <Image
                   src={image.src}
-                  alt="Brian Rashid Partners"
+                  alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  className={`transform transition-transform md:hover:scale-105 ${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain`}
+                  className={`transform transition-transform md:hover:scale-105 ${
+                    styles?.image ?? 'h-[160px] rounded-[10px]'
+                  } w-full bg-white object-contain ${
+                    isPress ? 'opacity-75 group-hover:opacity-100' : ''
+                  }`}
                 />
               </Link>
             ) : (
               <Image
                 src={image.src}
-                alt="Brian Rashid Partners"
+                alt={image.alt}
                 width={image.width}
                 height={image.height}
-                className={`${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain`}
+                className={`${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain ${
+                  isPress ? 'opacity-75 group-hover:opacity-100' : ''
+                }`}
               />
+            )}
+            {isPress && logo?.src && (
+              <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+                {linkTo ? (
+                  <Link href={linkTo}>
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={logo.height}
+                      className="h-[80px] w-[80px] object-contain md:h-[100px] md:w-[100px]"
+                    />
+                  </Link>
+                ) : (
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={logo.width}
+                    height={logo.height}
+                    className="h-[80px] w-[80px] object-contain md:h-[100px] md:w-[100px]"
+                  />
+                )}
+              </div>
             )}
           </div>
         )}

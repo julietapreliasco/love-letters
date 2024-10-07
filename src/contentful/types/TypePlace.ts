@@ -18,7 +18,7 @@ export interface TypePlaceFields {
   description?: EntryFieldTypes.RichText;
   trailer?: EntryFieldTypes.EntryLink<TypeVideoSkeleton>;
   press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardSkeleton>>;
-  location?: EntryFieldTypes.Location;
+  location: EntryFieldTypes.Location;
 }
 
 export type TypePlaceSkeleton = EntrySkeletonType<TypePlaceFields, 'place'>;

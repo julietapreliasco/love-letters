@@ -15,7 +15,8 @@ const Header = () => {
   const headerControls = useAnimation();
 
   const pathname = usePathname();
-  const shouldShowHeader = pathname === '/places';
+  const shouldShowHeader =
+    pathname === '/places' || pathname === '/press' || pathname === '/partners';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,12 +76,13 @@ const Header = () => {
         </Link>
         <div className="hidden items-center md:flex">
           <Button label="Places" variant={'SECONDARY_NAV'} linkTo="/places" />
-          <Button linkTo="/about-me" label="About" variant={'SECONDARY_NAV'} />
           <Button
             label="Partners"
             linkTo="/#partners"
             variant={'SECONDARY_NAV'}
           />
+          <Button label="Press" linkTo="/press" variant={'SECONDARY_NAV'} />
+          <Button linkTo="/about-me" label="About" variant={'SECONDARY_NAV'} />
           <Button linkTo="/#contact" label="Join us" />
         </div>
         <div className={'items-center text-[24px] text-custom-black md:hidden'}>

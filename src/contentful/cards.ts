@@ -21,6 +21,7 @@ export interface CardType {
   section: string;
   url?: string;
   campaign: Promise<CampaignType | null> | CampaignType | null;
+  logo?: ContentImage | null;
 }
 
 function getFieldValue(
@@ -52,6 +53,16 @@ export function parseContentfulCard(
       )
     : null;
 
+  const logoField = cardEntry.fields.logo;
+  const logo = logoField
+    ? parseContentfulContentImage(
+        logoField as
+          | Asset<undefined, string>
+          | { sys: AssetLink }
+          | UnresolvedLink<'Asset'>
+      )
+    : null;
+
   const campaignField = cardEntry.fields.campaign;
   const campaign = campaignField
     ? parseContentfulCampaign(campaignField as Entry<TypeCampaignSkeleton>)
@@ -65,6 +76,7 @@ export function parseContentfulCard(
     section: getFieldValue(cardEntry.fields.section),
     url: getFieldValue(cardEntry.fields.url),
     campaign,
+    logo,
   };
 }
 
