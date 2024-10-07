@@ -38,7 +38,7 @@ const images = [
 const defaultLinks: BannerNavigationLink[] = [
   { title: 'Places', link: '/places' },
   { title: 'Partners', link: '/#partners' },
-  { title: 'Press', link: '/' },
+  { title: 'Press', link: '/press' },
   { title: 'About', link: '/about-me' },
 ];
 
@@ -54,10 +54,9 @@ export default function Banner({
   onTitleClick,
 }: InitialBannerProps) {
   const campaigns = useMemo(() => placeData?.campaigns || [], [placeData]);
-
   const [activeImage, setActiveImage] = useState(
     bannerType === BannerType.MAIN_BANNER
-      ? bannerData?.bannerImages?.[0]?.src || images[0]
+      ? images[0]
       : placeData?.backgroundImage?.src || ''
   );
 
@@ -77,9 +76,7 @@ export default function Banner({
 
   const handleMouseEnter = (index: number) => {
     if (bannerType === BannerType.MAIN_BANNER) {
-      if (bannerData?.bannerImages?.[index]?.src) {
-        setActiveImage(bannerData.bannerImages[index].src);
-      } else if (images[index]) {
+      if (images[index]) {
         setActiveImage(images[index]);
       }
     } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
@@ -94,7 +91,7 @@ export default function Banner({
 
   const handleMouseLeave = () => {
     if (bannerType === BannerType.MAIN_BANNER) {
-      setActiveImage(bannerData?.bannerImages?.[0]?.src || images[0]);
+      setActiveImage(images[0]);
     } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
       if (activeCampaignIndex !== null && campaigns.length > 0) {
         setActiveImage(
@@ -148,6 +145,7 @@ export default function Banner({
           sizes=""
           className="object-cover object-top opacity-70"
           priority
+          loading="eager"
         />
       </motion.div>
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">

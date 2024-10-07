@@ -93,6 +93,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
                 cardData={card}
                 styles={pressCardStyles}
                 linkTo={card.url}
+                isPress={true}
               />
             )}
           </div>

@@ -4,10 +4,9 @@ import Description from './Description';
 import ContactUsCard from '../ui/ContactUsCard';
 import Gallery from '../ui/Gallery';
 import FinalText from './FinalText';
-import { useEffect, useState } from 'react';
-import { FaArrowUp } from 'react-icons/fa';
+import { useState } from 'react';
+
 import Image from 'next/image';
-import SharedCard from '../ui/SharedCard';
 import VideoPlayer from '../ui/VideoPlayer';
 import { IoMdPlay } from 'react-icons/io';
 import VideoGallery from '../ui/VideoGallery';

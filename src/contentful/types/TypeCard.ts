@@ -14,6 +14,7 @@ export interface TypeCardFields {
   section: EntryFieldTypes.Symbol;
   url?: EntryFieldTypes.Symbol;
   campaign?: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+  logo?: EntryFieldTypes.AssetLink;
 }
 
 export type TypeCardSkeleton = EntrySkeletonType<TypeCardFields, 'card'>;
