@@ -133,7 +133,7 @@ export default function Banner({
   };
 
   return (
-    <section className="relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
+    <section className="banner relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
       <motion.div
         className="absolute inset-0 z-0"
         key={activeImage}
