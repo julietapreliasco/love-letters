@@ -37,7 +37,7 @@ const images = [
 
 const defaultLinks: BannerNavigationLink[] = [
   { title: 'Places', link: '/places' },
-  { title: 'Partners', link: '/#partners' },
+  { title: 'Partners', link: '/partners' },
   { title: 'Press', link: '/press' },
   { title: 'About', link: '/about-me' },
 ];

@@ -56,7 +56,7 @@ const Footer = async () => {
           />
           <Button
             label="Partners"
-            linkTo="/#partners"
+            linkTo="/partners"
             variant={'SECONDARY_NAV'}
           />
         </div>
