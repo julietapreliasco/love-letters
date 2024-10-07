@@ -29,7 +29,6 @@ const Home = async () => {
   return (
     <div>
       <Banner
-        bannerData={initialBanner!}
         bannerType={BannerType.MAIN_BANNER}
         nextSectionId="aboutLoveLetters"
       />

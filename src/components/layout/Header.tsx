@@ -15,7 +15,8 @@ const Header = () => {
   const headerControls = useAnimation();
 
   const pathname = usePathname();
-  const shouldShowHeader = pathname === '/places' || pathname === '/press';
+  const shouldShowHeader =
+    pathname === '/places' || pathname === '/press' || pathname === '/partners';
 
   useEffect(() => {
     const handleScroll = () => {
