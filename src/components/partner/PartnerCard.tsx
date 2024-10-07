@@ -21,7 +21,6 @@ const PartnerCard = ({ partner, relatedCampaigns }: PartnerCardProps) => {
 
   return (
     <div
-      id={partner.id}
       className="relative mb-4 h-[450px] w-full [perspective:1000px]"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
@@ -34,6 +33,7 @@ const PartnerCard = ({ partner, relatedCampaigns }: PartnerCardProps) => {
         style={{ transformStyle: 'preserve-3d' }}
       >
         <motion.div
+          id={partner.id}
           className="absolute inset-0"
           style={{ backfaceVisibility: 'hidden' }}
         >

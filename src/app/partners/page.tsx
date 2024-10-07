@@ -1,8 +1,8 @@
-import PartnerCard from '@/components/partner/PartnerCard';
 import { fetchPartners } from '@/contentful/partners';
 import { fetchCampaigns } from '@/contentful/campaign';
 import { fetchPlaces } from '@/contentful/places';
 import ContactUsCard from '@/components/ui/ContactUsCard';
+import PartnerCard from '@/components/partner/PartnerCard';
 
 const Partners = async () => {
   const partners = await fetchPartners({ preview: false });
@@ -30,18 +30,22 @@ const Partners = async () => {
   );
 
   return (
-    <div className="flex flex-col gap-10 px-6 py-20 sm:px-10 md:px-20 md:py-[120px] lg:px-32 xl:px-56 2xl:px-96">
-      <h2 className="mb-2 self-center font-futura text-3xl tracking-wider 2xl:text-6xl">
+    <div className="flex flex-col gap-14 px-6 py-20 sm:px-10 md:px-20">
+      <h2 className="self-center font-futura text-3xl tracking-wider 2xl:text-6xl">
         Partners
       </h2>
-      {partnersWithCampaigns.map((partner) => (
-        <PartnerCard
-          key={partner.id}
-          partner={partner}
-          relatedCampaigns={partner.relatedCampaigns}
-        />
-      ))}
-      <ContactUsCard />
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+        {partnersWithCampaigns.map((partner) => (
+          <PartnerCard
+            key={partner.id}
+            partner={partner}
+            relatedCampaigns={partner.relatedCampaigns}
+          />
+        ))}
+      </div>
+      <div className="self-center xl:w-3/4">
+        <ContactUsCard />
+      </div>
     </div>
   );
 };
