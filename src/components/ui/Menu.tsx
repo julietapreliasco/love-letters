@@ -35,7 +35,7 @@ const Menu = ({ onClick }: MenuProps) => {
         />
         <Button
           onClick={onClick}
-          linkTo="/#partners"
+          linkTo="/partners"
           label="Partners"
           variant="SECONDARY_NAV"
         />

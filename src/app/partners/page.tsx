@@ -30,11 +30,11 @@ const Partners = async () => {
   );
 
   return (
-    <div className="flex flex-col gap-14 px-6 py-20 sm:px-10 md:px-20">
-      <h2 className="self-center font-futura text-3xl tracking-wider 2xl:text-6xl">
+    <div className="flex flex-col items-center gap-10 px-8 py-20 sm:px-12 md:py-[120px] xl:px-[160px]">
+      <h2 className="font-futura text-xl font-medium uppercase leading-normal tracking-wider md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         Partners
       </h2>
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2">
         {partnersWithCampaigns.map((partner) => (
           <PartnerCard
             key={partner.id}

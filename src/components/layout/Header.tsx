@@ -78,7 +78,7 @@ const Header = () => {
           <Button label="Places" variant={'SECONDARY_NAV'} linkTo="/places" />
           <Button
             label="Partners"
-            linkTo="/#partners"
+            linkTo="/partners"
             variant={'SECONDARY_NAV'}
           />
           <Button label="Press" linkTo="/press" variant={'SECONDARY_NAV'} />
