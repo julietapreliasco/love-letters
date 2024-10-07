@@ -1,16 +1,19 @@
 'use client';
+
 import { LandingSectionType } from '@/contentful/landingSections';
 import Button from '../ui/Button';
 import { CardType } from '@/contentful/cards';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import ProjectCard from '../ui/ProjectCard';
+import { PlaceType } from '@/contentful/places';
 
 interface ProjectsSectionClientProps {
   projectData: LandingSectionType;
+  places: PlaceType[];
 }
 
-const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
+function ProjectsSection({ projectData, places }: ProjectsSectionClientProps) {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -30,13 +33,13 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
   );
 
   return (
-    <section ref={container}>
+    <section ref={container} className="h-fit">
       <motion.div
         style={{
           opacity: headerOpacity,
           transform: `translateY(${roundedTranslateY}px)`,
         }}
-        className="sticky top-7 z-10 mt-[80px] flex h-auto flex-row justify-between md:mx-[60px]"
+        className="sticky top-5 z-10 mt-[80px] flex h-auto flex-row justify-between md:mx-[60px] xl:top-3"
       >
         <div className="flex w-full justify-center lg:pb-6">
           <h2 className="font-futura text-3xl tracking-wider text-custom-black md:text-4xl xl:text-5xl 2xl:text-6xl">
@@ -50,10 +53,7 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
             projectCards.map((project: CardType, index) => {
               const targetScale = 1 - (projectCards.length - index) * 0.05;
               return (
-                <div
-                  key={index}
-                  className="sticky top-16 mb-36 lg:top-20 lg:mb-28"
-                >
+                <div key={index} className="sticky top-16 lg:top-20 lg:mb-28">
                   <ProjectCard
                     innerScale={innerScale}
                     project={project}
@@ -61,17 +61,18 @@ const ProjectsSection = ({ projectData }: ProjectsSectionClientProps) => {
                     range={[index * 0.25, 1]}
                     progress={scrollYProgress}
                     targetScale={targetScale}
+                    places={places}
+                    totalCards={projectCards.length}
                   />
                 </div>
               );
             })}
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="mt-28 flex justify-center">
         <Button linkTo="/campaigns" variant="SECONDARY" label={'See all'} />
       </div>
     </section>
   );
-};
-
+}
 export default ProjectsSection;

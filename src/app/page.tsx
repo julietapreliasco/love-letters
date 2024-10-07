@@ -35,7 +35,7 @@ const Home = async () => {
       />
       <AboutLoveLetters aboutLoveLettersData={aboutLoveLettersSection!} />
       <AboutMeSection aboutMeData={aboutMe!} />
-      <ProjectsSection projectData={project!} />
+      <ProjectsSection projectData={project!} places={places} />
       <Map places={places} />
       <Partners partnersData={partners!} />
       <ContactUs contactUsData={contactUs!} />
