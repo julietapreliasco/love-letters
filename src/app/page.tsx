@@ -10,6 +10,7 @@ import Press from '@/components/landing/Press';
 import { BannerType } from '@/types';
 import { fetchPlaces } from '@/contentful/places';
 import { Map } from '@/components/landing/Map';
+import { fetchPartners } from '@/contentful/partners';
 
 const Home = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
@@ -24,6 +25,7 @@ const Home = async () => {
   const project = findSection('projects', landingSections);
   const contactUs = findSection('contactUs', landingSections);
   const partners = findSection('partners', landingSections);
+  const partnersData = await fetchPartners({ preview: false });
   const press = findSection('press', landingSections);
 
   return (
@@ -36,7 +38,7 @@ const Home = async () => {
       <AboutMeSection aboutMeData={aboutMe!} />
       <ProjectsSection projectData={project!} places={places} />
       <Map places={places} />
-      <Partners partnersData={partners!} />
+      <Partners partnersData={partnersData} partnersPageData={partners!} />
       <ContactUs contactUsData={contactUs!} />
       <Press pressData={press!} />
     </div>

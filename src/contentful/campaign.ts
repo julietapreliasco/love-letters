@@ -1,6 +1,7 @@
 import { Document } from '@contentful/rich-text-types';
 import {
   TypeCampaignSkeleton,
+  TypePartnerSkeleton,
   TypeCardSkeleton,
   TypeVideoSkeleton,
 } from './types';
@@ -12,6 +13,7 @@ import {
 } from './parseContentfulImage';
 import { parseContentfulVideo, VideoType } from './videos';
 import { CardType, parseContentfulCard } from './cards';
+import { PartnerType, parseContentfulPartner } from './partners';
 
 interface FetchOptions {
   preview: boolean;
@@ -22,7 +24,7 @@ export interface CampaignType {
   id: string;
   bannerTitle?: string;
   bannerImage?: ContentImage | null;
-  partner?: string;
+  partner?: PartnerType[];
   date?: string;
   subtitle?: string;
   description?: Document | null;
@@ -70,7 +72,6 @@ export async function parseContentfulCampaign(
   const fields = campaignEntry.fields;
 
   const bannerImageField = fields?.bannerImage;
-
   const bannerImage = bannerImageField
     ? parseContentfulContentImage(
         bannerImageField as
@@ -104,6 +105,17 @@ export async function parseContentfulCampaign(
         .filter((card): card is CardType => card !== null)
     : [];
 
+  const partners: PartnerType[] = fields?.partner
+    ? await Promise.all(
+        (fields.partner as Entry<TypePartnerSkeleton>[]).map(
+          async (partnerEntry) =>
+            parseContentfulPartner(partnerEntry as Entry<TypePartnerSkeleton>)
+        )
+      ).then((partners) =>
+        partners.filter((partner): partner is PartnerType => partner !== null)
+      )
+    : [];
+
   const isHighlighted =
     typeof fields?.isHighlighted === 'boolean' ? fields?.isHighlighted : false;
 
@@ -111,14 +123,14 @@ export async function parseContentfulCampaign(
     id: campaignEntry.sys.id,
     bannerTitle: getFieldValue(fields?.bannerTitle),
     bannerImage,
-    partner: getFieldValue(fields?.partner),
+    partner: partners.length ? partners : undefined,
     date: getFieldValue(fields?.date),
     subtitle: getFieldValue(fields?.subtitle),
     description: getRichTextFieldValue(fields?.description),
     gallery: gallery.length ? gallery : null,
     finalText: getRichTextFieldValue(fields?.finalText),
     imageCaption: getFieldValue(fields?.imageCaption),
-    videos: videos,
+    videos,
     press: pressCards,
     bannerColor: getFieldValue(fields?.bannerColor),
     videoCaption: getFieldValue(fields?.videoCaption),

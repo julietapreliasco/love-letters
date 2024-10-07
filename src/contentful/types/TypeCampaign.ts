@@ -5,11 +5,11 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful';
+import type { TypePartnerSkeleton } from './TypePartner';
 
 export interface TypeCampaignFields {
   bannerTitle?: EntryFieldTypes.Symbol;
   bannerImage?: EntryFieldTypes.AssetLink;
-  partner?: EntryFieldTypes.Symbol;
   date?: EntryFieldTypes.Date;
   subtitle?: EntryFieldTypes.Symbol;
   description?: EntryFieldTypes.RichText;
@@ -21,6 +21,9 @@ export interface TypeCampaignFields {
   press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   videoCaption?: EntryFieldTypes.Symbol;
   isHighlighted?: EntryFieldTypes.Boolean;
+  partner?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypePartnerSkeleton>
+  >;
 }
 
 export type TypeCampaignSkeleton = EntrySkeletonType<

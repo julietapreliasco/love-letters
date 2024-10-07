@@ -74,7 +74,9 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
   };
 
   const partnerCardStyles: CardStyles = {
-    mainDivHeight: 'h-[350px] lg:h-[400px] xl:h-[380px]',
+    mainDivHeight: 'h-[400px] xl:h-[380px]',
+    image: 'rounded-[10px] object-cover h-[160px] w-full',
+    titleFont: 'text-xl md:text-2xl',
   };
 
   return (
@@ -84,7 +86,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
           <div className="mb-10 px-3 lg:mb-0" key={index}>
             {type === Types.PARTNER ? (
               <SharedCard
-                linkTo={`/campaigns?partner=${encodeURIComponent(card.title!)}`}
+                linkTo={card.url}
                 cardData={card}
                 styles={partnerCardStyles}
               />

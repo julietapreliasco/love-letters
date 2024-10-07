@@ -52,7 +52,9 @@ const Campaign = ({ data }: CampaignProps) => {
           {partner && (
             <div>
               <p className="font-futura text-xl font-semibold">Partner</p>
-              <p className="font-lato text-base">{partner}</p>
+              <p className="font-lato text-base">
+                {partner.map((partner) => partner.name)}
+              </p>
             </div>
           )}
         </div>

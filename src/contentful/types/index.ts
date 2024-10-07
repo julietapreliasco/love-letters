@@ -16,6 +16,11 @@ export type {
 } from './TypeLandingSection';
 export type { TypePage, TypePageFields, TypePageSkeleton } from './TypePage';
 export type {
+  TypePartner,
+  TypePartnerFields,
+  TypePartnerSkeleton,
+} from './TypePartner';
+export type {
   TypePlace,
   TypePlaceFields,
   TypePlaceSkeleton,
