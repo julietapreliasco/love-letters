@@ -19,7 +19,7 @@ const Partners = ({ partnersPageData, partnersData }: PartnersProps) => {
     image: partner.photo,
     section: 'partners',
     campaign: null,
-    url: `/partners/${partner.name}`,
+    url: `/partners/#${partner.id}`,
   }));
 
   return (

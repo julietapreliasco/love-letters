@@ -74,8 +74,9 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
   };
 
   const partnerCardStyles: CardStyles = {
-    mainDivHeight: 'h-[350px] lg:h-[400px] xl:h-[380px]',
+    mainDivHeight: 'h-[400px] xl:h-[380px]',
     image: 'rounded-[10px] object-cover h-[160px] w-full',
+    titleFont: 'text-xl md:text-2xl',
   };
 
   return (
