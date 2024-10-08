@@ -12,7 +12,6 @@ const Partners = async () => {
     (page) => page.bannerTitle === 'Partners'
   );
   const partners = partnersPage[0].partners;
-  console.log(partnersPage);
 
   const partnersWithCampaigns =
     partners &&

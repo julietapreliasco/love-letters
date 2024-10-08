@@ -9,7 +9,6 @@ import Campaign from '@/components/campaign/Campaign';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import { useSearchParams } from 'next/navigation';
 import PressSection from '@/components/ui/PressSection';
-import { div } from 'framer-motion/client';
 
 interface PlaceContentProps {
   place: PlaceType;

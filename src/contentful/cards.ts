@@ -42,7 +42,7 @@ export function parseContentfulCard(
     return null;
   }
 
-  const imageField = cardEntry.fields.image;
+  const imageField = cardEntry.fields?.image;
 
   const image = imageField
     ? parseContentfulContentImage(
@@ -53,7 +53,7 @@ export function parseContentfulCard(
       )
     : null;
 
-  const logoField = cardEntry.fields.logo;
+  const logoField = cardEntry.fields?.logo;
   const logo = logoField
     ? parseContentfulContentImage(
         logoField as
@@ -63,18 +63,18 @@ export function parseContentfulCard(
       )
     : null;
 
-  const campaignField = cardEntry.fields.campaign;
+  const campaignField = cardEntry.fields?.campaign;
   const campaign = campaignField
     ? parseContentfulCampaign(campaignField as Entry<TypeCampaignSkeleton>)
     : null;
 
   return {
-    title: getFieldValue(cardEntry.fields.title),
-    subtitle: getFieldValue(cardEntry.fields.subtitle),
-    description: getFieldValue(cardEntry.fields.description),
+    title: getFieldValue(cardEntry.fields?.title),
+    subtitle: getFieldValue(cardEntry.fields?.subtitle),
+    description: getFieldValue(cardEntry.fields?.description),
     image,
-    section: getFieldValue(cardEntry.fields.section),
-    url: getFieldValue(cardEntry.fields.url),
+    section: getFieldValue(cardEntry.fields?.section),
+    url: getFieldValue(cardEntry.fields?.url),
     campaign,
     logo,
   };
