@@ -1,6 +1,11 @@
 import type { Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
-import { TypePageSkeleton, TypePage, TypeCardSkeleton } from './types';
+import {
+  TypePageSkeleton,
+  TypePage,
+  TypeCardSkeleton,
+  TypePartnerSkeleton,
+} from './types';
 import { Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
@@ -8,6 +13,7 @@ import {
   parseContentfulContentImage,
 } from './parseContentfulImage';
 import { CardType, parseContentfulCard } from './cards';
+import { PartnerType, parseContentfulPartner } from './partners';
 
 export interface PageType {
   id: string;
@@ -19,6 +25,7 @@ export interface PageType {
   images?: ContentImage[] | null;
   projectCards?: CardType[] | null;
   pressCards?: CardType[] | null;
+  partners?: PartnerType[] | null;
 }
 
 function getRichTextFieldValue(
@@ -45,9 +52,9 @@ function getFieldValue(
   return '';
 }
 
-export function parseContentfulPage(
+export async function parseContentfulPage(
   pageEntry?: Entry<TypePageSkeleton>
-): PageType | null {
+): Promise<PageType | null> {
   if (!pageEntry) {
     return null;
   }
@@ -87,6 +94,17 @@ export function parseContentfulPage(
         .filter((card): card is CardType => card !== null)
     : [];
 
+  const partners: PartnerType[] = pageEntry.fields?.partners
+    ? await Promise.all(
+        (pageEntry.fields.partners as Entry<TypePartnerSkeleton>[]).map(
+          async (partnerEntry) =>
+            parseContentfulPartner(partnerEntry as Entry<TypePartnerSkeleton>)
+        )
+      ).then((partners) =>
+        partners.filter((partner): partner is PartnerType => partner !== null)
+      )
+    : [];
+
   return {
     id: pageEntry.sys.id,
     page: getFieldValue(pageEntry.fields.page),
@@ -97,6 +115,7 @@ export function parseContentfulPage(
     images: images.length ? images : null,
     projectCards: projectCards.length ? projectCards : null,
     pressCards: pressCards.length ? pressCards : null,
+    partners: partners.length ? partners : null,
   };
 }
 
@@ -116,8 +135,10 @@ export async function fetchPages({
     order: ['fields.page'],
   });
 
-  return pagesResult.items.map(
-    (pageEntry) => parseContentfulPage(pageEntry) as PageType
+  return Promise.all(
+    pagesResult.items.map(
+      async (pageEntry) => (await parseContentfulPage(pageEntry)) as PageType
+    )
   );
 }
 

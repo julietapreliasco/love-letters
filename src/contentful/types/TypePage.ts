@@ -5,6 +5,7 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful';
+import { TypePartnerSkeleton } from './TypePartner';
 
 export interface TypePageFields {
   page: EntryFieldTypes.Symbol;
@@ -18,6 +19,9 @@ export interface TypePageFields {
   >;
   pressCards?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<EntrySkeletonType>
+  >;
+  partners?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypePartnerSkeleton>
   >;
 }
 
