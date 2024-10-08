@@ -9,6 +9,7 @@ import Campaign from '@/components/campaign/Campaign';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import { useSearchParams } from 'next/navigation';
 import PressSection from '@/components/ui/PressSection';
+import PartnerSection from '../ui/PartnerSection';
 
 interface PlaceContentProps {
   place: PlaceType;
@@ -63,8 +64,13 @@ export default function PlaceContent({ place }: PlaceContentProps) {
       return null;
     }
 
+    const allPartners =
+      place.campaigns?.flatMap((campaign) => campaign.partner || []) || [];
+
     return (
-      <div className="flex flex-col gap-10 px-10 py-10 md:px-20 md:py-20 xl:px-48 xl:py-20">
+      <div className="flex flex-col gap-10 px-10 py-5 md:px-20 md:py-20 xl:px-48 xl:py-20">
+        {allPartners.length > 0 && <PartnerSection partners={allPartners} />}
+
         {hasInitialContent && (
           <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
             {place.title}
