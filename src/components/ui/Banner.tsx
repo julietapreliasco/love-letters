@@ -53,12 +53,27 @@ export default function Banner({
   onTitleClick,
 }: InitialBannerProps) {
   const campaigns = useMemo(() => placeData?.campaigns || [], [placeData]);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [activeImage, setActiveImage] = useState(
     bannerType === BannerType.MAIN_BANNER
       ? images[0]
       : placeData?.backgroundImage?.src || ''
   );
+
+  useEffect(() => {
+    if (bannerType === BannerType.MAIN_BANNER) {
+      images.forEach((image) => {
+        const img = new window.Image();
+        img.src = image;
+      });
+    } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
+      campaigns.forEach((campaign) => {
+        if (campaign?.bannerImage?.src) {
+          const img = new window.Image();
+          img.src = campaign.bannerImage.src;
+        }
+      });
+    }
+  }, [bannerType, campaigns]);
 
   useEffect(() => {
     if (bannerType === BannerType.CAMPAIGN_BANNER) {
@@ -77,13 +92,17 @@ export default function Banner({
   const handleMouseEnter = (index: number) => {
     if (bannerType === BannerType.MAIN_BANNER) {
       if (images[index]) {
-        setActiveImage(images[index]);
+        const img = new window.Image();
+        img.src = images[index];
+        img.onload = () => setActiveImage(images[index]);
       }
     } else if (bannerType === BannerType.CAMPAIGN_BANNER) {
       if (campaigns.length > 0) {
         const campaignImage = campaigns[index]?.bannerImage?.src;
         if (campaignImage) {
-          setActiveImage(campaignImage);
+          const img = new window.Image();
+          img.src = campaignImage;
+          img.onload = () => setActiveImage(campaignImage);
         }
       }
     }
@@ -149,24 +168,13 @@ export default function Banner({
 
   return (
     <section className="banner relative flex h-screen w-full items-center overflow-hidden bg-custom-black">
-      {!imageLoaded && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-custom-lighter-gray">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={logoAndLinksVariants}
-            className="flex flex-col items-center justify-center"
-          >
-            <Logo className="w-1/2 md:w-1/3" />
-          </motion.div>
-        </div>
-      )}
       <motion.div
         className="absolute inset-0 z-0"
         key={activeImage}
         initial={{ opacity: 0, filter: 'blur(10px)' }}
         animate={{ opacity: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1 }}
+        exit={{ opacity: 0, filter: 'blur(10px)' }}
+        transition={{ duration: 1.5 }}
       >
         <Image
           src={activeImage}
@@ -176,7 +184,6 @@ export default function Banner({
           className="object-cover object-top opacity-70"
           priority
           loading="eager"
-          onLoad={() => setImageLoaded(true)}
         />
       </motion.div>
 
