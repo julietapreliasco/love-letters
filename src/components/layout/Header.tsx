@@ -11,39 +11,55 @@ import { usePathname } from 'next/navigation';
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [header, setHeader] = useState(false);
-  const [lastScrollPos, setLastScrollPos] = useState(0);
+  const [whiteText, setWhiteText] = useState(false);
   const headerControls = useAnimation();
 
   const pathname = usePathname();
   const shouldShowHeader =
-    pathname === '/places' || pathname === '/press' || pathname === '/partners';
+    pathname === '/places' ||
+    pathname === '/press' ||
+    pathname === '/partners' ||
+    pathname === '/about-me';
+
+  const isAboutPage = pathname === '/about-me';
 
   useEffect(() => {
     const handleScroll = () => {
       const bannerElement = document.getElementById('initial-banner');
       const bannerHeight = bannerElement?.offsetHeight || 0;
-      const bannerOffsetTop = bannerElement?.offsetTop || 0;
-      const oneThirdBanner = bannerOffsetTop + bannerHeight / 2;
       const currentScrollPos = window.scrollY;
+
+      if (isAboutPage) {
+        if (currentScrollPos <= bannerHeight / 2) {
+          setWhiteText(true);
+        } else {
+          setWhiteText(false);
+        }
+      } else {
+        setWhiteText(false);
+      }
 
       if (shouldShowHeader) {
         setHeader(true);
       } else {
         if (currentScrollPos > bannerHeight) {
           setHeader(true);
-        } else if (currentScrollPos <= oneThirdBanner) {
+        } else if (currentScrollPos <= bannerHeight / 2) {
           setHeader(false);
         }
       }
     };
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       setHeader(false);
+      setWhiteText(false);
     };
-  }, [lastScrollPos, shouldShowHeader]);
+  }, [shouldShowHeader, isAboutPage]);
 
   useEffect(() => {
     headerControls.start({
@@ -55,7 +71,9 @@ const Header = () => {
   const headerClass =
     !header && !shouldShowHeader
       ? 'hidden'
-      : 'fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] bg-white bg-opacity-70 backdrop-blur-sm';
+      : `fixed w-[calc(100%-40px)] rounded-[10px] my-[10px] mx-[20px] ${
+          whiteText ? '' : 'bg-white bg-opacity-70  backdrop-blur-sm'
+        } `;
 
   const logoClass =
     !header && !shouldShowHeader
@@ -72,20 +90,34 @@ const Header = () => {
         animate={headerControls}
       >
         <Link href="/">
-          <Logo color={'#29241F'} className={logoClass} />
+          <Logo color={whiteText ? '#FFF' : '#29241F'} className={logoClass} />
         </Link>
         <div className="hidden items-center md:flex">
-          <Button label="Places" variant={'SECONDARY_NAV'} linkTo="/places" />
+          <Button
+            label="Places"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+            linkTo="/places"
+          />
           <Button
             label="Partners"
             linkTo="/partners"
-            variant={'SECONDARY_NAV'}
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
-          <Button label="Press" linkTo="/press" variant={'SECONDARY_NAV'} />
-          <Button linkTo="/about-me" label="About" variant={'SECONDARY_NAV'} />
+          <Button
+            label="Press"
+            linkTo="/press"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
+          <Button
+            linkTo="/about-me"
+            label="About"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
           <Button linkTo="/#contact" label="Join us" />
         </div>
-        <div className={'items-center text-[24px] text-custom-black md:hidden'}>
+        <div
+          className={`items-center text-[24px] ${whiteText ? 'text-white' : 'text-custom-black'} md:hidden`}
+        >
           <IoIosMenu onClick={toggleMenu} />
         </div>
       </motion.header>

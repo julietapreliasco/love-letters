@@ -29,14 +29,20 @@ const Menu = ({ onClick }: MenuProps) => {
         />
         <Button
           onClick={onClick}
-          linkTo="/about-me"
-          label="About me"
+          linkTo="/partners"
+          label="Partners"
           variant="SECONDARY_NAV"
         />
         <Button
           onClick={onClick}
-          linkTo="/partners"
-          label="Partners"
+          linkTo="/press"
+          label="Press"
+          variant="SECONDARY_NAV"
+        />
+        <Button
+          onClick={onClick}
+          linkTo="/about-me"
+          label="About"
           variant="SECONDARY_NAV"
         />
         <Button onClick={onClick} linkTo="/#contact" label="Join us" />

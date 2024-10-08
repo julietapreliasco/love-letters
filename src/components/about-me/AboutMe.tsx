@@ -110,7 +110,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
   }
 
   return (
-    <div className="flex flex-col bg-custom-lighter-gray">
+    <div className="flex flex-col">
       <PageBanner bannerImg={bannerImg!} bannerTitle={bannerTitle!} />
       <div className="px-6 py-10 lg:px-16 lg:py-10 xl:px-28">
         {groupedContent}
