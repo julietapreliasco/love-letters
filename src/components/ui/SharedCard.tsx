@@ -34,15 +34,11 @@ const SharedCard = ({
         styles?.mainDivColor ?? 'border-2 border-custom-black bg-white'
       } ${styles?.mainDivPadding ?? 'p-6'} md:min-w-[210px] ${
         styles?.mainDivHeight ?? 'xl:h-80'
-      } ${isPress ? 'group relative' : ''}`}
+      }`}
     >
-      <div
-        className={`flex w-full flex-col ${styles?.contentWrapper ?? ''} ${
-          isPress ? 'relative' : ''
-        }`}
-      >
+      <div className={`flex w-full flex-col ${styles?.contentWrapper ?? ''}`}>
         {image?.src && (
-          <div className={`flex justify-center ${isPress ? 'relative' : ''}`}>
+          <div className={`group relative flex justify-center`}>
             {linkTo ? (
               <Link href={linkTo} className="w-full">
                 <Image
@@ -50,7 +46,7 @@ const SharedCard = ({
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  className={`transform transition-transform md:hover:scale-105 ${
+                  className={`transform transition-transform md:group-hover:scale-105 ${
                     styles?.image ?? 'h-[160px] rounded-[10px]'
                   } w-full bg-white object-contain ${
                     isPress ? 'opacity-75 group-hover:opacity-100' : ''
@@ -97,13 +93,13 @@ const SharedCard = ({
           className={`mt-5 flex flex-col gap-2 text-custom-black ${styles?.linkWrapper ?? ''}`}
         >
           {title && (
-            <p
+            <h3
               className={`font-futura leading-normal ${
                 styles?.titleFont ?? 'text-2xl'
               }`}
             >
               {title}
-            </p>
+            </h3>
           )}
           {description && (
             <p className="truncate-2-lines font-lato text-base leading-normal">
@@ -113,6 +109,7 @@ const SharedCard = ({
           {linkTo && (
             <Link href={linkTo} className={`mt-3 text-sm underline md:mt-1`}>
               Read more
+              <span className="sr-only">{` about ${title}`}</span>
             </Link>
           )}
         </div>
