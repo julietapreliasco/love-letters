@@ -1,7 +1,7 @@
+import React from 'react';
 import { CardType } from '@/contentful/cards';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 export interface CardStyles {
   mainDivColor?: string;
@@ -38,18 +38,20 @@ const SharedCard = ({
     >
       <div className={`flex w-full flex-col ${styles?.contentWrapper ?? ''}`}>
         {image?.src && (
-          <div className={`group relative flex justify-center`}>
+          <div
+            className={`group relative flex justify-center ${styles?.image ?? 'h-[160px]'}`}
+          >
             {linkTo ? (
-              <Link href={linkTo} className="w-full">
+              <Link href={linkTo} className="h-full w-full">
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  className={`transform transition-transform md:group-hover:scale-105 ${
-                    styles?.image ?? 'h-[160px] rounded-[10px]'
-                  } w-full bg-white object-contain ${
-                    isPress ? 'opacity-75 group-hover:opacity-100' : ''
+                  layout="fill"
+                  objectFit="cover"
+                  className={`transform rounded-[10px] transition-transform md:group-hover:scale-105 ${
+                    isPress
+                      ? 'rounded-none opacity-75 group-hover:opacity-100'
+                      : ''
                   }`}
                 />
               </Link>
@@ -57,9 +59,9 @@ const SharedCard = ({
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={image.width}
-                height={image.height}
-                className={`${styles?.image ?? 'h-[160px] rounded-[10px]'} w-full bg-white object-contain ${
+                layout="fill"
+                objectFit="cover"
+                className={`rounded-[10px] ${
                   isPress ? 'opacity-75 group-hover:opacity-100' : ''
                 }`}
               />

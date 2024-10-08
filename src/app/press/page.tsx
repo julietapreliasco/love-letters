@@ -11,8 +11,9 @@ const Press = async () => {
   const press = findSection('press', landingSections) as LandingSectionType;
 
   const pressCardStyles: CardStyles = {
-    mainDivHeight: 'h-full',
-    image: 'w-full',
+    mainDivHeight: 'h-[400px]',
+    image: 'rounded-[10px] object-cover h-[160px] w-full',
+    titleFont: 'text-xl md:text-2xl',
   };
 
   return (

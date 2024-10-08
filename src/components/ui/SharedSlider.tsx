@@ -1,3 +1,4 @@
+import React from 'react';
 import { CardType } from '@/contentful/cards';
 import Slider from 'react-slick';
 import SharedCard, { CardStyles } from './SharedCard';
@@ -65,9 +66,8 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
   const pressCardStyles: CardStyles = {
     mainDivColor: 'bg-white',
     mainDivPadding: 'p-0 xl:p-0',
-    image:
-      'h-[220px] md:h-[180px] lg:min-h-[200px] 2xl:min-h-[300px] object-cover',
-    mainDivHeight: 'h-full ',
+    image: 'h-[220px] w-full object-cover',
+    mainDivHeight: 'h-full',
     titleFont: 'text-xl',
     contentWrapper: 'h-full',
     linkWrapper: 'h-full flex flex-col justify-between',
