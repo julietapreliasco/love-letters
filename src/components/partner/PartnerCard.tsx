@@ -42,6 +42,7 @@ const PartnerCard = ({ partner, relatedCampaigns }: PartnerCardProps) => {
               src={partner.photo.src}
               alt={partner.photo.alt}
               fill
+              sizes=""
               className="rounded-lg object-cover"
             />
           )}

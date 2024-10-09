@@ -33,11 +33,12 @@ const PressSection: React.FC<PressSectionProps> = ({ press }) => {
                   mainDivHeight: 'h-full',
                   mainDivPadding: 'p-0',
                   mainDivColor: 'bg-white',
-                  image: 'lg:h-[300px] object-cover object-center',
+                  image: 'h-[200px] lg:h-[300px] object-cover object-center',
                   titleFont: 'text-base md:text-xl',
                 }}
                 linkTo={pressCard.url}
                 cardData={pressCard}
+                isPress
               />
             </div>
           ))}

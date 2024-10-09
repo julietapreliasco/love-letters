@@ -41,16 +41,19 @@ const Campaign = ({ data }: CampaignProps) => {
 
   return (
     <>
-      <div className="px-10 py-10 md:px-20 md:py-20 xl:px-48 xl:py-20">
-        {partner && <PartnerSection partners={partner} />}
-        <div className="mt-10 flex flex-col gap-3 pb-5 md:pb-10">
-          <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
-            {bannerTitle}
-          </h3>
-          <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
-            {subtitle}
-          </p>
+      <div className="px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32">
+        <div className="flex flex-wrap-reverse items-center justify-between">
+          <div className="flex flex-col gap-3 pb-5 md:w-[60%] md:pb-10">
+            <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
+              {bannerTitle}
+            </h3>
+            <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
+              {subtitle}
+            </p>
+          </div>
+          {partner && <PartnerSection partners={partner} />}
         </div>
+
         {videos && videos?.length > 0 && (
           <div className="">
             <VideoPlayer

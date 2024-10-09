@@ -47,18 +47,15 @@ const Footer = async () => {
         <span className="hidden self-center md:block md:text-sm xl:text-base">
           Copyright &copy; 2024. All rights reserved.
         </span>
-        <div className="flex flex-col pb-5 md:flex-row md:p-0">
+        <div className="flex flex-col items-center pb-5 md:flex-row md:p-0">
           <Button label="Places" linkTo="/places" variant={'SECONDARY_NAV'} />
-          <Button
-            label="About me"
-            linkTo="/about-me"
-            variant={'SECONDARY_NAV'}
-          />
           <Button
             label="Partners"
             linkTo="/partners"
             variant={'SECONDARY_NAV'}
           />
+          <Button label="Press" linkTo="/press" variant={'SECONDARY_NAV'} />
+          <Button label="About" linkTo="/about-me" variant={'SECONDARY_NAV'} />
         </div>
         <span className="w-full border-t border-custom-black pb-[10px] pt-10 text-center md:hidden">
           Copyright &copy; 2024. All rights reserved.

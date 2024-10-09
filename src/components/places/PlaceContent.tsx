@@ -67,34 +67,40 @@ export default function PlaceContent({ place }: PlaceContentProps) {
     const allPartners =
       place.campaigns?.flatMap((campaign) => campaign.partner || []) || [];
 
-    return (
-      <div className="flex flex-col gap-10 px-10 py-5 md:px-20 md:py-20 xl:px-48 xl:py-20">
-        {allPartners.length > 0 && <PartnerSection partners={allPartners} />}
+    if (hasInitialContent) {
+      return (
+        <div className="flex flex-col gap-10 px-10 py-5 md:px-20 md:py-20 xl:px-48 xl:py-20">
+          <div className="flex flex-col-reverse justify-between lg:flex-row">
+            <h3 className="mt-10 font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mt-0 lg:self-center lg:text-5xl lg:leading-normal">
+              {place.title}
+            </h3>
+            {allPartners.length > 0 && (
+              <div className="pt-10">
+                <PartnerSection partners={allPartners} />
+              </div>
+            )}
+          </div>
 
-        {hasInitialContent && (
-          <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
-            {place.title}
-          </h3>
-        )}
-        {place.description && (
-          <div className="mb-6">
-            {documentToReactComponents(place.description)}
-          </div>
-        )}
-        {place.trailer && (
-          <div className="flex flex-col items-center gap-5 font-lato md:text-xl">
-            <VideoPlayer
-              videoUrl={place.trailer.videoUrl}
-              thumbnail={place.trailer.thumbnail}
-            />
-            <p>{place.trailer.title}</p>
-          </div>
-        )}
-        {place.press && place.press.length > 0 && (
-          <PressSection press={place.press} />
-        )}
-      </div>
-    );
+          {place.description && (
+            <div className="mb-6">
+              {documentToReactComponents(place.description)}
+            </div>
+          )}
+          {place.trailer && (
+            <div className="flex flex-col items-center gap-5 font-lato md:text-xl">
+              <VideoPlayer
+                videoUrl={place.trailer.videoUrl}
+                thumbnail={place.trailer.thumbnail}
+              />
+              <p>{place.trailer.title}</p>
+            </div>
+          )}
+          {place.press && place.press.length > 0 && (
+            <PressSection press={place.press} />
+          )}
+        </div>
+      );
+    }
   };
 
   return (

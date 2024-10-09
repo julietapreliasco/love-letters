@@ -6,7 +6,7 @@ interface PartnerSectionProps {
   partners: PartnerType[];
 }
 
-export default function PartnerSection({ partners }: PartnerSectionProps) {
+const PartnerSection = ({ partners }: PartnerSectionProps) => {
   if (!partners || partners.length === 0) return null;
 
   const uniquePartners = partners.filter(
@@ -15,30 +15,25 @@ export default function PartnerSection({ partners }: PartnerSectionProps) {
   );
 
   return (
-    <div className="w-fit rounded-xl border-2 border-custom-gray p-5 drop-shadow md:px-10">
-      <h4 className="mb-8 font-futura text-lg tracking-wider md:text-xl">
-        {partners.length > 1 ? 'Partners:' : 'Partner:'}
-      </h4>
-      <div className="flex flex-wrap justify-around md:gap-5">
+    <div className="mt-10 flex w-fit gap-4">
+      <div className="flex flex-wrap justify-around gap-6">
         {uniquePartners.map((partner) => (
-          <div
-            key={partner.id}
-            className="mb-8 flex flex-col items-center px-4"
-          >
+          <div key={partner.id} className="mb-8 flex flex-col items-center">
             <Link
               href={`/partners/#${partner.id}`}
-              className="group relative h-20 w-20 overflow-hidden rounded-full drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-110 sm:h-28 sm:w-28"
+              className="group relative h-16 w-16 overflow-hidden rounded-full drop-shadow-xl transition-transform duration-300 ease-in-out hover:scale-110 sm:h-20 sm:w-20"
             >
               {partner.photo && (
                 <Image
                   src={partner.photo.src}
                   alt={partner.name}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  sizes=""
+                  className="object-cover"
                 />
               )}
             </Link>
-            <p className="mt-4 w-28 text-center font-lato text-xs font-bold md:text-sm">
+            <p className="mt-4 w-32 text-center font-futura text-xs tracking-wider text-custom-black md:text-sm">
               {partner.name}
             </p>
           </div>
@@ -46,4 +41,6 @@ export default function PartnerSection({ partners }: PartnerSectionProps) {
       </div>
     </div>
   );
-}
+};
+
+export default PartnerSection;
