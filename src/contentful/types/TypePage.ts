@@ -6,6 +6,7 @@ import type {
   LocaleCode,
 } from 'contentful';
 import { TypePartnerSkeleton } from './TypePartner';
+import { TypeCampaignSkeleton } from './TypeCampaign';
 
 export interface TypePageFields {
   page: EntryFieldTypes.Symbol;
@@ -22,6 +23,9 @@ export interface TypePageFields {
   >;
   partners?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePartnerSkeleton>
+  >;
+  campaigns?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypeCampaignSkeleton>
   >;
 }
 
