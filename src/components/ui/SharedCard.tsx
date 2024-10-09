@@ -46,9 +46,9 @@ const SharedCard = ({
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  className={`transform rounded-[10px] transition-transform md:group-hover:scale-105 ${
+                  fill
+                  sizes=""
+                  className={`transform rounded-[10px] object-cover transition-transform md:group-hover:scale-105 ${
                     isPress
                       ? 'rounded-none opacity-75 group-hover:opacity-100'
                       : ''
@@ -59,17 +59,19 @@ const SharedCard = ({
               <Image
                 src={image.src}
                 alt={image.alt}
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes=""
                 className={`rounded-[10px] ${
-                  isPress ? 'opacity-75 group-hover:opacity-100' : ''
+                  isPress
+                    ? 'object-cover opacity-75 group-hover:opacity-100'
+                    : ''
                 }`}
               />
             )}
             {isPress && logo?.src && (
               <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
                 {linkTo ? (
-                  <Link href={linkTo}>
+                  <Link target="_blank" href={linkTo}>
                     <Image
                       src={logo.src}
                       alt={logo.alt}

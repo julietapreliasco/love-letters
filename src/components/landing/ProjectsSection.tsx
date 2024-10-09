@@ -70,7 +70,7 @@ function ProjectsSection({ projectData, places }: ProjectsSectionClientProps) {
         </div>
       </div>
       <div className="mt-28 flex justify-center">
-        <Button linkTo="/campaigns" variant="SECONDARY" label={'See all'} />
+        <Button linkTo="/places" variant="SECONDARY" label={'See all'} />
       </div>
     </section>
   );

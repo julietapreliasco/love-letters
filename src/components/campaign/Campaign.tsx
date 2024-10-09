@@ -5,12 +5,12 @@ import ContactUsCard from '../ui/ContactUsCard';
 import Gallery from '../ui/Gallery';
 import FinalText from './FinalText';
 import { useState } from 'react';
-
 import Image from 'next/image';
 import VideoPlayer from '../ui/VideoPlayer';
 import { IoMdPlay } from 'react-icons/io';
 import VideoGallery from '../ui/VideoGallery';
 import PressSection from '../ui/PressSection';
+import PartnerSection from '../ui/PartnerSection';
 
 interface CampaignProps {
   data: CampaignType;
@@ -41,31 +41,19 @@ const Campaign = ({ data }: CampaignProps) => {
 
   return (
     <>
-      <div className="px-10 py-10 md:px-20 md:py-20 xl:px-48 xl:py-20">
-        <div className="mb-8 justify-between md:mb-16 md:flex">
-          {date && (
-            <div>
-              <p className="font-futura text-xl font-semibold">Date</p>
-              <p className="font-lato text-base">{date}</p>
-            </div>
-          )}
-          {partner && (
-            <div>
-              <p className="font-futura text-xl font-semibold">Partner</p>
-              <p className="font-lato text-base">
-                {partner.map((partner) => partner.name)}
-              </p>
-            </div>
-          )}
+      <div className="px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32">
+        <div className="flex flex-wrap-reverse items-center justify-between">
+          <div className="flex flex-col gap-3 pb-5 md:w-[60%] md:pb-10">
+            <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
+              {bannerTitle}
+            </h3>
+            <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
+              {subtitle}
+            </p>
+          </div>
+          {partner && <PartnerSection partners={partner} />}
         </div>
-        <div className="flex flex-col gap-3 pb-5 md:pb-10">
-          <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
-            {bannerTitle}
-          </h3>
-          <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
-            {subtitle}
-          </p>
-        </div>
+
         {videos && videos?.length > 0 && (
           <div className="">
             <VideoPlayer
