@@ -14,12 +14,12 @@ import PartnerSection from '../ui/PartnerSection';
 
 interface CampaignProps {
   data: CampaignType;
+  isAcademy?: boolean;
 }
 
-const Campaign = ({ data }: CampaignProps) => {
+const Campaign = ({ data, isAcademy }: CampaignProps) => {
   const {
     bannerTitle,
-    date,
     partner,
     subtitle,
     description,
@@ -41,7 +41,9 @@ const Campaign = ({ data }: CampaignProps) => {
 
   return (
     <>
-      <div className="px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32">
+      <div
+        className={`${!isAcademy ? 'px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32' : ''}`}
+      >
         <div className="flex flex-wrap-reverse items-center justify-between">
           <div className="flex flex-col gap-3 pb-5 md:w-[60%] md:pb-10">
             <h3 className="font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:text-5xl lg:leading-normal">
@@ -76,7 +78,15 @@ const Campaign = ({ data }: CampaignProps) => {
         )}
 
         {videos && videos.length > 1 && (
-          <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={`relative grid grid-cols-1 gap-6 ${
+              isAcademy
+                ? videos.length === 2
+                  ? 'sm:grid-cols-1'
+                  : 'sm:grid-cols-2 lg:grid-cols-3'
+                : 'sm:grid-cols-2 lg:grid-cols-3'
+            }`}
+          >
             {videos.slice(1).map((video, index) => (
               <div key={video.videoUrl} className="mb-5 md:mb-10">
                 <div className="md:hidden">
@@ -128,9 +138,11 @@ const Campaign = ({ data }: CampaignProps) => {
         <div className="mt-10 flex justify-center">
           {press && press.length > 0 && <PressSection press={press!} />}
         </div>
-        <div className="mb-5 mt-14 flex justify-center md:mb-0">
-          <ContactUsCard />
-        </div>
+        {!isAcademy && (
+          <div className="mb-5 mt-14 flex justify-center md:mb-0">
+            <ContactUsCard />
+          </div>
+        )}
       </div>
       {isVideoGalleryOpen && (
         <VideoGallery

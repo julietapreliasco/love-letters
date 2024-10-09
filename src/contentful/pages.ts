@@ -5,6 +5,7 @@ import {
   TypePage,
   TypeCardSkeleton,
   TypePartnerSkeleton,
+  TypeCampaignSkeleton,
 } from './types';
 import { Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
@@ -14,6 +15,7 @@ import {
 } from './parseContentfulImage';
 import { CardType, parseContentfulCard } from './cards';
 import { PartnerType, parseContentfulPartner } from './partners';
+import { CampaignType, parseContentfulCampaign } from './campaign';
 
 export interface PageType {
   id: string;
@@ -26,6 +28,7 @@ export interface PageType {
   projectCards?: CardType[] | null;
   pressCards?: CardType[] | null;
   partners?: PartnerType[] | null;
+  campaigns?: CampaignType[] | null;
 }
 
 function getRichTextFieldValue(
@@ -105,6 +108,15 @@ export async function parseContentfulPage(
       )
     : [];
 
+  const campaignsField = pageEntry.fields?.campaigns;
+  const campaigns = Array.isArray(campaignsField)
+    ? await Promise.all(
+        campaignsField.map((campaign) =>
+          parseContentfulCampaign(campaign as Entry<TypeCampaignSkeleton>)
+        )
+      )
+    : null;
+
   return {
     id: pageEntry.sys.id,
     page: getFieldValue(pageEntry.fields.page),
@@ -116,6 +128,10 @@ export async function parseContentfulPage(
     projectCards: projectCards.length ? projectCards : null,
     pressCards: pressCards.length ? pressCards : null,
     partners: partners.length ? partners : null,
+    campaigns:
+      campaigns?.filter(
+        (campaign): campaign is CampaignType => campaign !== null
+      ) || null,
   };
 }
 

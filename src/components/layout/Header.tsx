@@ -19,7 +19,8 @@ const Header = () => {
     pathname === '/places' ||
     pathname === '/press' ||
     pathname === '/partners' ||
-    pathname === '/about-me';
+    pathname === '/about-me' ||
+    pathname === '/academy';
 
   const isAboutPage = pathname === '/about-me';
 
