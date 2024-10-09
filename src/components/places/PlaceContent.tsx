@@ -20,9 +20,7 @@ export default function PlaceContent({ place }: PlaceContentProps) {
     null
   );
   const nextSectionRef = useRef<HTMLDivElement>(null);
-  const hasInitialContent = Boolean(
-    place.description || place.trailer || place.press
-  );
+  const hasInitialContent = Boolean(place.description || place.trailer);
   const searchParams = useSearchParams();
   const campaignId = searchParams.get('campaignId');
 
