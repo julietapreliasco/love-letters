@@ -1,4 +1,5 @@
 'use client';
+
 import { CampaignType } from '@/contentful/campaign';
 import Description from './Description';
 import ContactUsCard from '../ui/ContactUsCard';
@@ -42,16 +43,24 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
   return (
     <>
       <div
-        className={`${!isAcademy ? 'px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32' : ''}`}
+        className={`${
+          !isAcademy ? 'px-10 py-16 md:px-20 md:py-32 xl:px-48 xl:py-32' : ''
+        }`}
       >
         <div
-          className={`flex flex-wrap-reverse items-center justify-${isAcademy ? 'center' : 'between'}`}
+          className={`flex flex-wrap-reverse items-center justify-${
+            isAcademy ? 'center' : 'between'
+          }`}
         >
           <div
-            className={`flex flex-col gap-3 pb-5 ${!isAcademy ? 'md:w-[60%]' : 'text-center'} md:pb-10`}
+            className={`flex flex-col gap-3 pb-5 ${
+              !isAcademy ? 'md:w-[60%]' : 'text-center'
+            } md:pb-10`}
           >
             <h3
-              className={`font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal ${!isAcademy ? 'lg:text-5xl lg:leading-normal' : ''}`}
+              className={`font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal ${
+                !isAcademy ? 'lg:text-5xl lg:leading-normal' : ''
+              }`}
             >
               {bannerTitle}
             </h3>
@@ -86,10 +95,8 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         {videos && videos.length > 1 && (
           <div
             className={`relative grid grid-cols-1 gap-6 ${
-              isAcademy
-                ? videos.length === 2
-                  ? 'sm:grid-cols-1'
-                  : 'sm:grid-cols-2 lg:grid-cols-3'
+              videos.length === 2
+                ? 'sm:grid-cols-1'
                 : 'sm:grid-cols-2 lg:grid-cols-3'
             }`}
           >
@@ -107,14 +114,15 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
                   onClick={() => openVideoGallery(index + 1)}
                 >
                   {video.thumbnail && (
-                    <Image
-                      src={video.thumbnail}
-                      alt="Video Thumbnail"
-                      className="object-cover"
-                      width={400}
-                      height={225}
-                      layout="responsive"
-                    />
+                    <div className="relative aspect-video w-full">
+                      <Image
+                        src={video.thumbnail}
+                        alt="Video Thumbnail"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
                   )}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="rounded-full bg-custom-lighter-gray bg-opacity-70 p-4">
@@ -136,7 +144,9 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         {gallery != null && (
           <div id="gallery" className="mt-10 lg:mt-20">
             <h3
-              className={`mb-5 font-futura text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11 ${isAcademy ? 'text-center' : ''}`}
+              className={`mb-5 font-futura text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11 ${
+                isAcademy ? 'text-center' : ''
+              }`}
             >
               Gallery
             </h3>

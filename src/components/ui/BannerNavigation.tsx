@@ -37,11 +37,9 @@ const BannerNavigation = ({
   return (
     <div
       className={`m-6 flex items-center justify-center ${
-        bannerType === BannerType.CAMPAIGN_BANNER
-          ? links?.length === 1
-            ? 'flex-col'
-            : 'grid grid-cols-2 md:flex'
-          : 'flex-row gap-2'
+        links?.length === 1
+          ? 'flex-col'
+          : `${bannerType === BannerType.CAMPAIGN_BANNER ? 'grid grid-cols-2' : 'grid grid-cols-3'} md:flex`
       } text-center font-futura uppercase text-white`}
     >
       {links?.map((link, index) =>

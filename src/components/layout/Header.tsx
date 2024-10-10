@@ -93,7 +93,7 @@ const Header = () => {
         <Link href="/">
           <Logo color={whiteText ? '#FFF' : '#29241F'} className={logoClass} />
         </Link>
-        <div className="hidden items-center md:flex">
+        <div className="hidden items-center lg:flex">
           <Button
             label="Places"
             variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
@@ -110,14 +110,24 @@ const Header = () => {
             variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
           <Button
+            linkTo="/academy"
+            label="Academy"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
+          <Button
             linkTo="/about-me"
             label="About"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
+          <Button
+            linkTo="/speaking"
+            label="Speaking"
             variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
           <Button linkTo="/#contact" label="Join us" />
         </div>
         <div
-          className={`items-center text-[24px] ${whiteText ? 'text-white' : 'text-custom-black'} md:hidden`}
+          className={`items-center text-[24px] ${whiteText ? 'text-white' : 'text-custom-black'} lg:hidden`}
         >
           <IoIosMenu onClick={toggleMenu} />
         </div>
