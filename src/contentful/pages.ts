@@ -1,13 +1,12 @@
-import type { Entry } from 'contentful';
+import type { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 import {
   TypePageSkeleton,
-  TypePage,
   TypeCardSkeleton,
   TypePartnerSkeleton,
   TypeCampaignSkeleton,
+  TypeVideoSkeleton,
 } from './types';
-import { Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
 import {
   ContentImage,
@@ -16,19 +15,24 @@ import {
 import { CardType, parseContentfulCard } from './cards';
 import { PartnerType, parseContentfulPartner } from './partners';
 import { CampaignType, parseContentfulCampaign } from './campaign';
+import { parseContentfulVideo, VideoType } from './videos';
 
 export interface PageType {
   id: string;
   page: string;
   bannerTitle?: string;
   bannerImg?: ContentImage | null;
-  subtitle?: string;
-  description?: Document | null;
+  bannerSubtitle?: string;
+  title?: string;
+  richText?: Document | null;
+  richTextTwo?: Document | null;
+  richTextThree?: Document | null;
   images?: ContentImage[] | null;
-  projectCards?: CardType[] | null;
+  cards?: CardType[] | null;
   pressCards?: CardType[] | null;
   partners?: PartnerType[] | null;
   campaigns?: CampaignType[] | null;
+  videos?: VideoType[] | null;
 }
 
 function getRichTextFieldValue(
@@ -81,27 +85,22 @@ export async function parseContentfulPage(
         .filter((image): image is ContentImage => image !== null)
     : [];
 
-  const projectCards = pageEntry.fields.projectCards
-    ? (pageEntry.fields.projectCards as Entry<TypeCardSkeleton>[])
-        .map((cardEntry) =>
-          parseContentfulCard(cardEntry as Entry<TypeCardSkeleton>)
-        )
+  const cards = pageEntry.fields.cards
+    ? (pageEntry.fields.cards as Entry<TypeCardSkeleton>[])
+        .map((cardEntry) => parseContentfulCard(cardEntry))
         .filter((card): card is CardType => card !== null)
     : [];
 
   const pressCards = pageEntry.fields.pressCards
     ? (pageEntry.fields.pressCards as Entry<TypeCardSkeleton>[])
-        .map((cardEntry) =>
-          parseContentfulCard(cardEntry as Entry<TypeCardSkeleton>)
-        )
+        .map((cardEntry) => parseContentfulCard(cardEntry))
         .filter((card): card is CardType => card !== null)
     : [];
 
   const partners: PartnerType[] = pageEntry.fields?.partners
     ? await Promise.all(
         (pageEntry.fields.partners as Entry<TypePartnerSkeleton>[]).map(
-          async (partnerEntry) =>
-            parseContentfulPartner(partnerEntry as Entry<TypePartnerSkeleton>)
+          async (partnerEntry) => parseContentfulPartner(partnerEntry)
         )
       ).then((partners) =>
         partners.filter((partner): partner is PartnerType => partner !== null)
@@ -117,21 +116,35 @@ export async function parseContentfulPage(
       )
     : null;
 
+  const videosField = pageEntry.fields?.videos;
+  const videos = Array.isArray(videosField)
+    ? await Promise.all(
+        videosField.map((video) =>
+          parseContentfulVideo(video as Entry<TypeVideoSkeleton>)
+        )
+      )
+    : null;
+
   return {
     id: pageEntry.sys.id,
     page: getFieldValue(pageEntry.fields.page),
     bannerTitle: getFieldValue(pageEntry.fields.bannerTitle),
     bannerImg,
-    subtitle: getFieldValue(pageEntry.fields.subtitle),
-    description: getRichTextFieldValue(pageEntry.fields.description),
+    bannerSubtitle: getFieldValue(pageEntry.fields.bannerSubtitle),
+    title: getFieldValue(pageEntry.fields.title),
+    richText: getRichTextFieldValue(pageEntry.fields.richText),
+    richTextTwo: getRichTextFieldValue(pageEntry.fields.richTextTwo),
+    richTextThree: getRichTextFieldValue(pageEntry.fields.richTextThree),
     images: images.length ? images : null,
-    projectCards: projectCards.length ? projectCards : null,
+    cards: cards.length ? cards : null,
     pressCards: pressCards.length ? pressCards : null,
     partners: partners.length ? partners : null,
     campaigns:
       campaigns?.filter(
         (campaign): campaign is CampaignType => campaign !== null
       ) || null,
+    videos:
+      videos?.filter((video): video is VideoType => video !== null) || null,
   };
 }
 

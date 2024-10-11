@@ -14,7 +14,7 @@ interface AboutMeProps {
 }
 
 const AboutMe = ({ data }: AboutMeProps) => {
-  const { description, bannerTitle, bannerImg } = data;
+  const { richText, bannerTitle, bannerImg } = data;
   const [hoveredIndices, setHoveredIndices] = useState<number[]>([]);
 
   const handleMouseEnter = (index: number) => {
@@ -76,10 +76,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
     },
   };
 
-  const contentComponents = documentToReactComponents(
-    description!,
-    renderOptions
-  );
+  const contentComponents = documentToReactComponents(richText!, renderOptions);
   const contentArray = Array.isArray(contentComponents)
     ? contentComponents
     : [contentComponents];

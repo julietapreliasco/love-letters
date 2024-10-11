@@ -5,19 +5,21 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful';
-import { TypePartnerSkeleton } from './TypePartner';
-import { TypeCampaignSkeleton } from './TypeCampaign';
+import type { TypeCampaignSkeleton } from './TypeCampaign';
+import type { TypePartnerSkeleton } from './TypePartner';
+import type { TypeVideoSkeleton } from './TypeVideo';
 
 export interface TypePageFields {
   page: EntryFieldTypes.Symbol;
   bannerTitle?: EntryFieldTypes.Symbol;
   bannerImg?: EntryFieldTypes.AssetLink;
-  subtitle?: EntryFieldTypes.Text;
-  description?: EntryFieldTypes.RichText;
+  bannerSubtitle?: EntryFieldTypes.Symbol;
+  title?: EntryFieldTypes.Text;
+  richText?: EntryFieldTypes.RichText;
+  richTextTwo?: EntryFieldTypes.RichText;
+  richTextThree?: EntryFieldTypes.RichText;
   images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-  projectCards?: EntryFieldTypes.Array<
-    EntryFieldTypes.EntryLink<EntrySkeletonType>
-  >;
+  cards?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   pressCards?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<EntrySkeletonType>
   >;
@@ -27,6 +29,7 @@ export interface TypePageFields {
   campaigns?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypeCampaignSkeleton>
   >;
+  videos?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeVideoSkeleton>>;
 }
 
 export type TypePageSkeleton = EntrySkeletonType<TypePageFields, 'page'>;

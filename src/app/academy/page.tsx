@@ -12,7 +12,7 @@ const Academy = async () => {
     (page) => page.page === 'Love letters academy'
   )[0];
 
-  const { bannerTitle, description, campaigns } = academyPage;
+  const { bannerTitle, richText, campaigns } = academyPage;
 
   const options: Options = {
     renderNode: {
@@ -28,9 +28,9 @@ const Academy = async () => {
       <h2 className="font-futura text-xl font-medium uppercase leading-normal tracking-wider md:mb-10 md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         {bannerTitle}
       </h2>
-      {description && (
+      {richText && (
         <div className="text-justify font-lato leading-normal md:text-xl md:leading-normal">
-          {documentToReactComponents(description, options)}
+          {documentToReactComponents(richText, options)}
         </div>
       )}
       {campaigns && (
