@@ -1,4 +1,5 @@
-import SharedCard, { CardStyles } from '@/components/ui/SharedCard';
+import FlipCard from '@/components/ui/FlipCard';
+import { CardStyles } from '@/components/ui/SharedCard';
 import { CardType } from '@/contentful/cards';
 import {
   fetchLandingSections,
@@ -10,28 +11,16 @@ const Press = async () => {
   const landingSections = await fetchLandingSections({ preview: false });
   const press = findSection('press', landingSections) as LandingSectionType;
 
-  const pressCardStyles: CardStyles = {
-    mainDivHeight: 'h-[400px]',
-    image: 'rounded-[10px] object-cover h-[160px] w-full',
-    titleFont: 'text-xl md:text-2xl',
-  };
-
   return (
     <div className="flex flex-col items-center gap-10 px-8 py-20 sm:px-12 md:py-[120px] xl:px-[160px]">
       <h2 className="font-futura text-xl font-medium uppercase leading-normal tracking-wider md:mb-10 md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         Press
       </h2>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {press.cards &&
           press.cards.map((card: CardType, index: number) => (
-            <SharedCard
-              key={index}
-              cardData={card}
-              styles={pressCardStyles}
-              linkTo={card.url}
-              isPress={true}
-            />
+            <FlipCard key={index} pressCard={card} />
           ))}
       </div>
     </div>
