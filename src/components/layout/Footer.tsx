@@ -55,7 +55,13 @@ const Footer = async () => {
             variant={'SECONDARY_NAV'}
           />
           <Button label="Press" linkTo="/press" variant={'SECONDARY_NAV'} />
+          <Button label="Academy" linkTo="/academy" variant={'SECONDARY_NAV'} />
           <Button label="About" linkTo="/about-me" variant={'SECONDARY_NAV'} />
+          <Button
+            label="Speaking"
+            linkTo="/speaking"
+            variant={'SECONDARY_NAV'}
+          />
         </div>
         <span className="w-full border-t border-custom-black pb-[10px] pt-10 text-center md:hidden">
           Copyright &copy; 2024. All rights reserved.

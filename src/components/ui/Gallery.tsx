@@ -74,14 +74,14 @@ const Gallery = ({ images }: ImageGalleryProps) => {
             alt={image.alt || `Imagen ${index + 1}`}
             width={image.width}
             height={image.height}
-            className="object-cover md:max-h-[200px] md:min-h-[200px]"
+            className="max-h-[150px] min-h-[150px] object-cover md:max-h-[200px] md:min-h-[200px]"
           />
         </div>
       ))}
 
       {currentIndex !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white lg:p-40">
-          <p className="font-futura absolute left-4 top-4 text-custom-black">
+          <p className="absolute left-4 top-4 font-futura text-custom-black">
             {`${currentIndex + 1}/${images.length}`}
           </p>
           <button

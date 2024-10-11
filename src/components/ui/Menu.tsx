@@ -20,7 +20,7 @@ const Menu = ({ onClick }: MenuProps) => {
           &times;
         </button>
       </div>
-      <div className="flex flex-grow flex-col items-center gap-10 pt-[60px]">
+      <div className="flex flex-grow flex-col items-center gap-5 py-5">
         <Button
           onClick={onClick}
           linkTo="/places"
@@ -41,8 +41,20 @@ const Menu = ({ onClick }: MenuProps) => {
         />
         <Button
           onClick={onClick}
+          linkTo="/academy"
+          label="Academy"
+          variant="SECONDARY_NAV"
+        />
+        <Button
+          onClick={onClick}
           linkTo="/about-me"
           label="About"
+          variant="SECONDARY_NAV"
+        />
+        <Button
+          onClick={onClick}
+          linkTo="/speaking"
+          label="Speaking"
           variant="SECONDARY_NAV"
         />
         <Button onClick={onClick} linkTo="/#contact" label="Join us" />
