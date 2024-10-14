@@ -27,7 +27,7 @@ const FlipCard = ({
 
   return (
     <div
-      className={`relative ${pressCard ? 'h-[250px] md:h-[300px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} mb-4 w-full [perspective:1000px] lg:h-[450px]`}
+      className={`relative ${pressCard ? 'h-[250px] md:h-[350px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} mb-4 w-full [perspective:1000px] lg:h-[450px]`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
@@ -35,7 +35,7 @@ const FlipCard = ({
         className="relative h-full w-full rounded-lg border-2 border-custom-lighter-gray bg-custom-lighter-gray"
         initial={false}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        transition={{ duration: 0.4, ease: 'easeInOut' }}
         style={{ transformStyle: 'preserve-3d' }}
       >
         <motion.div
@@ -76,7 +76,7 @@ const FlipCard = ({
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 flex flex-col gap-3 overflow-y-auto rounded-lg bg-custom-lighter-gray p-6 text-custom-black sm:p-7 md:gap-5 md:p-10"
+          className="absolute inset-0 flex flex-col gap-3 overflow-y-auto rounded-lg bg-custom-lighter-gray p-6 text-custom-black md:gap-5 md:p-8 lg:p-10"
           style={{ backfaceVisibility: 'hidden', rotateY: 180 }}
         >
           <h2
