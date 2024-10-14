@@ -12,8 +12,8 @@ const PressSection: React.FC<PressSectionProps> = ({ press }) => {
   }
 
   return (
-    <div className="mt-14 w-full lg:mt-20">
-      <p className="mb-6 font-futura text-xl font-medium tracking-widest md:text-4xl lg:mb-11">
+    <div className="mt-5 w-full lg:mt-20">
+      <p className="mb-6 font-futura text-3xl font-medium tracking-widest md:text-5xl lg:mb-11">
         Press
       </p>
       <div className="flex justify-center">

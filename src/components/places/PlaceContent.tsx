@@ -67,14 +67,11 @@ export default function PlaceContent({ place }: PlaceContentProps) {
 
     if (hasInitialContent) {
       return (
-        <div className="flex flex-col gap-10 px-10 py-5 md:px-20 md:py-20 xl:px-48 xl:py-20">
-          <div className="flex flex-col-reverse justify-between lg:flex-row">
-            <h3 className="mt-10 font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mt-0 lg:self-center lg:text-5xl lg:leading-normal">
-              {place.title}
-            </h3>
+        <div className="flex flex-col gap-10 px-10 py-32 md:px-20 xl:px-48">
+          <div className="flex w-full flex-col items-center">
             {allPartners.length > 0 && (
-              <div className="pt-10">
-                <PartnerSection partners={allPartners} />
+              <div className="w-full md:mb-10">
+                <PartnerSection partners={allPartners} isPlacePage={true} />
               </div>
             )}
           </div>
@@ -85,12 +82,14 @@ export default function PlaceContent({ place }: PlaceContentProps) {
             </div>
           )}
           {place.trailer && (
-            <div className="flex flex-col items-center gap-5 font-lato md:text-xl">
+            <div className="flex flex-col font-lato">
+              <p className="mb-6 font-futura text-3xl font-medium tracking-widest md:text-5xl lg:mb-11">
+                {place.trailer.title}
+              </p>
               <VideoPlayer
                 videoUrl={place.trailer.videoUrl}
                 thumbnail={place.trailer.thumbnail}
               />
-              <p>{place.trailer.title}</p>
             </div>
           )}
           {place.press && place.press.length > 0 && (

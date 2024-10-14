@@ -1,18 +1,45 @@
+'use client';
+
 import Image from 'next/image';
 import { PartnerType } from '@/contentful/partners';
 import Link from 'next/link';
+import FlipCard from './FlipCard';
+import { div } from 'framer-motion/client';
 
 interface PartnerSectionProps {
   partners: PartnerType[];
+  isPlacePage?: boolean;
 }
 
-const PartnerSection = ({ partners }: PartnerSectionProps) => {
+const PartnerSection = ({
+  partners,
+  isPlacePage = false,
+}: PartnerSectionProps) => {
   if (!partners || partners.length === 0) return null;
 
   const uniquePartners = partners.filter(
     (partner, index, self) =>
       index === self.findIndex((t) => t.id === partner.id)
   );
+
+  if (isPlacePage) {
+    return (
+      <div className="mx-auto w-full pb-5">
+        <h3 className="mb-10 font-futura text-base tracking-widest md:text-xl">
+          Partners that supported these campaigns:
+        </h3>
+        <div className="flex w-full">
+          <div className={`grid w-full grid-cols-2 gap-6 md:grid-cols-4`}>
+            {uniquePartners.map((partner) => (
+              <div key={partner.id}>
+                <FlipCard partner={partner} isPlacePage={true} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-10 flex w-fit gap-4">
@@ -28,7 +55,7 @@ const PartnerSection = ({ partners }: PartnerSectionProps) => {
                   src={partner.photo.src}
                   alt={partner.name}
                   fill
-                  sizes=""
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               )}
