@@ -1,8 +1,7 @@
-import { fetchPartners } from '@/contentful/partners';
 import { fetchCampaigns } from '@/contentful/campaign';
 import { fetchPlaces } from '@/contentful/places';
 import ContactUsCard from '@/components/ui/ContactUsCard';
-import PartnerCard from '@/components/partner/PartnerCard';
+import FlipCard from '@/components/ui/FlipCard';
 import { fetchPages } from '@/contentful/pages';
 
 const Partners = async () => {
@@ -40,9 +39,9 @@ const Partners = async () => {
       <h2 className="font-futura text-xl font-medium uppercase leading-normal tracking-wider md:mb-10 md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         {partnersPage[0].bannerTitle}
       </h2>
-      <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2">
         {partnersWithCampaigns?.map((partner) => (
-          <PartnerCard
+          <FlipCard
             key={partner.id}
             partner={partner}
             relatedCampaigns={partner.relatedCampaigns}

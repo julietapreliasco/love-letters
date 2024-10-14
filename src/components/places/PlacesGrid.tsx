@@ -19,13 +19,13 @@ const PlacesGrid = ({ places }: PlacesGridProps) => {
                 alt={place.title}
                 fill
                 sizes=""
-                className="absolute inset-0 object-cover"
+                className="absolute inset-0 rounded-lg object-cover"
               />
             ) : (
               <div className="absolute inset-0 bg-gray-300" />
             )}
 
-            <div className="absolute inset-0 bg-black opacity-30"></div>
+            <div className="absolute inset-0 rounded-lg bg-black opacity-30"></div>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <AlternativeLogo className="w-[150px] transition-transform duration-300" />
