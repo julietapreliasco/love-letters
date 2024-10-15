@@ -1,8 +1,6 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { BannerType } from '@/types';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface BannerNavigationLink {
   title: string;
@@ -19,7 +17,7 @@ interface BannerNavigationProps {
   nextSectionRef?: React.RefObject<HTMLElement>;
 }
 
-export default function BannerNavigation({
+const BannerNavigation = ({
   links,
   onLinkHover,
   onLinkLeave,
@@ -27,29 +25,27 @@ export default function BannerNavigation({
   onCampaignChange,
   activeCampaignIndex,
   nextSectionRef,
-}: BannerNavigationProps) {
+}: BannerNavigationProps) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const checkTouchDevice = () => {
+      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+    };
+    checkTouchDevice();
+    window.addEventListener('resize', checkTouchDevice);
+
+    return () => {
+      window.removeEventListener('resize', checkTouchDevice);
+    };
   }, []);
 
-  const handleInteraction = (index: number, link: string) => {
-    if (isTouchDevice) {
-      if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
-        onCampaignChange(index);
-        if (nextSectionRef?.current) {
-          nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+  const handleClick = (index: number, link: string) => {
+    if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
+      onCampaignChange(index);
+      if (nextSectionRef?.current) {
+        nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
       }
-    } else {
-      onLinkHover(index);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isTouchDevice) {
-      onLinkLeave();
     }
   };
 
@@ -67,13 +63,14 @@ export default function BannerNavigation({
             key={index}
             href={link.link}
             className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
-              isTouchDevice
-                ? 'active:text-custom-yellow'
-                : 'hover:text-custom-yellow'
+              index === activeCampaignIndex ? 'text-custom-yellow' : ''
+            } ${
+              !isTouchDevice
+                ? 'hover:cursor-pointer hover:text-custom-yellow'
+                : 'active:text-custom-yellow'
             }`}
-            onMouseEnter={() => handleInteraction(index, link.link)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleInteraction(index, link.link)}
+            onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
+            onMouseLeave={() => !isTouchDevice && onLinkLeave()}
           >
             {link.title}
           </Link>
@@ -81,15 +78,15 @@ export default function BannerNavigation({
           <div
             key={index}
             className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
-              index === activeCampaignIndex
-                ? 'text-custom-yellow'
-                : isTouchDevice
-                  ? 'active:text-custom-yellow'
-                  : 'hover:text-custom-yellow'
-            } cursor-pointer`}
-            onMouseEnter={() => handleInteraction(index, link.link)}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleInteraction(index, link.link)}
+              index === activeCampaignIndex ? 'text-custom-yellow' : ''
+            } ${
+              !isTouchDevice
+                ? 'hover:cursor-pointer hover:text-custom-yellow'
+                : ''
+            }`}
+            onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
+            onMouseLeave={() => !isTouchDevice && onLinkLeave()}
+            onClick={() => handleClick(index, link.link)}
           >
             {link.title}
           </div>
@@ -97,4 +94,6 @@ export default function BannerNavigation({
       )}
     </div>
   );
-}
+};
+
+export default BannerNavigation;

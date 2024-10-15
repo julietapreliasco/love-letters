@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { PartnerType } from '@/contentful/partners';
@@ -19,13 +19,23 @@ interface PartnerCardProps {
   isPlacePage?: boolean;
 }
 
-const FlipCard = ({
+export default function FlipCard({
   partner,
   relatedCampaigns,
   pressCard,
   isPlacePage = false,
-}: PartnerCardProps) => {
+}: PartnerCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const cardHeight = isPlacePage
     ? 'h-[150px] md:h-[200px]'
@@ -33,23 +43,31 @@ const FlipCard = ({
       ? 'h-[250px] md:h-[350px]'
       : 'h-[350px] sm:h-[400px] md:h-[450px] lg:h-[450px]';
 
+  const handleMouseEnter = () => !isMobile && setIsFlipped(true);
+  const handleMouseLeave = () => !isMobile && setIsFlipped(false);
+  const handleClick = () => isMobile && setIsFlipped(!isFlipped);
+
   return (
     <div
       className={`relative ${cardHeight} mb-4 w-full [perspective:1000px]`}
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <motion.div
-        className={`relative h-full w-full rounded-lg border-2 border-custom-lighter-gray bg-custom-lighter-gray`}
+        className="relative h-full w-full"
         initial={false}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.4, ease: 'easeInOut' }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
         style={{ transformStyle: 'preserve-3d' }}
       >
-        <motion.div
-          id={partner?.id}
-          className="absolute inset-0"
-          style={{ backfaceVisibility: 'hidden' }}
+        {/* Cara frontal */}
+        <div
+          className="backface-hidden absolute inset-0 rounded-lg"
+          style={{
+            backfaceVisibility: 'hidden',
+            pointerEvents: isFlipped ? 'none' : 'auto',
+          }}
         >
           {pressCard
             ? pressCard.logo && (
@@ -83,67 +101,73 @@ const FlipCard = ({
               )}
             </div>
           )}
-        </motion.div>
+        </div>
 
-        <motion.div
-          className={`absolute inset-0 flex flex-col ${
-            isPlacePage
-              ? 'items-center justify-center'
-              : 'gap-3 overflow-y-auto'
-          } rounded-lg bg-custom-lighter-gray p-6 text-custom-black ${
-            !isPlacePage && 'md:gap-5 md:p-8 lg:p-10'
-          }`}
-          style={{ backfaceVisibility: 'hidden', rotateY: 180 }}
+        {/* Cara trasera */}
+        <div
+          className="backface-hidden absolute inset-0 rounded-lg bg-custom-lighter-gray"
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            zIndex: isFlipped ? 1 : 0,
+            pointerEvents: isFlipped ? 'auto' : 'none',
+          }}
         >
-          {isPlacePage ? (
-            <Link href={`/partners/#${partner?.id}`}>
-              <h2 className="text-center font-futura text-xs font-bold tracking-wide hover:text-custom-yellow md:text-[14px] lg:text-lg">
-                {partner?.name}
-              </h2>
-            </Link>
-          ) : (
-            <>
-              <h2
-                className={`font-futura text-xl font-bold tracking-wide md:text-2xl lg:text-3xl`}
-              >
-                {pressCard ? pressCard?.title : partner?.name}
-              </h2>
-              <p className={`font-lato text-sm md:text-base lg:text-lg`}>
-                {pressCard ? pressCard.description : partner?.description}
-              </p>
-              {pressCard && (
-                <Link
-                  href={pressCard.url!}
-                  className={`text-sm underline`}
-                  target="_blank"
+          <div
+            className={`h-full w-full ${
+              isPlacePage
+                ? 'flex items-center justify-center'
+                : 'flex flex-col gap-3 overflow-y-auto'
+            } p-6 text-custom-black ${!isPlacePage && 'md:gap-5 md:p-8 lg:p-10'}`}
+          >
+            {isPlacePage ? (
+              <Link href={`/partners/#${partner?.id}`}>
+                <h2 className="text-center font-futura text-xs font-bold tracking-wide hover:text-custom-yellow md:text-[14px] lg:text-lg">
+                  {partner?.name}
+                </h2>
+              </Link>
+            ) : (
+              <>
+                <h2
+                  className={`font-futura text-xl font-bold tracking-wide md:text-2xl lg:text-3xl`}
                 >
-                  Read more
-                </Link>
-              )}
-              {partner && relatedCampaigns && relatedCampaigns.length > 0 && (
-                <div className="flex flex-col gap-3 md:gap-5">
-                  <ul>
-                    {relatedCampaigns.map((campaign) => (
-                      <li key={campaign.id}>
-                        {campaign.placeId && (
-                          <Link
-                            href={`/places/${campaign.placeId}?campaignId=${campaign.id}`}
-                            className="font-lato font-bold text-custom-black hover:text-custom-yellow"
-                          >
-                            {'See the campaign'}
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </>
-          )}
-        </motion.div>
+                  {pressCard ? pressCard?.title : partner?.name}
+                </h2>
+                <p className={`font-lato text-sm md:text-base lg:text-lg`}>
+                  {pressCard ? pressCard.description : partner?.description}
+                </p>
+                {pressCard && (
+                  <Link
+                    href={pressCard.url!}
+                    className={`text-sm underline`}
+                    target="_blank"
+                  >
+                    Read more
+                  </Link>
+                )}
+                {partner && relatedCampaigns && relatedCampaigns.length > 0 && (
+                  <div className="flex flex-col gap-3 md:gap-5">
+                    <ul>
+                      {relatedCampaigns.map((campaign) => (
+                        <li key={campaign.id}>
+                          {campaign.placeId && (
+                            <Link
+                              href={`/places/${campaign.placeId}?campaignId=${campaign.id}`}
+                              className="font-lato font-bold text-custom-black hover:text-custom-yellow"
+                            >
+                              {'See the campaign'}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </motion.div>
     </div>
   );
-};
-
-export default FlipCard;
+}
