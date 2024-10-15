@@ -1,5 +1,6 @@
 import { BannerType } from '@/types';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface BannerNavigationLink {
   title: string;
@@ -25,6 +26,20 @@ const BannerNavigation = ({
   activeCampaignIndex,
   nextSectionRef,
 }: BannerNavigationProps) => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+    };
+    checkTouchDevice();
+    window.addEventListener('resize', checkTouchDevice);
+
+    return () => {
+      window.removeEventListener('resize', checkTouchDevice);
+    };
+  }, []);
+
   const handleClick = (index: number, link: string) => {
     if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
       onCampaignChange(index);
@@ -47,20 +62,30 @@ const BannerNavigation = ({
           <Link
             key={index}
             href={link.link}
-            className="px-3 py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:text-sm lg:text-base"
-            onMouseEnter={() => onLinkHover(index)}
-            onMouseLeave={onLinkLeave}
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
+              index === activeCampaignIndex ? 'text-custom-yellow' : ''
+            } ${
+              !isTouchDevice
+                ? 'hover:cursor-pointer hover:text-custom-yellow'
+                : 'active:text-custom-yellow'
+            }`}
+            onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
+            onMouseLeave={() => !isTouchDevice && onLinkLeave()}
           >
             {link.title}
           </Link>
         ) : (
           <div
             key={index}
-            className={`px-3 py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:text-sm lg:text-base ${
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
               index === activeCampaignIndex ? 'text-custom-yellow' : ''
+            } ${
+              !isTouchDevice
+                ? 'hover:cursor-pointer hover:text-custom-yellow'
+                : ''
             }`}
-            onMouseEnter={() => onLinkHover(index)}
-            onMouseLeave={onLinkLeave}
+            onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
+            onMouseLeave={() => !isTouchDevice && onLinkLeave()}
             onClick={() => handleClick(index, link.link)}
           >
             {link.title}
