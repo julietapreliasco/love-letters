@@ -1,5 +1,8 @@
-import { BannerType } from '@/types';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { BannerType } from '@/types';
 
 interface BannerNavigationLink {
   title: string;
@@ -16,7 +19,7 @@ interface BannerNavigationProps {
   nextSectionRef?: React.RefObject<HTMLElement>;
 }
 
-const BannerNavigation = ({
+export default function BannerNavigation({
   links,
   onLinkHover,
   onLinkLeave,
@@ -24,13 +27,29 @@ const BannerNavigation = ({
   onCampaignChange,
   activeCampaignIndex,
   nextSectionRef,
-}: BannerNavigationProps) => {
-  const handleClick = (index: number, link: string) => {
-    if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
-      onCampaignChange(index);
-      if (nextSectionRef?.current) {
-        nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+}: BannerNavigationProps) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  const handleInteraction = (index: number, link: string) => {
+    if (isTouchDevice) {
+      if (bannerType === BannerType.CAMPAIGN_BANNER && onCampaignChange) {
+        onCampaignChange(index);
+        if (nextSectionRef?.current) {
+          nextSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       }
+    } else {
+      onLinkHover(index);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      onLinkLeave();
     }
   };
 
@@ -47,21 +66,30 @@ const BannerNavigation = ({
           <Link
             key={index}
             href={link.link}
-            className="px-3 py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:text-sm lg:text-base"
-            onMouseEnter={() => onLinkHover(index)}
-            onMouseLeave={onLinkLeave}
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
+              isTouchDevice
+                ? 'active:text-custom-yellow'
+                : 'hover:text-custom-yellow'
+            }`}
+            onMouseEnter={() => handleInteraction(index, link.link)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleInteraction(index, link.link)}
           >
             {link.title}
           </Link>
         ) : (
           <div
             key={index}
-            className={`px-3 py-1 text-xs hover:cursor-pointer hover:text-custom-yellow sm:text-sm lg:text-base ${
-              index === activeCampaignIndex ? 'text-custom-yellow' : ''
-            }`}
-            onMouseEnter={() => onLinkHover(index)}
-            onMouseLeave={onLinkLeave}
-            onClick={() => handleClick(index, link.link)}
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
+              index === activeCampaignIndex
+                ? 'text-custom-yellow'
+                : isTouchDevice
+                  ? 'active:text-custom-yellow'
+                  : 'hover:text-custom-yellow'
+            } cursor-pointer`}
+            onMouseEnter={() => handleInteraction(index, link.link)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleInteraction(index, link.link)}
           >
             {link.title}
           </div>
@@ -69,6 +97,4 @@ const BannerNavigation = ({
       )}
     </div>
   );
-};
-
-export default BannerNavigation;
+}

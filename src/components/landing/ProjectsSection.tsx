@@ -69,7 +69,7 @@ function ProjectsSection({ projectData, places }: ProjectsSectionClientProps) {
             })}
         </div>
       </div>
-      <div className="mt-28 flex justify-center">
+      <div className="flex justify-center pt-32 md:pt-40 lg:pt-12">
         <Button linkTo="/places" variant="SECONDARY" label={'See all'} />
       </div>
     </section>

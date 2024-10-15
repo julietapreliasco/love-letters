@@ -1,12 +1,12 @@
 'use client';
 
-import { CardType } from '@/contentful/cards';
-import { motion, MotionValue, useTransform } from 'framer-motion';
-import Image from 'next/image';
-import Card from './Card';
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
+import { motion, MotionValue, useTransform, useScroll } from 'framer-motion';
+import { CardType } from '@/contentful/cards';
 import { CampaignType } from '@/contentful/campaign';
 import { PlaceType } from '@/contentful/places';
+import Card from './Card';
 
 interface ProjectCardProps {
   project: CardType;
@@ -33,18 +33,20 @@ export default function ProjectCard({
   const [campaign, setCampaign] = useState<CampaignType | null>(null);
   const [placeId, setPlaceId] = useState<string | null>(null);
 
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start end', 'end start'],
+  });
+
   const projectScale = useTransform(progress, range, [1, targetScale]);
 
-  const cardProgress = useTransform(
-    progress,
-    [index / totalCards, (index + 1) / totalCards],
-    [0, 1]
-  );
+  const cardProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
 
-  const blurAmount = useTransform(cardProgress, (value) => {
-    if (index === totalCards - 1) return 0;
-    return value > 0.7 ? (value - 0.9) * (3 / 0.3) : 0;
-  });
+  const opacity = useTransform(cardProgress, [0, 0.3, 0.7, 1], [0, 0.3, 1, 1]);
+
+  const blur = useTransform(cardProgress, [0, 0.5, 0.8, 1], [10, 5, 0, 0]);
+
+  const blurFilter = useTransform(blur, (value) => `blur(${value}px)`);
 
   useEffect(() => {
     const checkCampaign = async () => {
@@ -71,6 +73,7 @@ export default function ProjectCard({
       setPlaceId(foundPlace ? foundPlace.id : null);
     }
   }, [campaign, places]);
+
   const topPosition = `calc(5vh + ${index * 2}rem + ${index * 1}vw)`;
 
   return (
@@ -79,16 +82,17 @@ export default function ProjectCard({
       style={{
         scale: projectScale,
         top: topPosition,
-        filter: useTransform(blurAmount, (value) => `blur(${value}px)`),
+        opacity,
+        filter: blurFilter,
       }}
-      className={`relative flex max-h-[70vh] flex-col items-center justify-center rounded-2xl md:max-h-[80vh] lg:max-h-[90vh] lg:flex-row`}
+      className="relative flex flex-col items-center justify-center rounded-2xl lg:flex-row"
     >
-      <motion.div className="relative h-screen w-full md:h-[850px] lg:h-[850px] xl:h-[500px]">
+      <motion.div className="relative h-[60vh] w-full xl:h-[70vh]">
         <Image
           src={project.image?.src!}
           alt={project.image?.alt!}
           fill
-          sizes=""
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded-xl object-cover"
         />
       </motion.div>
