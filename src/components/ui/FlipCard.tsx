@@ -46,6 +46,7 @@ export default function FlipCard({
   const handleMouseEnter = () => !isMobile && setIsFlipped(true);
   const handleMouseLeave = () => !isMobile && setIsFlipped(false);
   const handleClick = () => isMobile && setIsFlipped(!isFlipped);
+  console.log(partner?.id);
 
   return (
     <div
@@ -53,6 +54,7 @@ export default function FlipCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
+      id={partner ? partner.id : undefined}
     >
       <motion.div
         className="relative h-full w-full"
@@ -61,9 +63,9 @@ export default function FlipCard({
         transition={{ duration: 0.6, ease: 'easeInOut' }}
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* Cara frontal */}
+        {/* Front face */}
         <div
-          className="backface-hidden absolute inset-0 rounded-lg"
+          className={`backface-hidden absolute inset-0 rounded-lg ${pressCard ? 'border-2 border-custom-black' : ''}`}
           style={{
             backfaceVisibility: 'hidden',
             pointerEvents: isFlipped ? 'none' : 'auto',
@@ -71,13 +73,15 @@ export default function FlipCard({
         >
           {pressCard
             ? pressCard.logo && (
-                <Image
-                  src={pressCard.logo.src}
-                  alt={pressCard.logo.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="rounded-lg object-contain p-4"
-                />
+                <div className="flex h-full items-center justify-center p-4">
+                  <Image
+                    src={pressCard.logo.src}
+                    alt={pressCard.logo.alt}
+                    width={150}
+                    height={150}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
               )
             : partner?.photo && (
                 <Image
@@ -91,7 +95,7 @@ export default function FlipCard({
           {!isPlacePage && partner && (
             <div className="absolute inset-0 rounded-lg bg-custom-black opacity-50"></div>
           )}
-          {!isPlacePage && (
+          {!isPlacePage && !pressCard && (
             <div className="absolute inset-x-0 bottom-10 flex flex-col justify-center gap-2 rounded-lg p-5 text-white md:p-10">
               <h2 className="font-futura text-xl font-bold tracking-wider md:text-3xl">
                 {partner && partner?.name}
@@ -103,9 +107,9 @@ export default function FlipCard({
           )}
         </div>
 
-        {/* Cara trasera */}
+        {/* Back face */}
         <div
-          className="backface-hidden absolute inset-0 rounded-lg bg-custom-lighter-gray"
+          className={`backface-hidden absolute inset-0 rounded-lg ${pressCard ? 'border-2 border-custom-black' : 'bg-custom-lighter-gray'}`}
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',

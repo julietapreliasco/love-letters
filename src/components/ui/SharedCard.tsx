@@ -49,9 +49,7 @@ const SharedCard = ({
                   fill
                   sizes=""
                   className={`transform rounded-[10px] object-cover transition-transform md:group-hover:scale-105 ${
-                    isPress
-                      ? 'rounded-none opacity-75 group-hover:opacity-100'
-                      : ''
+                    isPress ? 'rounded-none' : ''
                   }`}
                 />
               </Link>
@@ -61,35 +59,8 @@ const SharedCard = ({
                 alt={image.alt}
                 fill
                 sizes=""
-                className={`rounded-[10px] ${
-                  isPress
-                    ? 'object-cover opacity-75 group-hover:opacity-100'
-                    : ''
-                }`}
+                className={`rounded-[10px] ${isPress ? 'object-cover' : ''}`}
               />
-            )}
-            {isPress && logo?.src && (
-              <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
-                {linkTo ? (
-                  <Link target="_blank" href={linkTo}>
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      width={logo.width}
-                      height={logo.height}
-                      className="h-[80px] w-[80px] object-contain md:h-[100px] md:w-[100px]"
-                    />
-                  </Link>
-                ) : (
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={logo.width}
-                    height={logo.height}
-                    className="h-[80px] w-[80px] object-contain md:h-[100px] md:w-[100px]"
-                  />
-                )}
-              </div>
             )}
           </div>
         )}

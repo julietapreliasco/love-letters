@@ -29,9 +29,9 @@ interface InitialBannerProps {
 }
 
 const images = [
-  '/banner_img_1.png',
+  '/banner_img_1.jpg',
   '/banner_img_2.png',
-  '/banner_img_3.png',
+  '/banner_img_3.jpg',
   '/banner_img_4.png',
   '/banner_img_5.jpg',
   '/banner_img_6.jpg',
