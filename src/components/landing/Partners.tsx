@@ -13,14 +13,20 @@ interface PartnersProps {
 }
 
 const Partners = ({ partnersPageData, partnersData }: PartnersProps) => {
-  const partnersAsCards: CardType[] = partnersData.map((partner) => ({
-    title: partner.name,
-    description: partner.shortDescription,
-    image: partner.photo,
-    section: 'partners',
-    campaign: null,
-    url: `/partners/#${partner.id}`,
-  }));
+  const partnersAsCards: CardType[] = partnersData
+    .filter(
+      (partner) =>
+        partner.name !== "Children's Day School" &&
+        partner.name !== 'Fullbright'
+    )
+    .map((partner) => ({
+      title: partner.name,
+      description: partner.shortDescription,
+      image: partner.photo,
+      section: 'partners',
+      campaign: null,
+      url: `/partners/#${partner.id}`,
+    }));
 
   return (
     <section

@@ -48,17 +48,13 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         }`}
       >
         <div
-          className={`flex flex-wrap-reverse items-center justify-${
-            isAcademy ? 'center' : 'between'
-          }`}
+          className={`flex flex-col-reverse items-center justify-center md:flex-row md:justify-between`}
         >
           <div
-            className={`flex flex-col gap-3 pb-5 ${
-              !isAcademy ? 'md:w-[60%]' : 'text-center'
-            } md:pb-10`}
+            className={`flex flex-col gap-3 pb-5 text-center md:w-[60%] md:pb-10 md:text-start`}
           >
             <h3
-              className={`font-futura text-2xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal ${
+              className={`text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-start md:text-4xl md:leading-normal ${
                 !isAcademy ? 'lg:text-5xl lg:leading-normal' : ''
               }`}
             >
@@ -68,7 +64,9 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
               {subtitle}
             </p>
           </div>
-          {partner && <PartnerSection partners={partner} />}
+          {partner && (
+            <PartnerSection isAcademy={isAcademy} partners={partner} />
+          )}
         </div>
 
         {videos && videos?.length > 0 && (
@@ -144,9 +142,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         {gallery != null && (
           <div id="gallery" className="mt-10 lg:mt-20">
             <h3
-              className={`mb-5 font-futura text-xl font-medium leading-normal tracking-widest md:text-4xl md:leading-normal lg:mb-11 ${
-                isAcademy ? 'text-center' : ''
-              }`}
+              className={`mb-5 text-center font-futura text-xl font-medium leading-normal tracking-widest md:text-start md:text-4xl md:leading-normal lg:mb-11`}
             >
               Gallery
             </h3>

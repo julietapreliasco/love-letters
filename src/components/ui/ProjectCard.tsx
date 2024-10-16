@@ -92,7 +92,7 @@ export default function ProjectCard({
           src={project.image?.src!}
           alt={project.image?.alt!}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes=""
           className="rounded-xl object-cover"
         />
       </motion.div>
