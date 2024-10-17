@@ -46,7 +46,6 @@ export default function FlipCard({
   const handleMouseEnter = () => !isMobile && setIsFlipped(true);
   const handleMouseLeave = () => !isMobile && setIsFlipped(false);
   const handleClick = () => isMobile && setIsFlipped(!isFlipped);
-  console.log(partner?.id);
 
   return (
     <div
@@ -117,59 +116,79 @@ export default function FlipCard({
             pointerEvents: isFlipped ? 'auto' : 'none',
           }}
         >
-          <div
-            className={`h-full w-full ${
-              isPlacePage
-                ? 'flex items-center justify-center'
-                : 'flex flex-col gap-3 overflow-y-auto'
-            } p-6 text-custom-black ${!isPlacePage && 'md:gap-5 md:p-8 lg:p-10'}`}
-          >
-            {isPlacePage ? (
-              <Link href={`/partners/#${partner?.id}`}>
-                <h2 className="text-center font-futura text-xs font-bold tracking-wide hover:text-custom-yellow md:text-[14px] lg:text-lg">
-                  {partner?.name}
-                </h2>
-              </Link>
-            ) : (
-              <>
-                <h2
-                  className={`font-futura text-xl font-bold tracking-wide md:text-2xl lg:text-3xl`}
-                >
-                  {pressCard ? pressCard?.title : partner?.name}
-                </h2>
-                <p className={`font-lato text-sm md:text-base lg:text-lg`}>
-                  {pressCard ? pressCard.description : partner?.description}
+          {pressCard ? (
+            <div className="relative flex h-full w-full items-center justify-center p-10">
+              {pressCard.image && (
+                <Image
+                  src={pressCard.image.src}
+                  alt={pressCard.image.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="rounded-md object-cover"
+                />
+              )}
+              <div className="absolute inset-0 rounded-md bg-custom-black opacity-40"></div>
+              <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center text-white">
+                <p className="mb-4 font-lato text-base font-semibold leading-normal tracking-wide [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] md:text-lg md:leading-normal lg:text-xl lg:leading-normal">
+                  {pressCard.subtitle}
                 </p>
-                {pressCard && (
-                  <Link
-                    href={pressCard.url!}
-                    className={`text-sm underline`}
-                    target="_blank"
+                <Link
+                  href={pressCard.url!}
+                  className="font-bold underline underline-offset-2 [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] hover:text-custom-yellow"
+                  target="_blank"
+                >
+                  See more
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div
+              className={`h-full w-full ${
+                isPlacePage
+                  ? 'flex items-center justify-center'
+                  : 'flex flex-col gap-3 overflow-y-auto'
+              } p-6 text-custom-black ${!isPlacePage && 'md:gap-5 md:p-8 lg:p-10'}`}
+            >
+              {isPlacePage ? (
+                <Link href={`/partners/#${partner?.id}`}>
+                  <h2 className="text-center font-futura text-xs font-bold tracking-wide hover:text-custom-yellow md:text-[14px] lg:text-lg">
+                    {partner?.name}
+                  </h2>
+                </Link>
+              ) : (
+                <>
+                  <h2
+                    className={`font-futura text-xl font-bold tracking-wide md:text-2xl lg:text-3xl`}
                   >
-                    Read more
-                  </Link>
-                )}
-                {partner && relatedCampaigns && relatedCampaigns.length > 0 && (
-                  <div className="flex flex-col gap-3 md:gap-5">
-                    <ul>
-                      {relatedCampaigns.map((campaign) => (
-                        <li key={campaign.id}>
-                          {campaign.placeId && (
-                            <Link
-                              href={`/places/${campaign.placeId}?campaignId=${campaign.id}`}
-                              className="font-lato font-bold text-custom-black hover:text-custom-yellow"
-                            >
-                              {'See the campaign'}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+                    {partner?.name}
+                  </h2>
+                  <p className={`font-lato text-sm md:text-base lg:text-lg`}>
+                    {partner?.description}
+                  </p>
+                  {partner &&
+                    relatedCampaigns &&
+                    relatedCampaigns.length > 0 && (
+                      <div className="flex flex-col gap-3 md:gap-5">
+                        <ul>
+                          {relatedCampaigns.map((campaign) => (
+                            <li key={campaign.id}>
+                              {campaign.placeId && (
+                                <Link
+                                  href={`/places/${campaign.placeId}?campaignId=${campaign.id}`}
+                                  className="font-lato font-bold text-custom-black hover:text-custom-yellow"
+                                >
+                                  {'See the campaign'}
+                                </Link>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                </>
+              )}
+            </div>
+          )}
         </div>
       </motion.div>
     </div>

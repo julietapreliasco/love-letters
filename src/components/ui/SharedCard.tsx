@@ -83,8 +83,7 @@ const SharedCard = ({
           )}
           {linkTo && (
             <Link href={linkTo} className={`mt-3 text-sm underline md:mt-1`}>
-              Read more
-              <span className="sr-only">{` about ${title}`}</span>
+              See more
             </Link>
           )}
         </div>

@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useRef, useEffect } from 'react';
 import { CardType } from '@/contentful/cards';
 import Slider from 'react-slick';
 import SharedCard, { CardStyles } from './SharedCard';
@@ -15,18 +17,26 @@ interface SharedSliderProps {
   type: Types;
 }
 
-const SharedSlider: React.FC<SharedSliderProps> = ({
-  sliderData,
-  isPartners,
-  type,
-}) => {
+const SharedSlider = ({ sliderData, isPartners, type }: SharedSliderProps) => {
+  const sliderRef = useRef<Slider>(null);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (slider && isPartners) {
+      slider.slickPlay();
+    }
+  }, [isPartners]);
+
   const settings = {
     infinite: true,
     slidesToShow: 4,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     autoplay: isPartners,
-    speed: isPartners ? 10000 : 500,
-    cssEase: 'linear',
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
+    rtl: false,
+    speed: 1000,
+    cssEase: 'ease-out',
     nextArrow: !isPartners ? (
       <SliderButton isPartners={true} next={true} />
     ) : undefined,
@@ -37,7 +47,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
         settings: {
           dots: !isPartners,
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           arrows: false,
         },
       },
@@ -46,16 +56,6 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
         settings: {
           dots: !isPartners,
           slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          dots: !isPartners,
-          slidesToShow: 1,
-          speed: isPartners ? 2000 : 500,
           slidesToScroll: 1,
           arrows: false,
         },
@@ -81,7 +81,7 @@ const SharedSlider: React.FC<SharedSliderProps> = ({
 
   return (
     <div className="flex justify-center">
-      <Slider className="w-full lg:mt-10" {...settings}>
+      <Slider ref={sliderRef} className="w-full lg:mt-10" {...settings}>
         {sliderData?.map((card, index) => (
           <div className="mb-10 px-3 lg:mb-0" key={index}>
             {type === Types.PARTNER ? (
