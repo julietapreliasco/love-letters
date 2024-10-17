@@ -48,9 +48,7 @@ const Partners = async () => {
           />
         ))}
       </div>
-      <div className="self-center xl:w-3/4">
-        <ContactUsCard />
-      </div>
+      <ContactUsCard />
     </div>
   );
 };

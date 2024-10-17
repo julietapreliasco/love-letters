@@ -11,7 +11,7 @@ const ContactUs: React.FC<ContactUsProps> = ({ contactUsData }) => {
   return (
     <div
       id="contact"
-      className="flex flex-col bg-custom-lighter-gray px-9 py-[60px] md:flex-row md:items-center md:p-0"
+      className="my-5 flex flex-col bg-custom-lighter-gray px-9 py-[60px] md:my-10 md:flex-row md:items-center md:p-0"
     >
       <div className="md:mx-[70px] lg:mx-[100px] 2xl:mx-[156px]">
         <LottieAnimation
