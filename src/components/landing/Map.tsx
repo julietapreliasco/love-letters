@@ -27,8 +27,8 @@ export function Map({ places }: MapProps) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-10 p-10 md:p-20">
-      <h2 className="font-futura text-3xl tracking-wider text-custom-black md:text-4xl xl:text-5xl 2xl:text-6xl">
+    <div className="flex flex-col items-center gap-10 px-10 py-20 md:p-20 md:py-28">
+      <h2 className="text-center font-futura text-3xl tracking-wider text-custom-black md:text-4xl xl:text-5xl 2xl:text-6xl">
         Love letters around the world
       </h2>
       <ClientSideMap places={places} />
