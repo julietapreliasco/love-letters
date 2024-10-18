@@ -20,9 +20,11 @@ const Header = () => {
     pathname === '/press' ||
     pathname === '/partners' ||
     pathname === '/about-me' ||
-    pathname === '/academy';
+    pathname === '/academy' ||
+    pathname === '/speaking';
 
-  const isAboutPage = pathname === '/about-me';
+  const isSecondaryBanner =
+    pathname === '/about-me' || pathname === '/speaking';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +32,7 @@ const Header = () => {
       const bannerHeight = bannerElement?.offsetHeight || 0;
       const currentScrollPos = window.scrollY;
 
-      if (isAboutPage) {
+      if (isSecondaryBanner) {
         if (currentScrollPos <= bannerHeight / 2) {
           setWhiteText(true);
         } else {
@@ -60,7 +62,7 @@ const Header = () => {
       setHeader(false);
       setWhiteText(false);
     };
-  }, [shouldShowHeader, isAboutPage]);
+  }, [shouldShowHeader, isSecondaryBanner]);
 
   useEffect(() => {
     headerControls.start({
