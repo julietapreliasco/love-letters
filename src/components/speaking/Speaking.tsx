@@ -11,6 +11,7 @@ import VideoPlayer from '../ui/VideoPlayer';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { AnimatedCard } from './AnimatedCard';
+import ContactUsCard from '../ui/ContactUsCard';
 
 interface SpeakingProps {
   data: PageType;
@@ -168,6 +169,13 @@ export default function Speaking({ data }: SpeakingProps) {
             );
           })}
         </div>
+      </div>
+      <div className="px-6 pb-16 pt-10 md:px-16 xl:px-28">
+        <ContactUsCard
+          customTitle="Bring Brian to your event!"
+          customDescription="Brian’s bags are always packed. Send us his next destination."
+          customLabel="Get in touch"
+        />
       </div>
     </section>
   );
