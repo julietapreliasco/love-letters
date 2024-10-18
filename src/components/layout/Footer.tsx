@@ -43,10 +43,7 @@ const Footer = async () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-between pt-5 md:flex-row">
-        <span className="hidden self-center md:block md:text-sm xl:text-base">
-          Copyright &copy; 2024. All rights reserved.
-        </span>
+      <div className="flex flex-col items-center justify-between pt-5 xl:flex-row-reverse">
         <div className="flex flex-col items-center pb-5 md:flex-row md:p-0">
           <Button label="Places" linkTo="/places" variant={'SECONDARY_NAV'} />
           <Button
@@ -64,6 +61,9 @@ const Footer = async () => {
           />
         </div>
         <span className="w-full border-t border-custom-black pb-[10px] pt-10 text-center md:hidden">
+          Copyright &copy; 2024. All rights reserved.
+        </span>
+        <span className="mt-8 hidden self-center md:block md:text-sm xl:mt-0 xl:text-base">
           Copyright &copy; 2024. All rights reserved.
         </span>
       </div>
