@@ -20,9 +20,10 @@ const Header = () => {
     pathname === '/press' ||
     pathname === '/partners' ||
     pathname === '/about-me' ||
-    pathname === '/academy';
+    pathname === '/academy' ||
+    pathname === '/speaking';
 
-  const isAboutPage = pathname === '/about-me';
+  const isAboutPage = pathname === '/about-me' || pathname === '/speaking';
 
   useEffect(() => {
     const handleScroll = () => {
