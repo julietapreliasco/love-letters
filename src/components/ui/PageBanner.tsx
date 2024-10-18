@@ -54,17 +54,19 @@ const PageBanner = ({ bannerImg, bannerTitle, subtitle }: PageBannerProps) => {
         </motion.div>
       )}
       <motion.div
-        initial={{ y: 300 }}
+        initial={{ y: 400 }}
         animate={{ y: 0 }}
         transition={{
-          duration: 1,
-          delay: 0.4,
+          duration: 1.2,
+          delay: 0.2,
         }}
-        className={`absolute bottom-2 m-10 w-full p-3 text-center font-futura text-2xl leading-normal tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 ${subtitle ? 'md:top-[50%]' : 'md:top-[60%]'} md:max-w-[620px] md:p-0 md:text-start md:text-[46px] md:leading-[48px] md:text-white lg:p-0`}
+        className={`absolute bottom-2 m-10 w-full p-3 text-center font-futura text-2xl leading-normal tracking-wider text-custom-lighter-gray drop-shadow-2xl md:left-10 ${subtitle ? 'md:top-[50%]' : 'md:top-[60%]'} md:max-w-[620px] md:p-0 md:text-start md:text-[46px] md:leading-normal md:text-white lg:p-0`}
       >
         <span className="drop-shadow-2xl">{bannerTitle}</span>
         {subtitle && (
-          <span className="text-base drop-shadow-2xl">{subtitle}</span>
+          <span className="text-base leading-normal drop-shadow-2xl">
+            {subtitle}
+          </span>
         )}
       </motion.div>
     </div>

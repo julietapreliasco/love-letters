@@ -30,10 +30,13 @@ export const AnimatedCard = ({ card }: AnimatedCardProps) => {
       initial="hidden"
       animate={controls}
       transition={{
-        type: 'keyframes',
-        duration: 0.15,
+        type: 'spring',
+        duration: 1,
+        damping: 8,
+        delay: 0.1,
+        stiffness: 60,
       }}
-      className="relative h-64 w-full overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out will-change-transform hover:scale-105"
+      className="relative h-56 w-full overflow-hidden rounded-lg shadow-lg md:h-80"
     >
       {card.image && (
         <Image
@@ -41,12 +44,12 @@ export const AnimatedCard = ({ card }: AnimatedCardProps) => {
           alt={card.image.alt || 'Speaking Topic'}
           fill
           sizes=""
-          className="object-cover"
+          className="object-cover object-top md:object-center"
           loading="lazy"
         />
       )}
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-6">
-        <h3 className="text-center font-futura text-base font-bold text-white md:text-2xl">
+        <h3 className="text-center font-lato text-lg leading-normal text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] md:text-xl md:leading-normal">
           {card.title}
         </h3>
       </div>

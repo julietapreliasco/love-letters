@@ -2,16 +2,14 @@
 
 import { PageType } from '@/contentful/pages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS } from '@contentful/rich-text-types';
 import PageBanner from '../ui/PageBanner';
 import Workshops from './Workshops';
 import { SlLocationPin } from 'react-icons/sl';
-
 import VideoPlayer from '../ui/VideoPlayer';
-import { motion, useAnimation, useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { AnimatedCard } from './AnimatedCard';
 import ContactUsCard from '../ui/ContactUsCard';
+import QuotesBlock, { renderOptions } from './QuotesBlock';
 
 interface SpeakingProps {
   data: PageType;
@@ -29,58 +27,35 @@ export default function Speaking({ data }: SpeakingProps) {
     richText,
   } = data;
 
-  const contentRef = useRef(null);
-  const contentIsInView = useInView(contentRef);
-  const contentControls = useAnimation();
-
-  useEffect(() => {
-    if (contentIsInView) {
-      contentControls.start('visible');
-    }
-  }, [contentIsInView, contentControls]);
-
-  const renderOptions = {
-    renderNode: {
-      [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => {
-        if (children) {
-          const [quote, author] = children.toString().split('-');
-          const index =
-            (renderOptions.renderNode[BLOCKS.PARAGRAPH] as any).index || 0;
-          (renderOptions.renderNode[BLOCKS.PARAGRAPH] as any).index = index + 1;
-          const alignmentClass =
-            index % 2 === 0
-              ? 'items-center sm:items-start'
-              : 'items-center sm:items-end';
-
-          return (
-            <blockquote
-              className={`my-6 flex flex-col ${alignmentClass} font-futura text-2xl`}
-            >
-              <div className="md:w-1/2">
-                <p className="mb-4 text-lg italic tracking-wider lg:text-xl">
-                  {quote.trim()}
-                </p>
-                {author && (
-                  <span className="block text-base not-italic">
-                    - {author.trim()}
-                  </span>
-                )}
-              </div>
-            </blockquote>
-          );
-        }
-      },
-    },
-  };
-
   const contentComponents = documentToReactComponents(
     richTextThree!,
     renderOptions
   );
-
   const contentArray = Array.isArray(contentComponents)
     ? contentComponents
     : [contentComponents];
+
+  const groupedContent: JSX.Element[] = [];
+  let i = 0;
+  while (i < contentArray.length) {
+    const currentQuote = contentArray[i];
+    const nextImage = contentArray[i + 1];
+
+    if (currentQuote && nextImage) {
+      const isOdd = groupedContent.length % 2 === 0;
+      groupedContent.push(
+        <QuotesBlock
+          key={i}
+          quote={currentQuote}
+          image={nextImage}
+          isOdd={isOdd}
+        />
+      );
+      i += 2;
+    } else {
+      i++;
+    }
+  }
 
   return (
     <section>
@@ -126,11 +101,11 @@ export default function Speaking({ data }: SpeakingProps) {
             ))}
         </div>
       </div>
-      <div className="px-6 py-10 md:px-16 lg:py-20 xl:px-28">
+      <div className="px-6 py-10 md:px-16 md:py-16 xl:px-28">
         <h2 className="pb-10 text-center font-futura text-xl font-medium uppercase leading-normal tracking-wider md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
           Speaking topics
         </h2>
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-5 md:flex-row">
           {cards &&
             cards.map((card, index) => (
               <AnimatedCard key={index} card={card} />
@@ -138,42 +113,18 @@ export default function Speaking({ data }: SpeakingProps) {
         </div>
       </div>
 
-      <div className="px-6 pb-16 pt-10 md:px-16 xl:px-28">
-        <div className="mx-auto" ref={contentRef}>
-          <h2 className="mb-8 text-center font-futura text-xl font-medium uppercase leading-normal tracking-wider md:pb-10 md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
+      <div className="px-6 py-10 md:px-16 md:py-16 xl:px-28">
+        <div className="mx-auto">
+          <h2 className="text-center font-futura text-xl font-medium uppercase leading-normal tracking-wider md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
             Testimonials
           </h2>
-          {contentArray.map((component, index) => {
-            const alignmentClass =
-              index % 2 === 0
-                ? 'text-center sm:text-left'
-                : 'text-center sm:text-right self-end';
-            return (
-              <motion.div
-                key={index}
-                className={`${alignmentClass} px-10 py-2 md:px-20`}
-                variants={{
-                  hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-                initial="hidden"
-                animate={contentControls}
-                transition={{
-                  duration: 1,
-                  delay: index * 0.5,
-                  ease: 'easeOut',
-                }}
-              >
-                {component}
-              </motion.div>
-            );
-          })}
+          {groupedContent}
         </div>
       </div>
       <div className="px-6 pb-16 pt-10 md:px-16 xl:px-28">
         <ContactUsCard
           customTitle="Bring Brian to your event!"
-          customDescription="Brian’s bags are always packed. Send us his next destination."
+          customDescription="Brian's bags are always packed, send us his next destination."
           customLabel="Get in touch"
         />
       </div>
