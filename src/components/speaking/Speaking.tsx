@@ -58,7 +58,7 @@ export default function Speaking({ data }: SpeakingProps) {
   }
 
   return (
-    <section>
+    <section className="overflow-hidden">
       <PageBanner
         bannerImg={bannerImg!}
         bannerTitle={bannerTitle!}
