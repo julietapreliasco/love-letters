@@ -41,11 +41,16 @@ export default function FlipCard({
     ? 'h-[150px] md:h-[200px]'
     : pressCard
       ? 'h-[250px] md:h-[350px]'
-      : 'h-[350px] sm:h-[400px] md:h-[450px] lg:h-[450px]';
+      : 'h-[450px] sm:h-[450px] md:h-[500px]';
 
   const handleMouseEnter = () => !isMobile && setIsFlipped(true);
   const handleMouseLeave = () => !isMobile && setIsFlipped(false);
   const handleClick = () => isMobile && setIsFlipped(!isFlipped);
+
+  const isLogo =
+    partner?.name === 'Bethlehem Chamber of Commerce' ||
+    partner?.name === 'ScubbleBubbles Foundation' ||
+    partner?.name === 'Augie Studios';
 
   return (
     <div
@@ -88,11 +93,13 @@ export default function FlipCard({
                   alt={partner.photo.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="rounded-lg object-cover"
+                  className={`rounded-lg ${isLogo ? 'object-contain' : 'object-cover'} `}
                 />
               )}
-          {!isPlacePage && partner && (
-            <div className="absolute inset-0 rounded-lg bg-custom-black opacity-50"></div>
+          {partner && (
+            <div
+              className={`absolute inset-0 rounded-lg bg-custom-black ${isPlacePage ? 'opacity-20' : 'opacity-50'}`}
+            ></div>
           )}
           {!isPlacePage && !pressCard && (
             <div className="absolute inset-x-0 bottom-10 flex flex-col justify-center gap-2 rounded-lg p-5 text-white md:p-10">
@@ -158,7 +165,7 @@ export default function FlipCard({
               ) : (
                 <>
                   <h2
-                    className={`font-futura text-xl font-bold tracking-wide md:text-2xl lg:text-3xl`}
+                    className={`font-futura text-lg font-bold tracking-wide md:text-xl lg:text-2xl`}
                   >
                     {partner?.name}
                   </h2>
