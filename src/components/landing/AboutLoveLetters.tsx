@@ -1,8 +1,7 @@
+'use client';
 import { LandingSectionType } from '@/contentful/landingSections';
-import AboutLoveLettersSVG from '../ui/AboutLoveLettersSVG';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import LottieAnimation from '../ui/LottieAnimation';
-import animationData from '../../../public/about-love-letters-animation.json';
+import VideoPlayer from '../ui/VideoPlayer';
 
 interface AboutLoveLettersProps {
   aboutLoveLettersData: LandingSectionType;
@@ -12,21 +11,22 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
   aboutLoveLettersData,
 }) => {
   const richDescription = aboutLoveLettersData.richDescription;
+  let video;
+
+  if (aboutLoveLettersData.videos) {
+    video = aboutLoveLettersData.videos[0];
+  }
 
   return (
     <section
       id="aboutLoveLetters"
       className="flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:px-[60px] lg:flex-row xl:gap-28"
     >
-      <div className="flex flex-1 justify-center">
-        <LottieAnimation
-          autoplay={true}
-          hover={false}
-          animationData={animationData}
-        />
+      <div className="flex w-full justify-center lg:flex-1">
+        <VideoPlayer videoUrl={video?.videoUrl!} thumbnail={video?.thumbnail} />
       </div>
-      <div className="flex flex-1 flex-col xl:gap-5">
-        <p className="mb-5 text-center font-futura text-2xl leading-normal tracking-wider text-custom-black md:text-5xl md:leading-normal lg:text-start lg:leading-normal 2xl:text-5xl 2xl:leading-normal">
+      <div className="flex w-full flex-col gap-5 lg:flex-1">
+        <p className="text-center font-futura text-2xl leading-normal tracking-wide text-custom-black md:text-5xl md:leading-normal lg:text-start lg:leading-normal 2xl:text-5xl 2xl:leading-normal">
           {aboutLoveLettersData.title}
         </p>
         <div className="text-center font-lato text-sm text-custom-black md:text-xl lg:text-start">
