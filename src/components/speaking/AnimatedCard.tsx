@@ -49,7 +49,7 @@ export const AnimatedCard = ({ card }: AnimatedCardProps) => {
         />
       )}
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-6">
-        <h3 className="text-center font-lato text-lg leading-normal text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] md:text-xl md:leading-normal">
+        <h3 className="text-center font-lato text-lg leading-normal text-white [text-shadow:_0_2px_0_rgb(0_0_0_/_20%)] md:text-xl md:leading-normal">
           {card.title}
         </h3>
       </div>

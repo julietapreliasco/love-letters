@@ -136,12 +136,12 @@ export default function FlipCard({
               )}
               <div className="absolute inset-0 rounded-md bg-custom-black opacity-40"></div>
               <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center text-white">
-                <p className="mb-4 font-lato text-base font-semibold leading-normal tracking-wide [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] md:text-lg md:leading-normal lg:text-xl lg:leading-normal">
+                <p className="mb-4 font-lato text-base font-semibold leading-normal tracking-wide [text-shadow:_0_2px_0_rgb(0_0_0_/_20%)] md:text-lg md:leading-normal lg:text-xl lg:leading-normal">
                   {pressCard.subtitle}
                 </p>
                 <Link
                   href={pressCard.url!}
-                  className="font-bold underline underline-offset-2 [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)] hover:text-custom-yellow"
+                  className="font-bold underline underline-offset-2 [text-shadow:_0_2px_0_rgb(0_0_0_/_20%)] hover:text-custom-yellow"
                   target="_blank"
                 >
                   See more

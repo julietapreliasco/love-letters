@@ -51,7 +51,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
           <div
             onMouseEnter={() => handleMouseEnter(currentAssetIndex)}
             onMouseLeave={() => handleMouseLeave(currentAssetIndex)}
-            className="relative flex h-[300px] w-[300px] items-center justify-center md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] xl:h-[500px] xl:w-[500px]"
+            className="relative flex h-[300px] w-[300px] items-center justify-center md:my-6 md:h-[350px] md:w-[350px] lg:h-[400px] lg:w-[400px] xl:my-2 xl:h-[500px] xl:w-[500px]"
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <LottieAnimation
