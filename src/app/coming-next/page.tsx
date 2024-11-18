@@ -27,7 +27,6 @@ const Places = async () => {
           {documentToReactComponents(page.richText, options)}
         </div>
       )}
-      {/* <div className="flex flex-col items-center gap-10 rounded-xl border-2 border-custom-black bg-custom-lighter-gray p-10"> */}
       <Button
         className="md:self-start"
         label="donate"
@@ -38,7 +37,6 @@ const Places = async () => {
           {documentToReactComponents(page.richTextTwo, options)}
         </div>
       )}
-      {/* </div> */}
     </div>
   );
 };

@@ -57,6 +57,12 @@ const Menu = ({ onClick }: MenuProps) => {
           label="Speaking"
           variant="SECONDARY_NAV"
         />
+        <Button
+          onClick={onClick}
+          linkTo="/coming-next"
+          label="Coming next"
+          variant="SECONDARY_NAV"
+        />
         <Button onClick={onClick} linkTo="/#contact" label="Join us" />
       </div>
       <div className="mx-9 my-10 mt-auto flex flex-col items-center gap-[10px] border-t-[1px] border-custom-black pt-[10px] font-lato leading-[19.2px]">

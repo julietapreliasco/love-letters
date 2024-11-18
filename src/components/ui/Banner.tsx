@@ -44,6 +44,7 @@ const defaultLinks: BannerNavigationLink[] = [
   { title: 'Academy', link: '/academy' },
   { title: 'About', link: '/about-me' },
   { title: 'Speaking', link: '/speaking' },
+  { title: 'Coming next', link: '/coming-next' },
 ];
 
 export default function Banner({

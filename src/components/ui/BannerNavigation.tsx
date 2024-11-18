@@ -49,16 +49,21 @@ const BannerNavigation = ({
     }
   };
 
+  const isOddCount = links?.length === 7;
+
   return (
     <div
       className={`m-6 flex items-center justify-center ${
         links?.length === 1
           ? 'flex-col'
           : `${bannerType === BannerType.CAMPAIGN_BANNER ? 'grid grid-cols-2' : 'grid grid-cols-3'} md:flex`
+      } ${
+        isOddCount ? 'grid-cols-2 md:grid-cols-3' : ''
       } text-center font-futura uppercase text-white`}
     >
-      {links?.map((link, index) =>
-        bannerType === BannerType.MAIN_BANNER ? (
+      {links?.map((link, index) => {
+        const isLastItem = isOddCount && index === links.length - 1;
+        return bannerType === BannerType.MAIN_BANNER ? (
           <Link
             key={index}
             href={link.link}
@@ -68,7 +73,7 @@ const BannerNavigation = ({
               !isTouchDevice
                 ? 'hover:cursor-pointer hover:text-custom-yellow'
                 : 'active:text-custom-yellow'
-            }`}
+            } ${isLastItem ? 'col-span-full text-center' : ''}`}
             onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
             onMouseLeave={() => !isTouchDevice && onLinkLeave()}
           >
@@ -83,15 +88,15 @@ const BannerNavigation = ({
               !isTouchDevice
                 ? 'hover:cursor-pointer hover:text-custom-yellow'
                 : ''
-            }`}
+            } ${isLastItem ? 'col-span-full text-center' : ''}`}
             onMouseEnter={() => !isTouchDevice && onLinkHover(index)}
             onMouseLeave={() => !isTouchDevice && onLinkLeave()}
             onClick={() => handleClick(index, link.link)}
           >
             {link.title}
           </div>
-        )
-      )}
+        );
+      })}
     </div>
   );
 };
