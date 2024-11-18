@@ -21,7 +21,8 @@ const Header = () => {
     pathname === '/partners' ||
     pathname === '/about-me' ||
     pathname === '/academy' ||
-    pathname === '/speaking';
+    pathname === '/speaking' ||
+    pathname === '/coming-next';
 
   const isSecondaryBanner =
     pathname === '/about-me' || pathname === '/speaking';
@@ -124,6 +125,11 @@ const Header = () => {
           <Button
             linkTo="/speaking"
             label="Speaking"
+            variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
+          />
+          <Button
+            linkTo="/coming-next"
+            label="Coming next"
             variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
           <Button linkTo="/#contact" label="Join us" />
