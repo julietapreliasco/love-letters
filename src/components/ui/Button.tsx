@@ -8,6 +8,7 @@ interface ButtonProps {
   label: string;
   className?: string;
   linkTo?: string;
+  openInNewTab?: boolean;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   label,
   className,
   linkTo = '',
+  openInNewTab = false,
 }: ButtonProps) => {
   let variantClass;
   switch (variant) {
@@ -38,9 +40,13 @@ const Button = ({
         'bg-custom-yellow hover:bg-[#dab431] border border-2 border-custom-black text-custom-black';
   }
 
+  const linkProps = openInNewTab
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+
   return (
     <div className={className ?? 'h-fit w-fit'}>
-      <Link href={linkTo}>
+      <Link href={linkTo} {...linkProps}>
         <button
           type={type}
           onClick={onClick}

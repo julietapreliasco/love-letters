@@ -3,7 +3,7 @@ import { fetchPageByName } from '@/contentful/pages';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-const Places = async () => {
+const ComingNext = async () => {
   const page = await fetchPageByName({
     preview: false,
     page: 'Coming next',
@@ -31,6 +31,7 @@ const Places = async () => {
         className="md:self-start"
         label="donate"
         linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
+        openInNewTab
       />
       {page?.richTextTwo && (
         <div className="text-justify font-lato text-sm leading-normal md:self-start xl:text-base xl:leading-normal">
@@ -41,4 +42,4 @@ const Places = async () => {
   );
 };
 
-export default Places;
+export default ComingNext;

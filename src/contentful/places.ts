@@ -18,6 +18,7 @@ import { CardType, parseContentfulCard } from './cards';
 export interface PlaceType {
   id: string;
   title: string;
+  subtitle: string;
   backgroundImage: ContentImage | null;
   campaigns: CampaignType[] | null;
   description: Document | null;
@@ -98,9 +99,12 @@ export async function parseContentfulPlace(
       ? { lat: locationField.lat, lon: locationField.lon }
       : null;
 
+  const subtitle = getFieldValue(placeEntry.fields.subtitle);
+
   return {
     id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
+    subtitle,
     backgroundImage,
     campaigns:
       campaigns?.filter(

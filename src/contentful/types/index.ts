@@ -5,6 +5,11 @@ export type {
 } from './TypeCampaign';
 export type { TypeCard, TypeCardFields, TypeCardSkeleton } from './TypeCard';
 export type {
+  TypeExternalLink,
+  TypeExternalLinkFields,
+  TypeExternalLinkSkeleton,
+} from './TypeExternalLink';
+export type {
   TypeFooter,
   TypeFooterFields,
   TypeFooterSkeleton,

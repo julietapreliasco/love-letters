@@ -5,6 +5,7 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful';
+import type { TypeExternalLinkSkeleton } from './TypeExternalLink';
 import type { TypePartnerSkeleton } from './TypePartner';
 
 export interface TypeCampaignFields {
@@ -23,6 +24,9 @@ export interface TypeCampaignFields {
   isHighlighted?: EntryFieldTypes.Boolean;
   partner?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePartnerSkeleton>
+  >;
+  externalLinks?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypeExternalLinkSkeleton>
   >;
 }
 
