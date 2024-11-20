@@ -85,7 +85,7 @@ export default function Speaking({ data }: SpeakingProps) {
         </div>
         <Workshops />
       </div>
-      <div className="bg-custom-lighter-gray px-6 pb-16 pt-10 md:px-16 xl:px-28">
+      <div className="px-6 pb-16 pt-10 md:px-16 xl:px-28">
         <h2 className="pb-5 text-center font-futura text-xl font-medium uppercase leading-normal tracking-wider md:text-3xl md:leading-normal lg:pb-10 lg:text-4xl lg:leading-normal">
           TWO-TIME <span className="text-red-600">Tedx</span> Speaker
         </h2>

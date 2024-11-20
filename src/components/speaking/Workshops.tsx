@@ -5,10 +5,11 @@ import { motion, useInView } from 'framer-motion';
 import MexicoFlag from '../ui/MexicoFlag';
 import UsaFlag from '../ui/USAFlag';
 import RussiaFlag from '../ui/RussiaFlag';
-import IsraelFlag from '../ui/IsraelFlag';
 import BelgiumFlag from '../ui/BelgiumFlag';
 import ColombiaFlag from '../ui/ColombiaFlag';
 import ArmeniaFlag from '../ui/ArmeniaFlag';
+import FranceFlag from '../ui/FranceFlag';
+import GuatemalaFlag from '../ui/GuatemalaFlag';
 
 export default function Workshops() {
   const ref = useRef(null);
@@ -22,13 +23,13 @@ export default function Workshops() {
     { Flag: RussiaFlag, text: 'Skoklovo School of Business | Moscow, Russia' },
     { Flag: ArmeniaFlag, text: 'United World College | Dilijan, Armenia' },
     { Flag: MexicoFlag, text: 'TEC de Monterrey | Mexico City, Mexico' },
-    { Flag: UsaFlag, text: 'Credit Karma | San Francisco, CA' },
+    { Flag: GuatemalaFlag, text: 'Volcano Summit | Antigua, Guatemala' },
     { Flag: ColombiaFlag, text: 'SuraAmerica | Medellin, Colombia' },
     { Flag: UsaFlag, text: 'Salesforce | San Francisco, CA' },
-    { Flag: UsaFlag, text: 'Citigroup | San Francisco, CA' },
+    { Flag: FranceFlag, text: 'Afrobytes | Paris, France' },
     { Flag: UsaFlag, text: ' Credit Suisse | New York, NY' },
     { Flag: UsaFlag, text: 'Twitter | San Francisco, CA' },
-    { Flag: IsraelFlag, text: 'WeWork | Tel Aviv, Israel' },
+    { Flag: UsaFlag, text: 'Credit Karma | San Francisco, CA' },
     { Flag: UsaFlag, text: 'KPMG | San Francisco, CA' },
   ];
 
