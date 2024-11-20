@@ -11,6 +11,7 @@ import type { TypeVideoSkeleton } from './TypeVideo';
 
 export interface TypePlaceFields {
   title: EntryFieldTypes.Symbol;
+  subtitle?: EntryFieldTypes.Symbol;
   backgroundImage: EntryFieldTypes.AssetLink;
   campaigns?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypeCampaignSkeleton>

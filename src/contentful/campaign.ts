@@ -4,6 +4,7 @@ import {
   TypePartnerSkeleton,
   TypeCardSkeleton,
   TypeVideoSkeleton,
+  TypeExternalLinkSkeleton,
 } from './types';
 import { Asset, UnresolvedLink, AssetLink, Entry } from 'contentful';
 import contentfulClient from './contentfulClient';
@@ -14,6 +15,7 @@ import {
 import { parseContentfulVideo, VideoType } from './videos';
 import { CardType, parseContentfulCard } from './cards';
 import { PartnerType, parseContentfulPartner } from './partners';
+import { ExternalLinkType, parseContentfulExternalLink } from './externalLink';
 
 interface FetchOptions {
   preview: boolean;
@@ -33,6 +35,7 @@ export interface CampaignType {
   imageCaption?: string;
   videos?: VideoType[];
   press?: CardType[];
+  externalLinks?: ExternalLinkType[];
   bannerColor?: string;
   videoCaption?: string;
   isHighlighted?: boolean;
@@ -116,6 +119,16 @@ export async function parseContentfulCampaign(
       )
     : [];
 
+  const externalLinks: ExternalLinkType[] = fields?.externalLinks
+    ? (fields.externalLinks as Entry<TypeExternalLinkSkeleton>[])
+        .map((linkEntry) =>
+          parseContentfulExternalLink(
+            linkEntry as Entry<TypeExternalLinkSkeleton>
+          )
+        )
+        .filter((link): link is ExternalLinkType => link !== null)
+    : [];
+
   const isHighlighted =
     typeof fields?.isHighlighted === 'boolean' ? fields?.isHighlighted : false;
 
@@ -132,6 +145,7 @@ export async function parseContentfulCampaign(
     imageCaption: getFieldValue(fields?.imageCaption),
     videos,
     press: pressCards,
+    externalLinks: externalLinks.length ? externalLinks : undefined,
     bannerColor: getFieldValue(fields?.bannerColor),
     videoCaption: getFieldValue(fields?.videoCaption),
     isHighlighted,

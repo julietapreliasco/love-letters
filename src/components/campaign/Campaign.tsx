@@ -12,6 +12,7 @@ import { IoMdPlay } from 'react-icons/io';
 import VideoGallery from '../ui/VideoGallery';
 import PressSection from '../ui/PressSection';
 import PartnerSection from '../ui/PartnerSection';
+import ExternalLinks from './ExternalLinks';
 
 interface CampaignProps {
   data: CampaignType;
@@ -30,6 +31,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
     videos,
     press,
     videoCaption,
+    externalLinks,
   } = data;
 
   const [isVideoGalleryOpen, setIsVideoGalleryOpen] = useState(false);
@@ -133,6 +135,8 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             ))}
           </div>
         )}
+
+        {externalLinks && <ExternalLinks links={externalLinks} />}
 
         {finalText && (
           <div>
