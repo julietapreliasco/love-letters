@@ -42,7 +42,11 @@ const SharedCard = ({
             className={`group relative flex justify-center ${styles?.image ?? 'h-[160px]'}`}
           >
             {linkTo ? (
-              <Link href={linkTo} className="h-full w-full">
+              <Link
+                target={isPress ? '_blank' : undefined}
+                href={linkTo}
+                className="h-full w-full"
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -82,7 +86,11 @@ const SharedCard = ({
             </p>
           )}
           {linkTo && (
-            <Link href={linkTo} className={`mt-3 text-sm underline md:mt-1`}>
+            <Link
+              target={isPress ? '_blank' : undefined}
+              href={linkTo}
+              className={`mt-3 text-sm underline md:mt-1`}
+            >
               See more
             </Link>
           )}

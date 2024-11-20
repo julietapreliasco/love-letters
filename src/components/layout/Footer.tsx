@@ -41,6 +41,7 @@ const Footer = async () => {
             Copyright &copy; 2024
           </span>
           <a
+            target="_blank"
             href="https://mimisoft.com/"
             className="self-center md:text-sm xl:mt-0 xl:text-base"
           >
