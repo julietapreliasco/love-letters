@@ -35,7 +35,7 @@ export interface CampaignType {
   imageCaption?: string;
   videos?: VideoType[];
   press?: CardType[];
-  externalLinks?: ExternalLinkType[]; // Added external links
+  externalLinks?: ExternalLinkType[];
   bannerColor?: string;
   videoCaption?: string;
   isHighlighted?: boolean;

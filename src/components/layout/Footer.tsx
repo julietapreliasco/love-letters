@@ -32,11 +32,6 @@ const Footer = async () => {
             linkTo="/speaking"
             variant={'SECONDARY_NAV'}
           />
-          <Button
-            label="Coming next"
-            linkTo="/coming-next"
-            variant={'SECONDARY_NAV'}
-          />
         </div>
       </div>
       <div className="flex flex-col items-center justify-between gap-11 pt-8 md:flex-row">
