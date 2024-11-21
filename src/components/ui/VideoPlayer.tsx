@@ -27,7 +27,7 @@ const VideoPlayer = ({
             <Image
               src={thumbnail?.src}
               alt="Video Thumbnail"
-              className="absolute inset-0 object-contain"
+              className="absolute inset-0 object-cover"
               fill
               sizes=""
               priority
