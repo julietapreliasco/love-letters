@@ -61,7 +61,7 @@ const SharedCard = ({
                   alt={image.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={`transform rounded-[10px] ${isLogo ? 'object-contain' : 'object-cover'} transition-transform md:group-hover:scale-105 ${
+                  className={`transform rounded-[10px] ${isLogo ? 'object-contain' : 'object-cover'} transition-transform md:group-hover:scale-[1.02] ${
                     isPress ? 'rounded-none' : ''
                   }`}
                 />
