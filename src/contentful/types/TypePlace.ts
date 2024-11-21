@@ -7,6 +7,7 @@ import type {
 } from 'contentful';
 import type { TypeCampaignSkeleton } from './TypeCampaign';
 import type { TypeCardSkeleton } from './TypeCard';
+import type { TypeExternalLinkSkeleton } from './TypeExternalLink';
 import type { TypeVideoSkeleton } from './TypeVideo';
 
 export interface TypePlaceFields {
@@ -20,6 +21,9 @@ export interface TypePlaceFields {
   trailer?: EntryFieldTypes.EntryLink<TypeVideoSkeleton>;
   press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCardSkeleton>>;
   location: EntryFieldTypes.Location;
+  externalLinks?: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypeExternalLinkSkeleton>
+  >;
 }
 
 export type TypePlaceSkeleton = EntrySkeletonType<TypePlaceFields, 'place'>;

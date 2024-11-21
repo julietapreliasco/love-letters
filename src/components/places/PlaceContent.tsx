@@ -1,11 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import {
-  documentToReactComponents,
-  Options,
-} from '@contentful/rich-text-react-renderer';
-import { BLOCKS, INLINES, Document, Block } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { Document } from '@contentful/rich-text-types';
 import Banner from '@/components/ui/Banner';
 import { BannerType } from '@/types';
 import { PlaceType } from '@/contentful/places';
@@ -14,22 +11,16 @@ import VideoPlayer from '@/components/ui/VideoPlayer';
 import { useSearchParams } from 'next/navigation';
 import PressSection from '@/components/ui/PressSection';
 import PartnerSection from '../ui/PartnerSection';
-import Button from '@/components/ui/Button';
+import ExternalLinks from '../ui/ExternalLinks';
 
 interface PlaceContentProps {
   place: PlaceType;
-}
-
-interface LinkButton {
-  text: string;
-  url: string;
 }
 
 export default function PlaceContent({ place }: PlaceContentProps) {
   const [activeCampaignIndex, setActiveCampaignIndex] = useState<number | null>(
     null
   );
-  const [linkButton, setLinkButton] = useState<LinkButton | null>(null);
   const nextSectionRef = useRef<HTMLDivElement>(null);
   const hasInitialContent = Boolean(place.description || place.trailer);
   const searchParams = useSearchParams();
@@ -58,38 +49,6 @@ export default function PlaceContent({ place }: PlaceContentProps) {
     if (hasInitialContent) {
       setActiveCampaignIndex(null);
     }
-  };
-
-  const options: Options = {
-    renderNode: {
-      [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => {
-        if (
-          node ===
-            place.description?.content[place.description.content.length - 1] &&
-          node.content.length === 1 &&
-          node.content[0].nodeType === 'hyperlink'
-        ) {
-          const link = node.content[0] as any;
-          setLinkButton({
-            text: link.content[0].value,
-            url: link.data.uri,
-          });
-          return null;
-        }
-        return <p>{children}</p>;
-      },
-      [INLINES.HYPERLINK]: (node: any, children: React.ReactNode) => {
-        return (
-          <Button
-            label={children as string}
-            linkTo={node.data.uri}
-            variant="SECONDARY"
-            className="mt-5"
-            openInNewTab
-          />
-        );
-      },
-    },
   };
 
   const renderContent = () => {
@@ -126,22 +85,13 @@ export default function PlaceContent({ place }: PlaceContentProps) {
           )}
 
           {place.description && (
-            <div className="mb-6">
-              {documentToReactComponents(
-                place.description as Document,
-                options
-              )}
+            <div className="">
+              {documentToReactComponents(place.description as Document)}
             </div>
           )}
 
-          {linkButton && (
-            <div className="mb-6">
-              <Button
-                label={linkButton.text}
-                linkTo={linkButton.url}
-                variant="SECONDARY"
-              />
-            </div>
+          {place.externalLinks && place.externalLinks.length > 0 && (
+            <ExternalLinks links={place.externalLinks} variant="place" />
           )}
 
           {place.trailer && (
