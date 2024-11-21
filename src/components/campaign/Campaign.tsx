@@ -12,7 +12,7 @@ import { IoMdPlay } from 'react-icons/io';
 import VideoGallery from '../ui/VideoGallery';
 import PressSection from '../ui/PressSection';
 import PartnerSection from '../ui/PartnerSection';
-import ExternalLinks from './ExternalLinks';
+import ExternalLinks from '../ui/ExternalLinks';
 
 interface CampaignProps {
   data: CampaignType;

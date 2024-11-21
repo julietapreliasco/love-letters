@@ -3,6 +3,7 @@ import {
   TypeCampaignSkeleton,
   TypeVideoSkeleton,
   TypeCardSkeleton,
+  TypeExternalLinkSkeleton,
 } from './types';
 import { Entry, Asset, UnresolvedLink, AssetLink } from 'contentful';
 import contentfulClient from './contentfulClient';
@@ -14,6 +15,7 @@ import { CampaignType, parseContentfulCampaign } from './campaign';
 import { Document } from '@contentful/rich-text-types';
 import { parseContentfulVideo, VideoType } from './videos';
 import { CardType, parseContentfulCard } from './cards';
+import { ExternalLinkType, parseContentfulExternalLink } from './externalLink';
 
 export interface PlaceType {
   id: string;
@@ -25,6 +27,7 @@ export interface PlaceType {
   trailer: VideoType | null;
   press: CardType[] | null;
   location: { lat: number; lon: number } | null;
+  externalLinks?: ExternalLinkType[] | null;
 }
 
 function getFieldValue(
@@ -101,6 +104,16 @@ export async function parseContentfulPlace(
 
   const subtitle = getFieldValue(placeEntry.fields.subtitle);
 
+  const externalLinks: ExternalLinkType[] = placeEntry.fields?.externalLinks
+    ? (placeEntry.fields.externalLinks as Entry<TypeExternalLinkSkeleton>[])
+        .map((linkEntry) =>
+          parseContentfulExternalLink(
+            linkEntry as Entry<TypeExternalLinkSkeleton>
+          )
+        )
+        .filter((link): link is ExternalLinkType => link !== null)
+    : [];
+
   return {
     id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
@@ -114,6 +127,7 @@ export async function parseContentfulPlace(
     trailer,
     press: press?.filter((card): card is CardType => card !== null) || null,
     location,
+    externalLinks: externalLinks.length ? externalLinks : undefined,
   };
 }
 
