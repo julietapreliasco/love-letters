@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { CardType } from '@/contentful/cards';
 import Slider from 'react-slick';
 import SharedCard, { CardStyles } from './SharedCard';
@@ -19,13 +19,18 @@ interface SharedSliderProps {
 
 const SharedSlider = ({ sliderData, isPartners, type }: SharedSliderProps) => {
   const sliderRef = useRef<Slider>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    setIsInitialized(true);
+  }, []);
 
   useEffect(() => {
     const slider = sliderRef.current;
-    if (slider && isPartners) {
+    if (slider && isPartners && isInitialized) {
       slider.slickPlay();
     }
-  }, [isPartners]);
+  }, [isPartners, isInitialized]);
 
   const settings = {
     infinite: true,
