@@ -29,12 +29,13 @@ interface InitialBannerProps {
 }
 
 const images = [
-  '/banner_img_1.jpg',
-  '/banner_img_2.png',
-  '/banner_img_3.jpg',
-  '/banner_img_4.png',
-  '/banner_img_5.jpg',
-  '/banner_img_6.jpg',
+  '/banner_ny.jpg',
+  '/banner_antigua_guatemala.jpg',
+  '/banner_washington.jpg',
+  '/banner_san_francisco.jpg',
+  '/banner_lehigh_valley.jpg',
+  '/banner_montevideo.jpg',
+  '/banner_aruba.jpg',
 ];
 
 const defaultLinks: BannerNavigationLink[] = [
