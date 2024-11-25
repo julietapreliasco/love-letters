@@ -31,6 +31,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
     videos,
     press,
     videoCaption,
+    videosTitle,
     externalLinks,
   } = data;
 
@@ -90,6 +91,17 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
               imageCaption={imageCaption}
             />
           </div>
+        )}
+
+        {videosTitle && (
+          <h3
+            className={`my-10 text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-start md:text-3xl md:leading-normal ${
+              !isAcademy ? 'lg:text-4xl lg:leading-normal' : ''
+            }`}
+          >
+            {' '}
+            {videosTitle}
+          </h3>
         )}
 
         {videos && videos.length > 1 && (
