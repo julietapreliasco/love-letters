@@ -35,7 +35,7 @@ const images = [
   '/banner_san_francisco.jpg',
   '/banner_lehigh_valley.jpg',
   '/banner_montevideo.jpg',
-  '/banner_aruba.jpg',
+  '/banner_san_francisco_street.jpg',
 ];
 
 const defaultLinks: BannerNavigationLink[] = [
