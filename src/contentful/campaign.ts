@@ -39,6 +39,7 @@ export interface CampaignType {
   bannerColor?: string;
   videoCaption?: string;
   isHighlighted?: boolean;
+  videosTitle?: string;
 }
 
 function getFieldValue(
@@ -148,6 +149,7 @@ export async function parseContentfulCampaign(
     externalLinks: externalLinks.length ? externalLinks : undefined,
     bannerColor: getFieldValue(fields?.bannerColor),
     videoCaption: getFieldValue(fields?.videoCaption),
+    videosTitle: getFieldValue(fields?.videosTitle),
     isHighlighted,
   };
 }

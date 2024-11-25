@@ -21,6 +21,7 @@ export interface TypeCampaignFields {
   bannerColor?: EntryFieldTypes.Symbol;
   press?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<EntrySkeletonType>>;
   videoCaption?: EntryFieldTypes.Symbol;
+  videosTitle?: EntryFieldTypes.Symbol;
   isHighlighted?: EntryFieldTypes.Boolean;
   partner?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypePartnerSkeleton>

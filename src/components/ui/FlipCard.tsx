@@ -184,7 +184,7 @@ export default function FlipCard({
                                   href={`/places/${campaign.placeId}?campaignId=${campaign.id}`}
                                   className="font-lato font-bold text-custom-black hover:text-custom-yellow"
                                 >
-                                  {'See the campaign'}
+                                  {`See the ${campaign.bannerTitle} campaign`}
                                 </Link>
                               )}
                             </li>
