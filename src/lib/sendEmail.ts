@@ -10,7 +10,7 @@ interface EmailData {
 
 export const sendEmail = async ({ name, email, message }: EmailData) => {
   const msg = {
-    to: 'paurinaldi95@gmail.com',
+    to: 'connect@brianrashid.com',
     from: 'paula@dandelion.software',
     subject: `New contact message from ${name}`,
     text: message,
