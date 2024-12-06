@@ -10,6 +10,19 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Love Letters to the World',
   description: 'Created by Brian Rashid',
+  openGraph: {
+    title: 'Love Letters to the World',
+    description: 'Created by Brian Rashid',
+    url: 'https://loveletters.info/',
+    images: [
+      {
+        url: '/share_image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Love Letters To The World Social Share Image',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
