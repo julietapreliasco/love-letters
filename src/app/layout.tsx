@@ -19,6 +19,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href="/favicon_dark.svg"
+          media="(prefers-color-scheme: light)"
+        />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href="/favicon.svg"
+          media="(prefers-color-scheme: dark)"
+        />
+      </head>
       <body className={`${inter.className} flex min-h-screen flex-col`}>
         <Header />
         <main className="relative flex-grow">
