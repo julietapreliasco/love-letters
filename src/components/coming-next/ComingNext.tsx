@@ -33,7 +33,7 @@ const ComingNext = ({ data }: ComingNextProps) => {
         {data?.bannerTitle}
       </h2>
       <Button
-        label="Become a Producer"
+        label="Become a Producer Today"
         linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
         openInNewTab
       />
@@ -50,7 +50,7 @@ const ComingNext = ({ data }: ComingNextProps) => {
       )}
       <div className="mt-5 flex w-fit flex-col items-center gap-5 rounded-xl border-2 border-custom-black p-8 drop-shadow-lg md:p-10">
         <Button
-          label="Become a Producer"
+          label="Become a Producer Today"
           linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
           openInNewTab
         />
