@@ -125,7 +125,7 @@ export default function Speaking({ data }: SpeakingProps) {
         <ContactUsCard
           customTitle="Bring Brian to your event!"
           customDescription="Brian's bags are always packed, send us his next destination."
-          customLabel="Get in touch"
+          customLabel="Contact Us Here"
         />
       </div>
     </section>

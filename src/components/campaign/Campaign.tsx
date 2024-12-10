@@ -113,7 +113,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             }`}
           >
             {videos.slice(1).map((video, index) => (
-              <div key={video.videoUrl} className="mb-5 md:mb-10">
+              <div key={video.videoUrl} className="mb-5">
                 <div className="md:hidden">
                   <VideoPlayer
                     videoUrl={video.videoUrl}
@@ -156,7 +156,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
           </div>
         )}
         {gallery != null && (
-          <div id="gallery" className="mt-10 lg:mt-20">
+          <div id="gallery" className="mb-5 mt-10 lg:mt-12">
             <h3
               className={`mb-5 text-center font-futura text-xl font-medium leading-normal tracking-widest md:text-start md:text-4xl md:leading-normal lg:mb-11`}
             >
@@ -165,7 +165,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             <Gallery images={gallery!} />
           </div>
         )}
-        <div className="mt-10 flex justify-center">
+        <div className="flex justify-center">
           {press && press.length > 0 && <PressSection press={press!} />}
         </div>
         {!isAcademy && (
