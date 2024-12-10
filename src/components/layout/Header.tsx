@@ -132,7 +132,7 @@ const Header = () => {
             label="Coming next"
             variant={whiteText ? 'PRIMARY_NAV' : 'SECONDARY_NAV'}
           />
-          <Button linkTo="/#contact" label="Join us" />
+          <Button linkTo="/#contact" label="Contact us" />
         </div>
         <div
           className={`items-center text-[24px] ${whiteText ? 'text-white' : 'text-custom-black'} lg:hidden`}

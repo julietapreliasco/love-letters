@@ -20,7 +20,7 @@ const AboutLoveLetters: React.FC<AboutLoveLettersProps> = ({
   return (
     <section
       id="aboutLoveLetters"
-      className="flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:px-[60px] lg:flex-row xl:gap-28"
+      className="customLg:flex-row flex flex-col items-center gap-14 bg-custom-lighter-gray px-[40px] py-20 md:flex-col-reverse md:px-[60px] xl:gap-28"
     >
       <div className="flex w-full justify-center lg:flex-1">
         <VideoPlayer videoUrl={video?.videoUrl!} thumbnail={video?.thumbnail} />
