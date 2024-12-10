@@ -32,11 +32,18 @@ const ComingNext = ({ data }: ComingNextProps) => {
       <h2 className="text-center font-futura text-xl font-medium uppercase leading-normal tracking-wider md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         {data?.bannerTitle}
       </h2>
-      <Button
-        label="Become a Producer"
-        linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
-        openInNewTab
-      />
+      <div className="flex w-fit flex-col items-center gap-5">
+        <Button
+          label="Become a Producer Today"
+          linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
+          openInNewTab
+        />
+        {data?.richTextTwo && (
+          <div className="flex flex-col items-center text-center font-lato text-sm leading-normal md:w-2/3 xl:text-sm xl:leading-normal">
+            {documentToReactComponents(data.richTextTwo, richTextTwoOptions)}
+          </div>
+        )}
+      </div>
       {data?.videos && (
         <VideoPlayer
           videoUrl={data?.videos[0].videoUrl}
@@ -50,7 +57,7 @@ const ComingNext = ({ data }: ComingNextProps) => {
       )}
       <div className="mt-5 flex w-fit flex-col items-center gap-5 rounded-xl border-2 border-custom-black p-8 drop-shadow-lg md:p-10">
         <Button
-          label="Become a Producer"
+          label="Become a Producer Today"
           linkTo="https://buy.stripe.com/28o14adWR9BX5Lq5kl"
           openInNewTab
         />
