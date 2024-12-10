@@ -24,7 +24,7 @@ const Academy = async () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 px-8 py-28 md:py-[150px] xl:px-[160px]">
+    <div className="flex flex-col items-center px-8 py-28 md:py-[150px] xl:px-[160px]">
       <h2 className="font-futura text-xl font-medium uppercase leading-normal tracking-wider md:mb-10 md:text-3xl md:leading-normal lg:text-4xl lg:leading-normal">
         {bannerTitle}
       </h2>
@@ -34,17 +34,19 @@ const Academy = async () => {
         </div>
       )}
       {campaigns && (
-        <div className="flex flex-col gap-16 pb-5 pt-5 md:gap-24 md:pb-16 md:pt-12">
+        <div className="flex flex-col">
           {campaigns.map((campaign) => {
             return <Campaign isAcademy key={campaign.id} data={campaign} />;
           })}
         </div>
       )}
-      <ContactUsCard
-        customTitle="Interested in getting involved?"
-        customDescription="Please send a message and we’d be most happy to connect you."
-        customLabel="Get in touch"
-      />
+      <div className="mt-14">
+        <ContactUsCard
+          customTitle="Interested in getting involved?"
+          customDescription="Please send a message and we’d be most happy to connect you."
+          customLabel="Contact Us Here"
+        />
+      </div>
     </div>
   );
 };

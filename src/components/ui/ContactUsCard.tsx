@@ -22,7 +22,7 @@ const ContactUsCard = ({
           {customDescription ??
             'Join our mission to spread love! Share your story, sponsor, or bring us to your city. We are excited to collaborate!'}
         </p>
-        <Button label={customLabel ?? 'Join us'} linkTo="/#contact" />
+        <Button label={customLabel ?? 'Contact Us Here'} linkTo="/#contact" />
       </div>
       <div className="w-[60%] self-center md:w-3/4">
         <LottieAnimation

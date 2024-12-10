@@ -20,7 +20,7 @@ const PressSection: React.FC<PressSectionProps> = ({ press }) => {
         <div
           className={`grid w-full max-w-[1400px] gap-8 lg:gap-14 ${
             press.length === 1
-              ? 'grid-cols-1 md:grid-cols-1'
+              ? 'grid-cols-1 md:grid-cols-2'
               : press.length === 2
                 ? 'grid-cols-1 md:grid-cols-2'
                 : 'grid-cols-1 md:grid-cols-2 2xl:grid-cols-3'

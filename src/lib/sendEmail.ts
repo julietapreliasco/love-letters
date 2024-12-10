@@ -11,15 +11,14 @@ interface EmailData {
 export const sendEmail = async ({ name, email, message }: EmailData) => {
   const msg = {
     to: 'connect@brianrashid.com',
-    from: 'paula@dandelion.software',
+    from: 'julieta@mimisoft.com',
     subject: `New contact message from ${name}`,
-    text: message,
-    html: `
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
-    `,
+    templateId: 'd-d97b97b73be64e2186078a0667d1ae39',
+    dynamicTemplateData: {
+      name,
+      email,
+      message,
+    },
   };
 
   try {
