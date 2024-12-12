@@ -24,7 +24,7 @@ const ExternalLinks = ({ links, variant = 'default' }: ExternalLinksProps) => {
           rel="noopener noreferrer"
           className={`group relative ${
             variant === 'place' ? 'aspect-video' : 'aspect-[4/3]'
-          } w-full cursor-pointer overflow-hidden rounded-lg shadow-lg transition-all duration-300 ease-in-out ${
+          } w-full cursor-pointer overflow-hidden shadow-lg transition-all duration-300 ease-in-out ${
             links.length === 1
               ? 'col-span-full hover:scale-[1.01]'
               : 'hover:scale-[1.02]'
