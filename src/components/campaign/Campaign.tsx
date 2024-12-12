@@ -113,7 +113,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             }`}
           >
             {videos.slice(1).map((video, index) => (
-              <div key={video.videoUrl} className="mb-5">
+              <div key={video.videoUrl} className="my-10">
                 <div className="md:hidden">
                   <VideoPlayer
                     videoUrl={video.videoUrl}
