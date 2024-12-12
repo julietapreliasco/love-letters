@@ -25,19 +25,19 @@ const Button = ({
   switch (variant) {
     case 'SECONDARY':
       variantClass =
-        'border border-1 border-custom-gray hover:bg-custom-gray text-custom-black';
+        'border border-1 px-[24px] py-[10px] border-custom-gray hover:bg-custom-gray text-custom-black';
       break;
     case 'PRIMARY_NAV':
       variantClass =
-        'text-white transition-transform transform hover:scale-105 duration-200';
+        'text-white px-[8px] py-[10px] xl:px-[12px] transition-transform transform hover:scale-105 duration-200';
       break;
     case 'SECONDARY_NAV':
       variantClass =
-        'text-custom-black transition-transform transform hover:scale-105 duration-200';
+        'text-custom-black px-[8px] py-[10px] xl:px-[12px] transition-transform transform hover:scale-105 duration-200';
       break;
     default:
       variantClass =
-        'bg-custom-yellow hover:bg-[#dab431] border border-2 border-custom-black text-custom-black';
+        'bg-custom-yellow hover:bg-[#dab431] px-[24px] py-[10px] border border-2 border-custom-black text-custom-black';
   }
 
   const linkProps = openInNewTab
@@ -51,7 +51,7 @@ const Button = ({
           type={type}
           onClick={onClick}
           disabled={disabled}
-          className={`${disabled ? 'bg-custom-gray' : variantClass} ${className ?? ''} rounded-md px-[24px] py-[10px] font-lato text-sm font-bold uppercase 2xl:text-base`}
+          className={`${disabled ? 'bg-custom-gray' : variantClass} ${className ?? ''} rounded-md font-lato text-sm font-bold uppercase 2xl:text-base`}
         >
           {label}
         </button>

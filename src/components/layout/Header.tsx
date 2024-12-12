@@ -135,7 +135,7 @@ const Header = () => {
           <Button linkTo="/#contact" label="Contact us" />
         </div>
         <div
-          className={`items-center text-[24px] ${whiteText ? 'text-white' : 'text-custom-black'} lg:hidden`}
+          className={`items-center text-[28px] md:text-[36px] ${whiteText ? 'text-white' : 'text-custom-black'} lg:hidden`}
         >
           <IoIosMenu onClick={toggleMenu} />
         </div>
