@@ -33,6 +33,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
     videoCaption,
     videosTitle,
     externalLinks,
+    variant,
   } = data;
 
   const [isVideoGalleryOpen, setIsVideoGalleryOpen] = useState(false);
@@ -51,10 +52,10 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         }`}
       >
         <div
-          className={`flex flex-col-reverse items-center justify-center md:flex-row md:justify-between`}
+          className={`flex flex-col-reverse items-center justify-center md:flex-row ${partner && 'md:justify-between'}`}
         >
           <div
-            className={`flex flex-col gap-3 pb-5 text-center md:w-[60%] md:pb-10 md:text-start`}
+            className={`flex flex-col gap-3 pb-5 text-center md:pb-10 ${partner && 'md:w-[70%] md:text-start'}`}
           >
             <h3
               className={`text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-start md:text-4xl md:leading-normal ${
@@ -63,29 +64,34 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             >
               {bannerTitle}
             </h3>
-            <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
-              {subtitle}
-            </p>
+            {subtitle && (
+              <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
+                {subtitle}
+              </p>
+            )}
           </div>
           {partner && (
             <PartnerSection isAcademy={isAcademy} partners={partner} />
           )}
         </div>
 
+        {variant == 'VARIANT_1' && externalLinks && (
+          <ExternalLinks links={externalLinks} />
+        )}
         {videos && videos?.length > 0 && (
           <div className="">
             <VideoPlayer
               videoUrl={videos[0].videoUrl}
               thumbnail={videos[0].thumbnail}
             />
-            <p className="mt-4 text-center font-medium">{videos[0].title}</p>
+            <p className="my-4 text-center font-medium">{videos[0].title}</p>
             {videoCaption && (
               <p className="pt-3 text-center text-sm italic">{videoCaption}</p>
             )}
           </div>
         )}
         {description && (
-          <div className="my-5 md:my-10">
+          <div className="mb-5 md:mb-10">
             <Description
               description={description}
               imageCaption={imageCaption}
@@ -151,7 +157,9 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
           </div>
         )}
 
-        {externalLinks && <ExternalLinks links={externalLinks} />}
+        {variant != 'VARIANT_1' && externalLinks && (
+          <ExternalLinks links={externalLinks} />
+        )}
 
         {finalText && (
           <div>

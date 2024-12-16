@@ -29,6 +29,7 @@ export interface TypeCampaignFields {
   externalLinks?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypeExternalLinkSkeleton>
   >;
+  variant?: EntryFieldTypes.Symbol;
 }
 
 export type TypeCampaignSkeleton = EntrySkeletonType<
