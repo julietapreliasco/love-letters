@@ -50,7 +50,6 @@ const BannerNavigation = ({
   };
 
   const isOddCount = links?.length === 7;
-
   return (
     <div
       className={`m-6 flex items-center justify-center ${
@@ -64,7 +63,8 @@ const BannerNavigation = ({
       {links?.map((link, index) => {
         const isLastItem = isOddCount && index === links.length - 1;
 
-        const selectedClass = index === activeCampaignIndex ? 'underline' : '';
+        const selectedClass =
+          index === activeCampaignIndex && links.length > 1 ? 'underline' : '';
         return bannerType === BannerType.MAIN_BANNER ? (
           <Link
             key={index}

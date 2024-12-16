@@ -84,7 +84,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
               videoUrl={videos[0].videoUrl}
               thumbnail={videos[0].thumbnail}
             />
-            <p className="mt-4 text-center font-medium">{videos[0].title}</p>
+            <p className="my-4 text-center font-medium">{videos[0].title}</p>
             {videoCaption && (
               <p className="pt-3 text-center text-sm italic">{videoCaption}</p>
             )}
