@@ -80,11 +80,16 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
         )}
         {videos && videos?.length > 0 && (
           <div className="">
+            {variant == 'VARIANT_1' && videos[0].title && (
+              <p className="my-10 text-center font-medium">{videos[0].title}</p>
+            )}
             <VideoPlayer
               videoUrl={videos[0].videoUrl}
               thumbnail={videos[0].thumbnail}
             />
-            <p className="my-4 text-center font-medium">{videos[0].title}</p>
+            {variant != 'VARIANT_1' && (
+              <p className="my-4 text-center font-medium">{videos[0].title}</p>
+            )}
             {videoCaption && (
               <p className="pt-3 text-center text-sm italic">{videoCaption}</p>
             )}
@@ -105,7 +110,6 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
               !isAcademy ? 'lg:text-4xl lg:leading-normal' : ''
             }`}
           >
-            {' '}
             {videosTitle}
           </h3>
         )}
@@ -121,15 +125,17 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             {videos.slice(1).map((video, index) => (
               <div
                 key={video.videoUrl}
-                className={`${videos.length > 2 ? 'mb-5' : 'my-10'} `}
+                className={`${videos.length > 2 ? 'mb-5' : 'my-2 md:my-10'} `}
               >
+                {variant == 'VARIANT_1' && video.title && (
+                  <p className="my-10 text-center font-medium">{video.title}</p>
+                )}
                 <div className="md:hidden">
                   <VideoPlayer
                     videoUrl={video.videoUrl}
                     thumbnail={video.thumbnail}
                   />
                 </div>
-
                 <div
                   className="relative hidden cursor-pointer md:block"
                   onClick={() => openVideoGallery(index + 1)}
@@ -151,7 +157,9 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
                     </div>
                   </div>
                 </div>
-                <p className="mt-4 text-center font-medium">{video.title}</p>
+                {variant != 'VARIANT_1' && (
+                  <p className="mt-4 text-center font-medium">{video.title}</p>
+                )}
               </div>
             ))}
           </div>
