@@ -64,6 +64,7 @@ export function parseContentfulCard(
     : null;
 
   const campaignField = cardEntry.fields?.campaign;
+
   const campaign = campaignField
     ? parseContentfulCampaign(campaignField as Entry<TypeCampaignSkeleton>)
     : null;

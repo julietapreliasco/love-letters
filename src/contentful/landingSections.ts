@@ -119,7 +119,7 @@ export async function fetchLandingSections({
   const sectionsResult =
     await contentful.getEntries<TypeLandingSectionSkeleton>({
       content_type: 'landingSection',
-      include: 2,
+      include: 3,
       order: ['fields.title'],
     });
 
@@ -139,7 +139,7 @@ export async function fetchLandingSection({
     await contentful.getEntries<TypeLandingSectionSkeleton>({
       content_type: 'landingSection',
       'sys.id': id,
-      include: 2,
+      include: 3,
     });
 
   return parseContentfulLandingSection(sectionsResult.items[0]);

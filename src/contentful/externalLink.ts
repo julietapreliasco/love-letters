@@ -31,9 +31,9 @@ export function parseContentfulExternalLink(
 
   const fields = externalLinkEntry.fields;
 
-  const title = getFieldValue(fields.title);
-  const shortDescription = getFieldValue(fields.shortDescription);
-  const link = getFieldValue(fields.link);
+  const title = getFieldValue(fields?.title) ?? '';
+  const shortDescription = getFieldValue(fields?.shortDescription);
+  const link = getFieldValue(fields?.link) ?? '';
 
   let image: ContentImage | null = null;
   if (fields.image) {
@@ -41,10 +41,6 @@ export function parseContentfulExternalLink(
       | UnresolvedLink<'Asset'>
       | Asset<undefined, string>;
     image = parseContentfulContentImage(imageField);
-  }
-
-  if (!title || !link) {
-    return null;
   }
 
   return {
