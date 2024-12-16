@@ -40,6 +40,7 @@ export interface CampaignType {
   videoCaption?: string;
   isHighlighted?: boolean;
   videosTitle?: string;
+  variant?: string;
 }
 
 function getFieldValue(
@@ -133,6 +134,8 @@ export async function parseContentfulCampaign(
   const isHighlighted =
     typeof fields?.isHighlighted === 'boolean' ? fields?.isHighlighted : false;
 
+  const variant = getFieldValue(fields?.variant);
+
   return {
     id: campaignEntry.sys.id,
     bannerTitle: getFieldValue(fields?.bannerTitle),
@@ -151,6 +154,7 @@ export async function parseContentfulCampaign(
     videoCaption: getFieldValue(fields?.videoCaption),
     videosTitle: getFieldValue(fields?.videosTitle),
     isHighlighted,
+    variant,
   };
 }
 

@@ -63,13 +63,13 @@ const BannerNavigation = ({
     >
       {links?.map((link, index) => {
         const isLastItem = isOddCount && index === links.length - 1;
+
+        const selectedClass = index === activeCampaignIndex ? 'underline' : '';
         return bannerType === BannerType.MAIN_BANNER ? (
           <Link
             key={index}
             href={link.link}
-            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
-              index === activeCampaignIndex ? 'text-custom-yellow' : ''
-            } ${
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${selectedClass} ${
               !isTouchDevice
                 ? 'hover:cursor-pointer hover:text-custom-yellow'
                 : 'active:text-custom-yellow'
@@ -82,9 +82,7 @@ const BannerNavigation = ({
         ) : (
           <div
             key={index}
-            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${
-              index === activeCampaignIndex ? 'text-custom-yellow' : ''
-            } ${
+            className={`px-3 py-1 text-xs sm:text-sm lg:text-base ${selectedClass} ${
               !isTouchDevice
                 ? 'hover:cursor-pointer hover:text-custom-yellow'
                 : ''
