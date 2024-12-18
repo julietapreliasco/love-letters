@@ -75,6 +75,15 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
           )}
         </div>
 
+        {description && variant == 'VARIANT_1' && (
+          <div className="mb-5 md:mb-10">
+            <Description
+              description={description}
+              imageCaption={imageCaption}
+            />
+          </div>
+        )}
+
         {variant == 'VARIANT_1' && externalLinks && (
           <ExternalLinks links={externalLinks} />
         )}
@@ -95,7 +104,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             )}
           </div>
         )}
-        {description && (
+        {description && variant != 'VARIANT_1' && (
           <div className="mb-5 md:mb-10">
             <Description
               description={description}
