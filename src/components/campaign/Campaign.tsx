@@ -58,13 +58,15 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
             className={`flex flex-col gap-3 pb-5 text-center md:pb-10 ${partner && 'md:w-[70%] md:text-start'}`}
           >
             <h3
-              className={`text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-start md:text-4xl md:leading-normal ${
+              className={`text-center font-futura text-2xl font-medium leading-normal tracking-widest ${variant != 'VARIANT_1' ? 'md:text-start' : ''} md:text-4xl md:leading-normal ${
                 !isAcademy ? 'lg:text-5xl lg:leading-normal' : ''
               }`}
             >
-              {bannerTitle}
+              {variant != 'VARIANT_1'
+                ? bannerTitle
+                : `${bannerTitle}... ${subtitle}`}
             </h3>
-            {subtitle && (
+            {subtitle && variant != 'VARIANT_1' && (
               <p className="font-lato text-lg leading-normal md:text-xl md:leading-normal lg:text-2xl lg:leading-normal">
                 {subtitle}
               </p>
@@ -86,6 +88,15 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
 
         {variant == 'VARIANT_1' && externalLinks && (
           <ExternalLinks links={externalLinks} />
+        )}
+        {videosTitle && variant == 'VARIANT_1' && (
+          <h3
+            className={`my-12 text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-3xl md:leading-normal ${
+              !isAcademy ? 'lg:text-4xl lg:leading-normal' : ''
+            }`}
+          >
+            {videosTitle}
+          </h3>
         )}
         {videos && videos?.length > 0 && (
           <div className="">
@@ -113,7 +124,7 @@ const Campaign = ({ data, isAcademy }: CampaignProps) => {
           </div>
         )}
 
-        {videosTitle && (
+        {videosTitle && variant != 'VARIANT_1' && (
           <h3
             className={`my-10 text-center font-futura text-2xl font-medium leading-normal tracking-widest md:text-start md:text-3xl md:leading-normal ${
               !isAcademy ? 'lg:text-4xl lg:leading-normal' : ''
