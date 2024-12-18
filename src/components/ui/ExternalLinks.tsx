@@ -12,7 +12,9 @@ const ExternalLinks = ({ links, variant = 'default' }: ExternalLinksProps) => {
   if (!links || links.length === 0) return null;
 
   const gridCols =
-    links.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 md:grid-cols-3';
+    links.length === 1
+      ? 'grid-cols-1'
+      : `sm:grid-cols-2 ${links.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`;
 
   return (
     <div className={`grid grid-cols-1 gap-6 ${gridCols}`}>
