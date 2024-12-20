@@ -11,7 +11,10 @@ const PlacesGrid = ({ places }: PlacesGridProps) => {
   return (
     <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-2">
       {places.map((place) => (
-        <Link href={`/places/${place.id}`} key={place.id}>
+        <Link
+          href={place.isComingNext ? 'coming-next' : `/places/${place.id}`}
+          key={place.id}
+        >
           <div className="group relative h-72 w-full drop-shadow-xl">
             {place.backgroundImage?.src ? (
               <Image
@@ -28,6 +31,11 @@ const PlacesGrid = ({ places }: PlacesGridProps) => {
             <div className="absolute inset-0 rounded-lg bg-black opacity-30"></div>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              {place.isComingNext && (
+                <h2 className="font-futura text-lg font-bold uppercase text-white transition-transform duration-300">
+                  {place.subtitle}
+                </h2>
+              )}
               <AlternativeLogo className="w-[150px] transition-transform duration-300" />
               <h3 className="font-futura text-3xl font-bold uppercase text-white transition-transform duration-300">
                 {place.title}
