@@ -24,6 +24,7 @@ export interface TypePlaceFields {
   externalLinks?: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<TypeExternalLinkSkeleton>
   >;
+  isComingNext: EntryFieldTypes.Boolean;
 }
 
 export type TypePlaceSkeleton = EntrySkeletonType<TypePlaceFields, 'place'>;

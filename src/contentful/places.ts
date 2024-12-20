@@ -28,15 +28,23 @@ export interface PlaceType {
   press: CardType[] | null;
   location: { lat: number; lon: number } | null;
   externalLinks?: ExternalLinkType[] | null;
+  isComingNext: boolean;
 }
 
 function getFieldValue(
-  field?: string | { [key: string]: string | undefined }
+  field?: string | boolean | { [key: string]: string | boolean | undefined }
 ): string {
   if (typeof field === 'string') {
     return field;
+  } else if (typeof field === 'boolean') {
+    return field ? 'true' : 'false';
   } else if (field && typeof field === 'object') {
-    return Object.values(field)[0] || '';
+    const value = Object.values(field)[0];
+    return typeof value === 'boolean'
+      ? value
+        ? 'true'
+        : 'false'
+      : value || '';
   }
   return '';
 }
@@ -114,6 +122,8 @@ export async function parseContentfulPlace(
         .filter((link): link is ExternalLinkType => link !== null)
     : [];
 
+  const isComingNext = !!getFieldValue(placeEntry.fields.isComingNext);
+
   return {
     id: placeEntry.sys.id,
     title: getFieldValue(placeEntry.fields.title),
@@ -128,6 +138,7 @@ export async function parseContentfulPlace(
     press: press?.filter((card): card is CardType => card !== null) || null,
     location,
     externalLinks: externalLinks.length ? externalLinks : undefined,
+    isComingNext,
   };
 }
 
@@ -153,7 +164,16 @@ export async function fetchPlaces({
     })
   );
 
-  return places.filter((place): place is PlaceType => place !== null);
+  const filteredPlaces = places.filter(
+    (place): place is PlaceType => place !== null
+  );
+  filteredPlaces.sort((a, b) => {
+    if (a.isComingNext && !b.isComingNext) return 1;
+    if (!a.isComingNext && b.isComingNext) return -1;
+    return 0;
+  });
+
+  return filteredPlaces;
 }
 
 export async function fetchPlace({
